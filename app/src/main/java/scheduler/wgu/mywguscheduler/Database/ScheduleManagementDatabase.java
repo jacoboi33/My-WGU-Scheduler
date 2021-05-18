@@ -20,7 +20,7 @@ import scheduler.wgu.mywguscheduler.Entity.CourseEntity;
 import scheduler.wgu.mywguscheduler.Entity.InstructorEntity;
 import scheduler.wgu.mywguscheduler.Entity.TermEntity;
 
-@Database(entities = {AssessmentEntity.class, CourseEntity.class, InstructorEntity.class, TermEntity.class}, version = 1)
+@Database(entities = {AssessmentEntity.class, CourseEntity.class, InstructorEntity.class, TermEntity.class}, version = 2)
 public abstract class ScheduleManagementDatabase extends RoomDatabase {
     public abstract AssessmentDAO assessmentDAO();
     public abstract CourseDAO courseDAO();

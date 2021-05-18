@@ -6,9 +6,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "instructor_table")
 public class InstructorEntity {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int instructorId;
-
     private String name;
     private String phoneNumber;
     private String emailAddress;

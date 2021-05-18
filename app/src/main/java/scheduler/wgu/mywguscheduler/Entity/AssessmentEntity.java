@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "assessment_table")
 public class AssessmentEntity {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int assessmentId;
 
     private int courseId;
