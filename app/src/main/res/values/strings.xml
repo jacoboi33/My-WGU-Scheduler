@@ -10,4 +10,5 @@
     <string name="_02_01_2021">02/01/2021</string>
     <string name="_01_01_2021">01/01/2021</string>
     <string name="select_date_range">Select Date Range</string>
+    <string name="error_string">Field must not be empty.</string>
 </resources>
