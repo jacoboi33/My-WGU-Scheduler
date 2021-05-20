@@ -39,15 +39,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="1dp">
-
-            <Button
-                android:id="@+id/datePickerButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/select_date_range" />
-
-        </LinearLayout>
+            tools:layout_editor_absoluteY="1dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,6 +54,11 @@
                 android:layout_marginStart="20dp"
                 android:text="@string/start_date" />
 
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/calendar" />
 
 
         </LinearLayout>
@@ -79,8 +76,16 @@
                 android:layout_marginStart="20dp"
                 android:text="@string/end_date" />
 
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/calendar" />
+
         </LinearLayout>
-    <LinearLayout
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

@@ -22,7 +22,7 @@ public class InstructorActivity extends AppCompatActivity {
     }
 
     public void AddInstructor(View view) {
-        Intent intent = new Intent(InstructorActivity.this, InstructorDetailActivity.class);
+        Intent intent = new Intent(InstructorActivity.this, AddInstructorActivity.class);
         startActivity(intent);
     }
 }

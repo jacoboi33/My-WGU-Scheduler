@@ -9,16 +9,52 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyWGUScheduler">
-        <activity android:name=".UI.InstructorDetailActivity"></activity>
-        <activity android:name=".UI.TermDetailActivity" />
-        <activity android:name=".UI.AddTermActivity" />
-        <activity android:name=".UI.AddInstructorActivity" />
-        <activity android:name=".UI.AddCourseActivity" />
-        <activity android:name=".UI.AddAssessmentActivity" />
-        <activity android:name=".UI.TermsActivity" />
-        <activity android:name=".UI.InstructorActivity" />
-        <activity android:name=".UI.CoursesActivity" />
-        <activity android:name=".UI.AssessmentActivity" />
+        <activity android:name=".UI.CourseDetailActivity"
+            android:label="Course Details"
+            android:parentActivityName=".UI.CoursesActivity"/>
+        <activity android:name=".UI.AssessmentDetailActivity"
+            android:label="Assessment Details"
+            android:parentActivityName=".UI.AssessmentActivity"/>
+        <activity
+            android:name=".UI.InstructorDetailActivity"
+            android:label="Instructor Details"
+            android:parentActivityName=".UI.InstructorActivity" />
+        <activity
+            android:name=".UI.TermDetailActivity"
+            android:label="Term Details"
+            android:parentActivityName=".UI.TermsActivity" />
+        <activity
+            android:name=".UI.AddTermActivity"
+            android:label="Add Term"
+            android:parentActivityName=".UI.TermsActivity" />
+        <activity
+            android:name=".UI.AddInstructorActivity"
+            android:label="Add Instructor"
+            android:parentActivityName=".UI.InstructorActivity" />
+        <activity
+            android:name=".UI.AddCourseActivity"
+            android:label="Add Course"
+            android:parentActivityName=".UI.CoursesActivity" />
+        <activity
+            android:name=".UI.AddAssessmentActivity"
+            android:label="Add Assessment"
+            android:parentActivityName=".UI.AssessmentActivity" />
+        <activity
+            android:name=".UI.TermsActivity"
+            android:label="Terms"
+            android:parentActivityName=".UI.MainActivity" />
+        <activity
+            android:name=".UI.InstructorActivity"
+            android:label="Instructors"
+            android:parentActivityName=".UI.MainActivity" />
+        <activity
+            android:name=".UI.CoursesActivity"
+            android:label="Courses"
+            android:parentActivityName=".UI.MainActivity" />
+        <activity
+            android:name=".UI.AssessmentActivity"
+            android:label="Assessments"
+            android:parentActivityName=".UI.MainActivity" />
         <activity android:name=".UI.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

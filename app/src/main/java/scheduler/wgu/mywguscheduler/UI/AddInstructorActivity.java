@@ -3,6 +3,7 @@ package scheduler.wgu.mywguscheduler.UI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import scheduler.wgu.mywguscheduler.R;
 
@@ -14,5 +15,8 @@ public class AddInstructorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_instructor);
         getSupportActionBar().setTitle("Add New Instructor");
 
+    }
+
+    public void addInstructor(View view) {
     }
 }
