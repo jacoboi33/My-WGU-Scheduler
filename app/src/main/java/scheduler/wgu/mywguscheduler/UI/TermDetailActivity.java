@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -28,7 +29,7 @@ public class TermDetailActivity extends AppCompatActivity {
 
     EditText editTextStartDate;
     EditText editTextEndDate;
-    private Button mDatePickerButton;
+    private ImageButton mDatePickerButton;
     private ScheduleManagementRepository repository;
 
     int id;
@@ -50,8 +51,8 @@ public class TermDetailActivity extends AppCompatActivity {
 //        View view = LayoutInflater.from(this).inflate(R.id.datePickerButton);
 //        Button datePicker = (Button) findViewById(R.id.datePickerButton);
 
-        mDatePickerButton = findViewById(R.id.datePickerButton);
-        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        mDatePickerButton = findViewById(R.id.startDateImageButton);
+        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
         builder.setTitleText("Select a date");
         MaterialDatePicker materialDatePicker = builder.build();
 

@@ -33,7 +33,7 @@ public abstract class ScheduleManagementDatabase extends RoomDatabase {
 
     private static volatile ScheduleManagementDatabase INSTANCE;
 
-    static ScheduleManagementDatabase getDatabase(final Context context) {
+    public static ScheduleManagementDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ScheduleManagementDatabase.class, "schedule_management_database.db")
                     .fallbackToDestructiveMigration()

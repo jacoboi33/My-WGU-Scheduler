@@ -22,6 +22,8 @@ public class InstructorEntity {
                 '}';
     }
 
+    public InstructorEntity(){}
+
     public InstructorEntity(int instructorId, String name, String phoneNumber, String emailAddress) {
         this.instructorId = instructorId;
         this.name = name;

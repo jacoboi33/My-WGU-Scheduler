@@ -55,7 +55,7 @@
                 android:text="@string/start_date" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/startDateImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/calendar" />
@@ -77,7 +77,7 @@
                 android:text="@string/end_date" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/endDateImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

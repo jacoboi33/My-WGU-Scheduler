@@ -1,6 +1,11 @@
 package scheduler.wgu.mywguscheduler.Database;
 
 import android.app.Application;
+import android.os.AsyncTask;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -14,22 +19,25 @@ import scheduler.wgu.mywguscheduler.Entity.InstructorEntity;
 import scheduler.wgu.mywguscheduler.Entity.TermEntity;
 
 public class ScheduleManagementRepository {
-    private InstructorDAO mInstructorDao;
-    private TermDAO mTermDao;
-    private CourseDAO mCourseDao;
-    private AssessmentDAO mAssessmentDao;
+    private final InstructorDAO mInstructorDao;
+    private final TermDAO mTermDao;
+    private final CourseDAO mCourseDao;
+    private final AssessmentDAO mAssessmentDao;
 
-    private List<InstructorEntity> mInstructorsList;
+
+    private LiveData<List<InstructorEntity>> mInstructorsList;
     private List<TermEntity> mTermsList;
     private List<CourseEntity> mCoursesList;
     private List<AssessmentEntity> mAssessmentList;
 
     public ScheduleManagementRepository(Application application) {
         ScheduleManagementDatabase db = ScheduleManagementDatabase.getDatabase(application);
+
         mInstructorDao = db.instructorDAO();
         mTermDao = db.termDAO();
         mCourseDao = db.courseDAO();
         mAssessmentDao = db.assessmentDAO();
+        mInstructorsList = mInstructorDao.getAllLiveInstructors();
 
         try {
             Thread.sleep(1000);
@@ -38,17 +46,39 @@ public class ScheduleManagementRepository {
         }
     }
 
-    public List<InstructorEntity> getAllInstructors() {
-        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
-            mInstructorsList = mInstructorDao.getAllInstructors();
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public LiveData<List<InstructorEntity>> getAllLiveInstructors() {
         return mInstructorsList;
     }
+
+    public void insert(InstructorEntity instructor) {
+        new insertAsyncTask(mInstructorDao).execute(instructor);
+    }
+
+    private static class insertAsyncTask extends AsyncTask<InstructorEntity, Void, Void> {
+        private InstructorDAO mAsyncTaskDao;
+
+        insertAsyncTask(InstructorDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final InstructorEntity... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+//    public List<InstructorEntity> getAllInstructors() {
+//        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
+//            mInstructorsList = mInstructorDao.getAllInstructors();
+//        });
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return mInstructorsList;
+//    }
 
     public List<TermEntity> getAllTerms() {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
@@ -86,16 +116,16 @@ public class ScheduleManagementRepository {
         return mAssessmentList;
     }
 
-    public void insert (InstructorEntity instructor) {
-        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
-            mInstructorDao.insert(instructor);
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void insert (InstructorEntity instructor) {
+//        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
+//            mInstructorDao.insert(instructor);
+//        });
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void insert (TermEntity term) {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
