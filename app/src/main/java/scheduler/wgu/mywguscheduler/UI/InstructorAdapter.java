@@ -17,6 +17,16 @@ import scheduler.wgu.mywguscheduler.R;
 
 public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.InstructorViewHolder> {
 
+    private final LayoutInflater mInflater;
+    private List<InstructorEntity> mInstructors;
+    private final Context context;
+
+
+    public InstructorAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+        this.context = context;
+    }
+
     class InstructorViewHolder extends RecyclerView.ViewHolder {
         private final TextView instructorNameItemView;
         private final TextView instructorEmailItemView;
@@ -45,14 +55,6 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
         }
     }
 
-    private final LayoutInflater mInflater;
-    private final Context context;
-    private List<InstructorEntity> mInstructors;
-
-    public InstructorAdapter(Context context) {
-        mInflater = LayoutInflater.from(context);
-        this.context = context;
-    }
 
     @NonNull
     @Override

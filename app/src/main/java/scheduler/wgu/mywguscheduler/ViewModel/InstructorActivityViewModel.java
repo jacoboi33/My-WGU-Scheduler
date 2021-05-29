@@ -24,4 +24,9 @@ public class InstructorActivityViewModel extends AndroidViewModel {
         mRepository = new ScheduleManagementRepository(application);
         mAllInstructors = mRepository.getAllLiveInstructors();
     }
+
+    LiveData<List<InstructorEntity>> getmAllInstructors() { return mAllInstructors; }
+    public void insert (InstructorEntity instructor) {
+        mRepository.insert(instructor);
+    }
 }

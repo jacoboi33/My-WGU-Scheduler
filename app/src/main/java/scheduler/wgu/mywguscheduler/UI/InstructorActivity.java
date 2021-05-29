@@ -39,13 +39,13 @@ public class InstructorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
         repository= new ScheduleManagementRepository(getApplication());
-        repository.getAllInstructors();// this is really just to set up the database if there isn't one on your device yet-otherwise synch errors later
-        RecyclerView recyclerView = findViewById(R.id.instructorRecyclerView);
+        repository.getAllLiveInstructors();// this is really just to set up the database if there isn't one on your device yet-otherwise synch errors later
 
+        RecyclerView recyclerView = findViewById(R.id.instructorRecyclerView);
         final InstructorAdapter adapter = new InstructorAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setWords(repository.getAllInstructors());
+//        adapter.setLayoutManager(repository.getAllLiveInstructors());
 
     }
 

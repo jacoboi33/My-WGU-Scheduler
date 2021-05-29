@@ -37,6 +37,7 @@ public class ScheduleManagementRepository {
         mTermDao = db.termDAO();
         mCourseDao = db.courseDAO();
         mAssessmentDao = db.assessmentDAO();
+        // Get all instructors
         mInstructorsList = mInstructorDao.getAllLiveInstructors();
 
         try {

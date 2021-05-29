@@ -29,6 +29,6 @@ public interface InstructorDAO {
     @Query("SELECT * FROM instructor_table")
     List<InstructorEntity> getAllInstructors();
 
-    @Query("SELECT * FROM instructor_table")
+    @Query("SELECT * FROM instructor_table ORDER BY name ASC")
     LiveData<List<InstructorEntity>> getAllLiveInstructors();
 }
