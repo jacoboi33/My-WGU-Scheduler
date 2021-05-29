@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.InstructorActivity">
+    tools:context="scheduler.wgu.mywguscheduler.UI.InstructorActivity"
+    tools:showIn="@layout/activity_instructor">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/instructorRecyclerView"
@@ -14,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/instructor_list_item"/>
+        tools:listitem="@layout/instructor_list"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addInstructorsButton"

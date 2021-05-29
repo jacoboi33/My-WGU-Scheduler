@@ -25,7 +25,7 @@ public class InstructorActivityViewModel extends AndroidViewModel {
         mAllInstructors = mRepository.getAllLiveInstructors();
     }
 
-    LiveData<List<InstructorEntity>> getmAllInstructors() { return mAllInstructors; }
+    public LiveData<List<InstructorEntity>> getmAllInstructors() { return mAllInstructors; }
     public void insert (InstructorEntity instructor) {
         mRepository.insert(instructor);
     }
