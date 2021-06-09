@@ -10,25 +10,25 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import scheduler.wgu.mywguscheduler.Entity.InstructorEntity;
+import scheduler.wgu.mywguscheduler.Entity.Instructor;
 
 @Dao
 public interface InstructorDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(InstructorEntity instructor);
+    void insert(Instructor instructor);
 
     @Update
-    void update(InstructorEntity instructor);
+    void update(Instructor instructor);
 
     @Delete
-    void delete(InstructorEntity instructor);
+    void delete(Instructor instructor);
 
-    @Query("DELETE FROM instructor_table")
+    @Query("DELETE FROM Instructor")
     void deleteAllInstructors();
 
-    @Query("SELECT * FROM instructor_table")
-    List<InstructorEntity> getAllInstructors();
+    @Query("SELECT * FROM Instructor")
+    List<Instructor> getAllInstructors();
 
-    @Query("SELECT * FROM instructor_table ORDER BY name ASC")
-    LiveData<List<InstructorEntity>> getAllLiveInstructors();
+    @Query("SELECT * FROM Instructor ORDER BY name ASC")
+    LiveData<List<Instructor>> getAllLiveInstructors();
 }

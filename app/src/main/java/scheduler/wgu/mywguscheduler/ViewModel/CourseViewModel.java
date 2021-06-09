@@ -6,9 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
-public class AssessmentActivityViewModel extends AndroidViewModel {
-
-    public AssessmentActivityViewModel(Application application) {
+public class CourseViewModel extends AndroidViewModel {
+    public CourseViewModel(Application application) {
         super(application);
     }
 }

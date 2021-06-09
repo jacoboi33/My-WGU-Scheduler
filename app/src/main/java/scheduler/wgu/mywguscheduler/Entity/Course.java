@@ -1,12 +1,13 @@
 package scheduler.wgu.mywguscheduler.Entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "course_table")
-public class CourseEntity {
+@Entity(tableName = "course")
+public class Course {
     @PrimaryKey(autoGenerate = true)
-    private int courseId;
+    private int id;
 
     private int instructorId;
     private int termId;
@@ -16,22 +17,7 @@ public class CourseEntity {
     private String endDate;
     private String status;
 
-    @Override
-    public String toString() {
-        return "CourseEntity{" +
-                "courseId=" + courseId +
-                ", instructorId=" + instructorId +
-                ", termId=" + termId +
-                ", note=" + note +
-                ", title='" + title + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", status='" + status + '\'' +
-                '}';
-    }
-
-    public CourseEntity(int courseId, int instructorId, int termId, String note, String title, String startDate, String endDate, String status) {
-        this.courseId = courseId;
+    public Course(int instructorId, int termId, String note, String title, String startDate, String endDate, String status) {
         this.instructorId = instructorId;
         this.termId = termId;
         this.note = note;
@@ -41,12 +27,24 @@ public class CourseEntity {
         this.status = status;
     }
 
-    public int getCourseId() {
-        return courseId;
+    @Ignore
+    public Course(int id, int instructorId, int termId, String note, String title, String startDate, String endDate, String status) {
+        this.id = id;
+        this.instructorId = instructorId;
+        this.termId = termId;
+        this.note = note;
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getInstructorId() {
@@ -104,4 +102,19 @@ public class CourseEntity {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "CourseEntity{" +
+                "id=" + id +
+                ", instructorId=" + instructorId +
+                ", termId=" + termId +
+                ", note=" + note +
+                ", title='" + title + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
 }

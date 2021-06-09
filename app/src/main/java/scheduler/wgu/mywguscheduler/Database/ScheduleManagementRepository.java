@@ -3,9 +3,7 @@ package scheduler.wgu.mywguscheduler.Database;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -13,10 +11,10 @@ import scheduler.wgu.mywguscheduler.DAO.AssessmentDAO;
 import scheduler.wgu.mywguscheduler.DAO.CourseDAO;
 import scheduler.wgu.mywguscheduler.DAO.InstructorDAO;
 import scheduler.wgu.mywguscheduler.DAO.TermDAO;
-import scheduler.wgu.mywguscheduler.Entity.AssessmentEntity;
-import scheduler.wgu.mywguscheduler.Entity.CourseEntity;
-import scheduler.wgu.mywguscheduler.Entity.InstructorEntity;
-import scheduler.wgu.mywguscheduler.Entity.TermEntity;
+import scheduler.wgu.mywguscheduler.Entity.Assessment;
+import scheduler.wgu.mywguscheduler.Entity.Course;
+import scheduler.wgu.mywguscheduler.Entity.Instructor;
+import scheduler.wgu.mywguscheduler.Entity.Term;
 
 public class ScheduleManagementRepository {
     private final InstructorDAO mInstructorDao;
@@ -25,10 +23,10 @@ public class ScheduleManagementRepository {
     private final AssessmentDAO mAssessmentDao;
 
 
-    private LiveData<List<InstructorEntity>> mInstructorsList;
-    private List<TermEntity> mTermsList;
-    private List<CourseEntity> mCoursesList;
-    private List<AssessmentEntity> mAssessmentList;
+    private LiveData<List<Instructor>> mInstructorsList;
+    private List<Term> mTermsList;
+    private List<Course> mCoursesList;
+    private List<Assessment> mAssessmentList;
 
     public ScheduleManagementRepository(Application application) {
         ScheduleManagementDatabase db = ScheduleManagementDatabase.getDatabase(application);
@@ -47,15 +45,15 @@ public class ScheduleManagementRepository {
         }
     }
 
-    public LiveData<List<InstructorEntity>> getAllLiveInstructors() {
+    public LiveData<List<Instructor>> getAllLiveInstructors() {
         return mInstructorsList;
     }
 
-    public void insert(InstructorEntity instructor) {
+    public void insert(Instructor instructor) {
         new insertAsyncTask(mInstructorDao).execute(instructor);
     }
 
-    private static class insertAsyncTask extends AsyncTask<InstructorEntity, Void, Void> {
+    private static class insertAsyncTask extends AsyncTask<Instructor, Void, Void> {
         private InstructorDAO mAsyncTaskDao;
 
         insertAsyncTask(InstructorDAO dao) {
@@ -63,7 +61,7 @@ public class ScheduleManagementRepository {
         }
 
         @Override
-        protected Void doInBackground(final InstructorEntity... params) {
+        protected Void doInBackground(final Instructor... params) {
             mAsyncTaskDao.insert(params[0]);
             return null;
         }
@@ -81,7 +79,7 @@ public class ScheduleManagementRepository {
 //        return mInstructorsList;
 //    }
 
-    public List<TermEntity> getAllTerms() {
+    public List<Term> getAllTerms() {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mTermsList = mTermDao.getAllTerms();
         });
@@ -93,7 +91,7 @@ public class ScheduleManagementRepository {
         return mTermsList;
     }
 
-    public List<CourseEntity> getAllCourses() {
+    public List<Course> getAllCourses() {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mCoursesList = mCourseDao.getAllCourses();
         });
@@ -105,7 +103,7 @@ public class ScheduleManagementRepository {
         return mCoursesList;
     }
 
-    public List<AssessmentEntity> getAllAssessments() {
+    public List<Assessment> getAllAssessments() {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mAssessmentList = mAssessmentDao.getAllAssessments();
         });
@@ -128,7 +126,7 @@ public class ScheduleManagementRepository {
 //        }
 //    }
 
-    public void insert (TermEntity term) {
+    public void insert (Term term) {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mTermDao.insert(term);
         });
@@ -139,7 +137,7 @@ public class ScheduleManagementRepository {
         }
     }
 
-    public void insert (CourseEntity course) {
+    public void insert (Course course) {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mCourseDao.insert(course);
         });
@@ -150,7 +148,7 @@ public class ScheduleManagementRepository {
         }
     }
 
-    public void insert (AssessmentEntity assessment) {
+    public void insert (Assessment assessment) {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mAssessmentDao.insert(assessment);
         });
@@ -161,7 +159,7 @@ public class ScheduleManagementRepository {
         }
     }
 
-    public void delete(InstructorEntity instructor) {
+    public void delete(Instructor instructor) {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mInstructorDao.delete(instructor);
         });
@@ -172,7 +170,7 @@ public class ScheduleManagementRepository {
         }
     }
 
-    public void delete(TermEntity term) {
+    public void delete(Term term) {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mTermDao.delete(term);
         });
@@ -183,7 +181,7 @@ public class ScheduleManagementRepository {
         }
     }
 
-    public void delete(CourseEntity course) {
+    public void delete(Course course) {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mCourseDao.delete(course);
         });
@@ -194,7 +192,7 @@ public class ScheduleManagementRepository {
         }
     }
 
-    public void delete(AssessmentEntity assessment) {
+    public void delete(Assessment assessment) {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mAssessmentDao.delete(assessment);
         });

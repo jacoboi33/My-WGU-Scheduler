@@ -5,8 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-public class TermActivityViewModel extends AndroidViewModel {
-    public TermActivityViewModel(Application application) {
+public class TermViewModel extends AndroidViewModel {
+    public TermViewModel(Application application) {
         super(application);
     }
 }

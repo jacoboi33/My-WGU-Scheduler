@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import scheduler.wgu.mywguscheduler.Entity.TermEntity;
+import scheduler.wgu.mywguscheduler.Entity.Term;
 import scheduler.wgu.mywguscheduler.R;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
@@ -28,7 +28,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                 @Override
                 public void onClick(View v) {
                     int position = getBindingAdapterPosition();
-                    final TermEntity current = mTerms.get(position);
+                    final Term current = mTerms.get(position);
                     Intent intent = new Intent(context, TermDetailActivity.class);
                     intent.putExtra("termTitle", current.getTermTitle());
                     intent.putExtra("termStartDate", current.getStartDate());
@@ -41,7 +41,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
     private final LayoutInflater mInflater;
     private final Context context;
-    private List<TermEntity> mTerms;
+    private List<Term> mTerms;
 
     public TermAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -58,7 +58,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     @Override
     public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
         if (mTerms != null) {
-            TermEntity current = mTerms.get(position);
+            Term current = mTerms.get(position);
             holder.termItemView.setText(current.getTermTitle());
         }
         else {
@@ -72,7 +72,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
         return mTerms.size();
     }
 
-    public void setTerms(List<TermEntity> allTerms) {
+    public void setTerms(List<Term> allTerms) {
         mTerms = allTerms;
         notifyDataSetChanged();
     }

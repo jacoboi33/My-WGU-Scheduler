@@ -9,22 +9,22 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import scheduler.wgu.mywguscheduler.Entity.CourseEntity;
+import scheduler.wgu.mywguscheduler.Entity.Course;
 
 @Dao
 public interface CourseDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(CourseEntity course);
+    void insert(Course course);
 
     @Update
-    void update(CourseEntity course);
+    void update(Course course);
 
     @Delete
-    void delete(CourseEntity course);
+    void delete(Course course);
 
-    @Query("DELETE FROM course_table")
+    @Query("DELETE FROM Course")
     void deleteAllCourses();
 
-    @Query("SELECT * FROM course_table")
-    List<CourseEntity> getAllCourses();
+    @Query("SELECT * FROM Course")
+    List<Course> getAllCourses();
 }

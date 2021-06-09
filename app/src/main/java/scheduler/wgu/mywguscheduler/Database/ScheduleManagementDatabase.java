@@ -15,12 +15,12 @@ import scheduler.wgu.mywguscheduler.DAO.AssessmentDAO;
 import scheduler.wgu.mywguscheduler.DAO.CourseDAO;
 import scheduler.wgu.mywguscheduler.DAO.InstructorDAO;
 import scheduler.wgu.mywguscheduler.DAO.TermDAO;
-import scheduler.wgu.mywguscheduler.Entity.AssessmentEntity;
-import scheduler.wgu.mywguscheduler.Entity.CourseEntity;
-import scheduler.wgu.mywguscheduler.Entity.InstructorEntity;
-import scheduler.wgu.mywguscheduler.Entity.TermEntity;
+import scheduler.wgu.mywguscheduler.Entity.Assessment;
+import scheduler.wgu.mywguscheduler.Entity.Course;
+import scheduler.wgu.mywguscheduler.Entity.Instructor;
+import scheduler.wgu.mywguscheduler.Entity.Term;
 
-@Database(entities = {AssessmentEntity.class, CourseEntity.class, InstructorEntity.class, TermEntity.class}, version = 2)
+@Database(entities = {Assessment.class, Course.class, Instructor.class, Term.class}, version = 2)
 public abstract class ScheduleManagementDatabase extends RoomDatabase {
     public abstract AssessmentDAO assessmentDAO();
     public abstract CourseDAO courseDAO();
@@ -33,7 +33,7 @@ public abstract class ScheduleManagementDatabase extends RoomDatabase {
 
     private static volatile ScheduleManagementDatabase INSTANCE;
 
-    public static ScheduleManagementDatabase getDatabase(final Context context) {
+    public static synchronized ScheduleManagementDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ScheduleManagementDatabase.class, "schedule_management_database.db")
                     .fallbackToDestructiveMigration()
@@ -54,61 +54,61 @@ public abstract class ScheduleManagementDatabase extends RoomDatabase {
 
                 mInstructorDao.deleteAllInstructors();
 
-                InstructorEntity instructor = new InstructorEntity(1,"Sophi Kilgrove","815-822-9937","skilgrove0@google.nl");
+                Instructor instructor = new Instructor("Sophi Kilgrove","815-822-9937","skilgrove0@google.nl");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(2,"Celia Hecks","102-114-0555","checks1@theguardian.com");
+                instructor = new Instructor("Celia Hecks","102-114-0555","checks1@theguardian.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(3,"Bryce Matula","771-905-6947","bmatula2@cloudflare.com");
+                instructor = new Instructor("Bryce Matula","771-905-6947","bmatula2@cloudflare.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(4,"Hansiain Baulcombe","904-449-7401","hbaulcombe3@alexa.com");
+                instructor = new Instructor("Hansiain Baulcombe","904-449-7401","hbaulcombe3@alexa.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(5,"Beckie Turban","863-688-0598","bturban4@chicagotribune.com");
+                instructor = new Instructor("Beckie Turban","863-688-0598","bturban4@chicagotribune.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(6,"Chryste Tankard","946-448-8543","ctankard5@odnoklassniki.ru");
+                instructor = new Instructor("Chryste Tankard","946-448-8543","ctankard5@odnoklassniki.ru");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(7,"Dougie Itzig","304-573-4227","ditzig6@angelfire.com");
+                instructor = new Instructor("Dougie Itzig","304-573-4227","ditzig6@angelfire.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(8,"Morten Lowton","729-290-1518","mlowton7@ehow.com");
+                instructor = new Instructor("Morten Lowton","729-290-1518","mlowton7@ehow.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(9,"Yetta Dowman","593-651-2965","ydowman8@si.edu");
+                instructor = new Instructor("Yetta Dowman","593-651-2965","ydowman8@si.edu");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(10,"Alison Witheridge","662-313-4763","awitheridge9@state.tx.us");
+                instructor = new Instructor("Alison Witheridge","662-313-4763","awitheridge9@state.tx.us");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(11,"Godard Backhurst","770-181-8331","gbackhursta@ihg.com");
+                instructor = new Instructor("Godard Backhurst","770-181-8331","gbackhursta@ihg.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(12,"Etienne Stellino","853-142-0643","estellinob@is.gd");
+                instructor = new Instructor("Etienne Stellino","853-142-0643","estellinob@is.gd");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(13,"Lilian Berzon","528-265-3805","lberzonc@bigcartel.com");
+                instructor = new Instructor("Lilian Berzon","528-265-3805","lberzonc@bigcartel.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(14,"Una Dashkovich","120-335-3309","udashkovichd@sakura.ne.jp");
+                instructor = new Instructor("Una Dashkovich","120-335-3309","udashkovichd@sakura.ne.jp");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(15,"Brander Frangleton","872-438-1857","bfrangletone@dailymail.co.uk");
+                instructor = new Instructor("Brander Frangleton","872-438-1857","bfrangletone@dailymail.co.uk");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(16,"Wade Wingeatt","129-789-3738","wwingeattf@java.com");
+                instructor = new Instructor("Wade Wingeatt","129-789-3738","wwingeattf@java.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(17,"Carver Thrasher","998-113-0409","cthrasherg@prweb.com");
+                instructor = new Instructor("Carver Thrasher","998-113-0409","cthrasherg@prweb.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(18,"Teresita Jeeves","256-641-9343","tjeevesh@cbsnews.com");
+                instructor = new Instructor("Teresita Jeeves","256-641-9343","tjeevesh@cbsnews.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(19,"Demetrius Prettejohns","140-451-0181","dprettejohnsi@typepad.com");
+                instructor = new Instructor("Demetrius Prettejohns","140-451-0181","dprettejohnsi@typepad.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(20,"Matti Bazoche","284-986-6585","mbazochej@dailymail.co.uk");
+                instructor = new Instructor("Matti Bazoche","284-986-6585","mbazochej@dailymail.co.uk");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(21,"Bertie Hunnam","902-113-3155","bhunnamk@weebly.com");
+                instructor = new Instructor("Bertie Hunnam","902-113-3155","bhunnamk@weebly.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(22,"Lance Guillet","835-495-2211","lguilletl@rambler.ru");
+                instructor = new Instructor("Lance Guillet","835-495-2211","lguilletl@rambler.ru");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(23,"Leanora Kneath","627-753-5699","lkneathm@google.co.uk");
+                instructor = new Instructor("Leanora Kneath","627-753-5699","lkneathm@google.co.uk");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(24,"Alvin Wilkinson","386-979-4505","awilkinsonn@usatoday.com");
+                instructor = new Instructor("Alvin Wilkinson","386-979-4505","awilkinsonn@usatoday.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(25,"Saunders Pinxton","597-393-9151","spinxtono@w3.org");
+                instructor = new Instructor("Saunders Pinxton","597-393-9151","spinxtono@w3.org");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(26,"Kevan Dalbey","500-150-5763","kdalbeyp@booking.com");
+                instructor = new Instructor("Kevan Dalbey","500-150-5763","kdalbeyp@booking.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(27,"Dar Gelland","248-697-5640","dgellandq@wikispaces.com");
+                instructor = new Instructor("Dar Gelland","248-697-5640","dgellandq@wikispaces.com");
                 mInstructorDao.insert(instructor);
-                instructor = new InstructorEntity(28,"Maire Frisch","261-748-5638","mfrischr@engadget.com");
+                instructor = new Instructor("Maire Frisch","261-748-5638","mfrischr@engadget.com");
                 mInstructorDao.insert(instructor);
 
             });

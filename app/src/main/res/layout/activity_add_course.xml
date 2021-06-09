@@ -54,7 +54,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="16dp"
             android:onClick="addCourse"
-            android:text="@string/save" />
+            android:text="@string/button_save" />
 
     </LinearLayout>
 

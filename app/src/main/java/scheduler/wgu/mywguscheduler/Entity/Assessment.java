@@ -1,13 +1,14 @@
 package scheduler.wgu.mywguscheduler.Entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "assessment_table")
-public class AssessmentEntity {
+@Entity(tableName = "assessment")
+public class Assessment {
 
     @PrimaryKey(autoGenerate = true)
-    private int assessmentId;
+    private int id;
 
     private int courseId;
     private String title;
@@ -15,20 +16,7 @@ public class AssessmentEntity {
     private String startDate;
     private String endDate;
 
-    @Override
-    public String toString() {
-        return "AssessmentEntity{" +
-                "assessmentId=" + assessmentId +
-                ", courseId=" + courseId +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
-    }
-
-    public AssessmentEntity(int assessmentId, int courseId, String title, String description, String startDate, String endDate) {
-        this.assessmentId = assessmentId;
+    public Assessment(int courseId, String title, String description, String startDate, String endDate) {
         this.courseId = courseId;
         this.title = title;
         this.description = description;
@@ -36,12 +24,22 @@ public class AssessmentEntity {
         this.endDate = endDate;
     }
 
-    public int getAssessmentId() {
-        return assessmentId;
+    @Ignore
+    public Assessment(int id, int courseId, String title, String description, String startDate, String endDate) {
+        this.id = id;
+        this.courseId = courseId;
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public void setAssessmentId(int assessmentId) {
-        this.assessmentId = assessmentId;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCourseId() {
@@ -82,5 +80,17 @@ public class AssessmentEntity {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "AssessmentEntity{" +
+                "id=" + id +
+                ", courseId=" + courseId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
     }
 }

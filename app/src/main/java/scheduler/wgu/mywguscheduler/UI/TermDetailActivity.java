@@ -1,15 +1,9 @@
 package scheduler.wgu.mywguscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Pair;
 
-import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,11 +12,10 @@ import android.widget.TextView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
-import java.nio.channels.ShutdownChannelGroupException;
 import java.util.List;
 
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
-import scheduler.wgu.mywguscheduler.Entity.TermEntity;
+import scheduler.wgu.mywguscheduler.Entity.Term;
 import scheduler.wgu.mywguscheduler.R;
 
 public class TermDetailActivity extends AppCompatActivity {
@@ -93,13 +86,13 @@ public class TermDetailActivity extends AppCompatActivity {
     }
 
     public void addTerm(View view) {
-        TermEntity term;
+        Term term;
         if (id != -1)
-            term = new TermEntity(id, editTermTitle.getText().toString(), editStartDate, editEndDate);
+            term = new Term(id, editTermTitle.getText().toString(), editStartDate, editEndDate);
         else {
-            List<TermEntity> allTerms = repository.getAllTerms();
-            id = allTerms.get(allTerms.size() - 1).getTermId();
-            term = new TermEntity(++id, editTermTitle.getText().toString(), editStartDate, editEndDate);
+            List<Term> allTerms = repository.getAllTerms();
+            id = allTerms.get(allTerms.size() - 1).getId();
+            term = new Term(++id, editTermTitle.getText().toString(), editStartDate, editEndDate);
         }
         repository.insert(term);
     }

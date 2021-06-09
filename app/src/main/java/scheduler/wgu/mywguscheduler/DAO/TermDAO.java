@@ -9,25 +9,25 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import scheduler.wgu.mywguscheduler.Entity.TermEntity;
+import scheduler.wgu.mywguscheduler.Entity.Term;
 
 @Dao
 public interface TermDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(TermEntity term);
+    void insert(Term term);
 
     @Update
-    void update(TermEntity term);
+    void update(Term term);
 
     @Delete
-    void delete(TermEntity term);
+    void delete(Term term);
 
-    @Query("DELETE FROM term_table")
+    @Query("DELETE FROM Term")
     void deleteAllTerms();
 
-    @Query("SELECT * FROM term_table")
-    List<TermEntity> getAllTerms();
+    @Query("SELECT * FROM Term")
+    List<Term> getAllTerms();
 
-    @Query("SELECT * FROM term_table WHERE termId = :id")
-    public TermEntity getTerm(long id);
+    @Query("SELECT * FROM Term WHERE id = :id")
+    public Term getTerm(long id);
 }

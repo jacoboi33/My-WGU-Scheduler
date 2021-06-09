@@ -3,10 +3,10 @@ package scheduler.wgu.mywguscheduler.Entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "term_table")
-public class TermEntity {
+@Entity(tableName = "term")
+public class Term {
     @PrimaryKey(autoGenerate = true)
-    private int termId;
+    private int id;
 
     private String termTitle;
     private String startDate;;
@@ -15,26 +15,26 @@ public class TermEntity {
     @Override
     public String toString() {
         return "TermEntity{" +
-                "termId=" + termId +
+                "id=" + id +
                 ", termTitle='" + termTitle + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 '}';
     }
 
-    public TermEntity(int termId, String termTitle, String startDate, String endDate) {
-        this.termId = termId;
+    public Term(int id, String termTitle, String startDate, String endDate) {
+        this.id = id;
         this.termTitle = termTitle;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public int getTermId() {
-        return termId;
+    public int getId() {
+        return id;
     }
 
-    public void setTermId(int termId) {
-        this.termId = termId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTermTitle() {

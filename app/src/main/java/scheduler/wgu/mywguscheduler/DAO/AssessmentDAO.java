@@ -9,22 +9,22 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import scheduler.wgu.mywguscheduler.Entity.AssessmentEntity;
+import scheduler.wgu.mywguscheduler.Entity.Assessment;
 
 @Dao
 public interface AssessmentDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(AssessmentEntity assessment);
+    void insert(Assessment assessment);
 
     @Update
-    void update(AssessmentEntity assessment);
+    void update(Assessment assessment);
 
     @Delete
-    void delete(AssessmentEntity assessment);
+    void delete(Assessment assessment);
 
-    @Query("DELETE FROM assessment_table")
+    @Query("DELETE FROM Assessment")
     void deleteAllAssessments();
 
-    @Query("Select * FROM assessment_table ORDER BY assessmentId ASC")
-    List<AssessmentEntity> getAllAssessments();
+    @Query("Select * FROM Assessment ORDER BY id ASC")
+    List<Assessment> getAllAssessments();
 }
