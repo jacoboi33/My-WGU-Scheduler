@@ -19,16 +19,16 @@ public class Instructor {
         this.emailAddress = emailAddress;
     }
 
-//    @Ignore
-//    public Instructor(){}
+    @Ignore
+    public Instructor(){}
 
-//    @Ignore
-//    public Instructor(int id, String name, String phoneNumber, String emailAddress) {
-//        this.id = id;
-//        this.name = name;
-//        this.phoneNumber = phoneNumber;
-//        this.emailAddress = emailAddress;
-//    }
+    @Ignore
+    public Instructor(int id, String name, String phoneNumber, String emailAddress) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+    }
 
     public int getId() {
         return id;

@@ -56,6 +56,9 @@ public class ScheduleManagementRepository {
     public void delete(int id) {
     }
 
+    public void update(Instructor instructor) {
+    }
+
     private static class insertAsyncTask extends AsyncTask<Instructor, Void, Void> {
         private InstructorDAO mAsyncTaskDao;
 

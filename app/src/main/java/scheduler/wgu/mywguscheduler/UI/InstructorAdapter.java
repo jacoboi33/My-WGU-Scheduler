@@ -101,6 +101,13 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
                 clickListener.removeInstructor(mInstructors.get(position));
             }
         });
+
+        holder.editInstructorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.editInstructor(mInstructors.get(position));
+            }
+        });
     }
 
     @Override
