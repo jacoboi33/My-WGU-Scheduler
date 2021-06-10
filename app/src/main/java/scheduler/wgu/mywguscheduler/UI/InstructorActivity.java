@@ -17,11 +17,12 @@ import scheduler.wgu.mywguscheduler.Entity.Instructor;
 import scheduler.wgu.mywguscheduler.R;
 import scheduler.wgu.mywguscheduler.ViewModel.InstructorViewModel;
 
-public class InstructorActivity extends AppCompatActivity {
+public class InstructorActivity extends AppCompatActivity implements InstructorAdapter.HandleInstructorClick {
 
 //    private ScheduleManagementRepository repository;
 //    private RecyclerView instructorRecyclerView;
     private InstructorViewModel mInstructorViewModel;
+    private Button button;
 
 
 //    int id;
@@ -36,6 +37,13 @@ public class InstructorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
+//        button.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
 //        repository = new ScheduleManagementRepository(getApplication());
 //        repository.getAllLiveInstructors();  // this is really just to set up the database if there isn't one on your device yet-otherwise synch errors later
@@ -50,7 +58,7 @@ public class InstructorActivity extends AppCompatActivity {
 //        });
 
         RecyclerView recyclerView = findViewById(R.id.instructorRecyclerView);
-        final InstructorAdapter adapter = new InstructorAdapter(this);
+        final InstructorAdapter adapter = new InstructorAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        adapter.setLayoutManager(repository.getAllLiveInstructors());
@@ -70,6 +78,18 @@ public class InstructorActivity extends AppCompatActivity {
             Intent intent = new Intent(InstructorActivity.this, AddInstructorActivity.class);
             startActivity(intent);
         });
+    }
+
+    public void removeItem(Instructor instructor) { mInstructorViewModel.delete(instructor); }
+
+    @Override
+    public void removeInstructor(Instructor instructor) {
+        mInstructorViewModel.delete(instructor);
+    }
+
+    @Override
+    public void editInstructor(Instructor instructor) {
+
     }
 
 //    public void addInstructor(View view) {

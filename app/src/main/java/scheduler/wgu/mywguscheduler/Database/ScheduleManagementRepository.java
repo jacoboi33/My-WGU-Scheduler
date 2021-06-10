@@ -53,6 +53,9 @@ public class ScheduleManagementRepository {
         new insertAsyncTask(mInstructorDao).execute(instructor);
     }
 
+    public void delete(int id) {
+    }
+
     private static class insertAsyncTask extends AsyncTask<Instructor, Void, Void> {
         private InstructorDAO mAsyncTaskDao;
 

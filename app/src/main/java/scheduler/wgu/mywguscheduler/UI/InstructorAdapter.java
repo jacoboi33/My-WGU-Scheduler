@@ -21,11 +21,13 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
 
     private final LayoutInflater mInflater;
     private List<Instructor> mInstructors;
+    private HandleInstructorClick clickListener;
 //    private final Context context;
 
 
-    public InstructorAdapter(Context context) {
+    public InstructorAdapter(Context context, HandleInstructorClick clickListener) {
         mInflater = LayoutInflater.from(context);
+        this.clickListener = clickListener;
 //        this.context = context;
     }
 
@@ -34,12 +36,17 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
         private final TextView instructorEmailItemView;
         private final TextView instructorPhoneNumberItemView;
 
+        private final Button deleteInstructorButton;
+        private final Button editInstructorButton;
+
 
         private InstructorViewHolder(View itemView) {
             super(itemView);
             instructorNameItemView = itemView.findViewById(R.id.instructor_name);
             instructorEmailItemView = itemView.findViewById(R.id.instructor_email);
             instructorPhoneNumberItemView = itemView.findViewById(R.id.instructor_phone_number);
+            deleteInstructorButton = itemView.findViewById(R.id.delete_instructor);
+            editInstructorButton = itemView.findViewById(R.id.edit_instructor);
 
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -87,6 +94,13 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
             holder.instructorEmailItemView.setText("No Email");
             holder.instructorPhoneNumberItemView.setText("No Phone Number");
         }
+
+        holder.deleteInstructorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.removeInstructor(mInstructors.get(position));
+            }
+        });
     }
 
     @Override
@@ -101,5 +115,10 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
     public void setWords(List<Instructor> instructors) {
         mInstructors = instructors;
         notifyDataSetChanged();
+    }
+
+    public interface HandleInstructorClick {
+        void removeInstructor(Instructor instructor);
+        void editInstructor(Instructor instructor);
     }
 }

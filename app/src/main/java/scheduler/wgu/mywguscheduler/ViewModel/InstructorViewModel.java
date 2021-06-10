@@ -25,4 +25,6 @@ public class InstructorViewModel extends AndroidViewModel {
     public void insert (Instructor instructor) {
         mRepository.insert(instructor);
     }
+    public void delete (Instructor instructor) { mRepository.delete(instructor); }
+
 }
