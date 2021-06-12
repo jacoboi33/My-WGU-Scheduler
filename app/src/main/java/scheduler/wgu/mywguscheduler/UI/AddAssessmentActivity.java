@@ -35,6 +35,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
     private AutoCompleteTextView mType;
     private TextInputLayout mTypeTextInput;
     private TextInputLayout datePicker;
+    private Button datePickerButton;
 
 
     @Override
@@ -61,8 +62,9 @@ public class AddAssessmentActivity extends AppCompatActivity {
 //        TODO insert delete edit assessments
 
         datePicker = findViewById(R.id.date_picker_text_input);
+        datePickerButton = findViewById(R.id.icon_date_picker_button);
         mTypeTextInput = findViewById(R.id.type_text_input);
-        datePicker.setEndIconOnClickListener(new View.OnClickListener() {
+        datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();

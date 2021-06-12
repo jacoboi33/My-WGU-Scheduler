@@ -78,7 +78,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         AlertDialog dialogBuilder = new MaterialAlertDialogBuilder(this).create();
         View dialogView = getLayoutInflater().inflate(R.layout.activity_add_assessment, null);
 
-        AutoCompleteTextView type = (AutoCompleteTextView) findViewById(R.id.assessment_type);
+        AutoCompleteTextView type = (AutoCompleteTextView) dialogView.findViewById(R.id.assessment_type);
         String[] items = {"Objective", "Performance"};
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, items);

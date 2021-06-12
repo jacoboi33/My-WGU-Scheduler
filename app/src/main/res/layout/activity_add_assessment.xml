@@ -55,32 +55,50 @@
 <!--        android:clickable="true"-->
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/date_picker_text_input"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/select_due_date"
-            android:inputType="none"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:focusable="false"
-            app:endIconMode="custom"
-            android:paddingTop="16dp"
-            app:endIconDrawable="@drawable/select_date"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:orientation="horizontal"
+            android:textAlignment="textEnd"
+            android:gravity="end">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/date_picker_text_input"
+                android:paddingEnd="5dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="none"
+                android:enabled="false"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="mm/dd/yyyy"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/icon_date_picker_button"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                app:icon="@drawable/calendar"
+                android:gravity="end"
+                app:iconGravity="textTop" />
+
+        </LinearLayout>
+
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:gravity="end">
 
             <Button
                 android:id="@+id/button_cancel_assessment"
