@@ -24,6 +24,9 @@ public class ScheduleManagementRepository {
 
 
     private LiveData<List<Instructor>> mInstructorsList;
+    private LiveData<List<Assessment>> mAssessmentsList;
+
+
     private List<Term> mTermsList;
     private List<Course> mCoursesList;
     private List<Assessment> mAssessmentList;
@@ -37,6 +40,7 @@ public class ScheduleManagementRepository {
         mAssessmentDao = db.assessmentDAO();
         // Get all instructors
         mInstructorsList = mInstructorDao.getAllLiveInstructors();
+        mAssessmentsList = mAssessmentDao.getAllLiveAssessments();
 
         try {
             Thread.sleep(1000);
@@ -45,18 +49,16 @@ public class ScheduleManagementRepository {
         }
     }
 
+    /**
+     * Instructors
+     *
+     * */
     public LiveData<List<Instructor>> getAllLiveInstructors() {
         return mInstructorsList;
     }
 
     public void insert(Instructor instructor) {
         new insertAsyncTask(mInstructorDao).execute(instructor);
-    }
-
-    public void delete(int id) {
-    }
-
-    public void update(Instructor instructor) {
     }
 
     private static class insertAsyncTask extends AsyncTask<Instructor, Void, Void> {
@@ -68,6 +70,20 @@ public class ScheduleManagementRepository {
 
         @Override
         protected Void doInBackground(final Instructor... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class insertAssessmentAsyncTask extends AsyncTask<Assessment, Void, Void> {
+        private AssessmentDAO mAsyncTaskDao;
+
+        insertAssessmentAsyncTask(AssessmentDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Assessment... params) {
             mAsyncTaskDao.insert(params[0]);
             return null;
         }
@@ -109,17 +125,30 @@ public class ScheduleManagementRepository {
         return mCoursesList;
     }
 
-    public List<Assessment> getAllAssessments() {
-        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
-            mAssessmentList = mAssessmentDao.getAllAssessments();
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return mAssessmentList;
+    /**
+     * Assessments
+     *
+     * */
+
+    public LiveData<List<Assessment>> getAllLiveAssessments() {
+        return mAssessmentsList;
     }
+
+    public void insert(Assessment assessment) {
+        new insertAssessmentAsyncTask(mAssessmentDao).execute(assessment);
+    }
+
+//    public List<Assessment> getAllAssessments() {
+//        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
+//            mAssessmentList = mAssessmentDao.getAllAssessments();
+//        });
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return mAssessmentList;
+//    }
 
 //    public void insert (InstructorEntity instructor) {
 //        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
@@ -154,16 +183,16 @@ public class ScheduleManagementRepository {
         }
     }
 
-    public void insert (Assessment assessment) {
-        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
-            mAssessmentDao.insert(assessment);
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void insert (Assessment assessment) {
+//        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
+//            mAssessmentDao.insert(assessment);
+//        });
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void delete(Instructor instructor) {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {

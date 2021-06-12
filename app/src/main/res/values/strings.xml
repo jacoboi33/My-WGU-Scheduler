@@ -20,4 +20,8 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="add">ADD</string>
+    <string name="label">Select Assessment Type</string>
+    <string name="select_due_date">Select Due Date</string>
+    <string name="objective">Objective</string>
 </resources>

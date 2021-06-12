@@ -17,9 +17,6 @@ public interface InstructorDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Instructor instructor);
 
-    @Update
-    void update(Instructor instructor);
-
     @Delete
     void delete(Instructor instructor);
 

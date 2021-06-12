@@ -1,5 +1,6 @@
 package scheduler.wgu.mywguscheduler.DAO;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -16,15 +17,15 @@ public interface AssessmentDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Assessment assessment);
 
-    @Update
-    void update(Assessment assessment);
-
     @Delete
     void delete(Assessment assessment);
 
     @Query("DELETE FROM Assessment")
     void deleteAllAssessments();
 
-    @Query("Select * FROM Assessment ORDER BY id ASC")
+    @Query("Select * FROM Assessment")
     List<Assessment> getAllAssessments();
+
+    @Query("SELECT * FROM assessment ORDER BY id ASC")
+    LiveData<List<Assessment>> getAllLiveAssessments();
 }

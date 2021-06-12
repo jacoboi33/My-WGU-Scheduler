@@ -27,20 +27,8 @@ import scheduler.wgu.mywguscheduler.ViewModel.InstructorViewModel;
 
 public class InstructorActivity extends AppCompatActivity implements InstructorAdapter.HandleInstructorClick {
 
-//    private ScheduleManagementRepository repository;
-//    private RecyclerView instructorRecyclerView;
     private InstructorViewModel mInstructorViewModel;
     private Instructor mEditInstructor;
-    private Button button;
-
-
-//    int id;
-//    String name;
-//    String phoneNumber;
-//    String emailAddress;
-//    EditText editName;
-//    EditText editPhoneNumber;
-//    EditText editEmailAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

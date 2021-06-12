@@ -12,13 +12,6 @@
         <activity android:name=".UI.CourseDetailActivity"
             android:label="Course Details"
             android:parentActivityName=".UI.CoursesActivity"/>
-        <activity android:name=".UI.AssessmentDetailActivity"
-            android:label="Assessment Details"
-            android:parentActivityName=".UI.AssessmentActivity"/>
-        <activity
-            android:name=".UI.InstructorDetailActivity"
-            android:label="Instructor Details"
-            android:parentActivityName=".UI.InstructorActivity" />
         <activity
             android:name=".UI.TermDetailActivity"
             android:label="Term Details"

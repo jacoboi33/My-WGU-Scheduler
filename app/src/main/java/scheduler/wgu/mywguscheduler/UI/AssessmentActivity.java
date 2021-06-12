@@ -20,11 +20,10 @@ public class AssessmentActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Assessments");
 
         assessmentRecylcerView = findViewById(R.id.assessmentRecyclerView);
-    }
-
-    public void AddAssessment(View view) {
-        Intent intent = new Intent(AssessmentActivity.this, AddAssessmentActivity.class);
-        startActivity(intent);
+        findViewById(R.id.add_assessment_button).setOnClickListener(v -> {
+            Intent intent = new Intent(AssessmentActivity.this, AddAssessmentActivity.class);
+            startActivity(intent);
+        });
     }
 
 }

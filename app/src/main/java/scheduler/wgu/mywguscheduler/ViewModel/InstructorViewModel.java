@@ -27,7 +27,5 @@ public class InstructorViewModel extends AndroidViewModel {
     }
     public void delete (Instructor instructor) { mRepository.delete(instructor); }
 
-    public void updateInstructor(Instructor instructor) {
-        mRepository.update(instructor);
-    }
+
 }
