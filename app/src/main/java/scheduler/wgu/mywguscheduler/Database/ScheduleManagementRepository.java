@@ -29,7 +29,6 @@ public class ScheduleManagementRepository {
 
     private List<Term> mTermsList;
     private List<Course> mCoursesList;
-    private List<Assessment> mAssessmentList;
 
     public ScheduleManagementRepository(Application application) {
         ScheduleManagementDatabase db = ScheduleManagementDatabase.getDatabase(application);

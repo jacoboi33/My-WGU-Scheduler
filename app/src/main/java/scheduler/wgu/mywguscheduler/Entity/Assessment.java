@@ -10,22 +10,23 @@ public class Assessment {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
-    private String endDate;
     private String type;
+    private String endDate;
 
-    public Assessment(String title, String endDate, String type) {
+    public Assessment(String title, String type, String endDate) {
         this.title = title;
-        this.endDate = endDate;
         this.type = type;
+        this.endDate = endDate;
     }
-
-    public Assessment(int id, String title, String endDate, String type) {
+    @Ignore
+    public Assessment(int id, String title, String type, String endDate) {
         this.id = id;
         this.title = title;
-        this.endDate = endDate;
         this.type = type;
+        this.endDate = endDate;
     }
 
+    @Ignore
     public Assessment(){}
 
     public int getId() {
@@ -44,14 +45,6 @@ public class Assessment {
         this.title = title;
     }
 
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
     public String getType() {
         return type;
     }
@@ -60,13 +53,21 @@ public class Assessment {
         this.type = type;
     }
 
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString() {
         return "Assessment{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", endDate='" + endDate + '\'' +
                 ", type='" + type + '\'' +
+                ", endDate='" + endDate + '\'' +
                 '}';
     }
 }

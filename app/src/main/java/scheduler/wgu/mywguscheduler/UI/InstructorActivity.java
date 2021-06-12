@@ -77,8 +77,6 @@ public class InstructorActivity extends AppCompatActivity implements InstructorA
         });
     }
 
-    public void removeItem(Instructor instructor) { mInstructorViewModel.delete(instructor); }
-
     @Override
     public void removeInstructor(Instructor instructor) {
         mInstructorViewModel.delete(instructor);
@@ -87,17 +85,18 @@ public class InstructorActivity extends AppCompatActivity implements InstructorA
     @Override
     public void editInstructor(Instructor instructor) {
         this.mEditInstructor = instructor;
-        showAddCategoryDialog();
+        showEditInstructorDialog();
     }
 
-    private void showAddCategoryDialog() {
+    private void showEditInstructorDialog() {
         AlertDialog dialogBuilder = new MaterialAlertDialogBuilder(this).create();
         View dialogView = getLayoutInflater().inflate(R.layout.activity_add_instructor, null);
-//        EditText editTextName = dialogView.findViewById(R.id.name_text_input);
+
         int id = mEditInstructor.getId();
         TextInputLayout mName = dialogView.findViewById(R.id.name_text_input);
         TextInputLayout mEmail = dialogView.findViewById(R.id.email_text_input);
         TextInputLayout mPhoneNumber = dialogView.findViewById(R.id.phone_text_input);
+
         Button saveButton = dialogView.findViewById(R.id.button_save_instructor);
         Button cancelButton = dialogView.findViewById(R.id.button_cancel_instructor);
 

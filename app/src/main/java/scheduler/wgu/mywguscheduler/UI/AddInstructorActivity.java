@@ -3,6 +3,8 @@ package scheduler.wgu.mywguscheduler.UI;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,7 +22,6 @@ import scheduler.wgu.mywguscheduler.ViewModel.InstructorViewModel;
 
 public class AddInstructorActivity extends AppCompatActivity {
 
-    public static final String EXTRA_REPLY = "scheduler.wgu.mywguscheduler.REPLY";
     private InstructorViewModel viewModel;
 
     private TextInputLayout mName;
@@ -37,9 +38,10 @@ public class AddInstructorActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.email_text_input);
         mPhoneNumber = findViewById(R.id.phone_text_input);
 
-        final Button button = findViewById(R.id.button_save_instructor);
+        final Button saveButton = findViewById(R.id.button_save_instructor);
+        final Button cancelButton = findViewById(R.id.button_cancel_instructor);
         viewModel = new ViewModelProvider(this).get(InstructorViewModel.class);
-        button.setOnClickListener(view -> {
+        saveButton.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
             try {
                 String name = mName.getEditText().getText().toString();
@@ -80,6 +82,10 @@ public class AddInstructorActivity extends AppCompatActivity {
 ////                setResult(RESULT_OK, replyIntent);
 //            }
 
+        });
+
+        cancelButton.setOnClickListener(v -> {
+            finish();
         });
 
 

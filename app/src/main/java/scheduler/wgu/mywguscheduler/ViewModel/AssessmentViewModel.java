@@ -23,4 +23,8 @@ public class AssessmentViewModel extends AndroidViewModel {
         mRepository = new ScheduleManagementRepository(application);
         mAllAssessments = mRepository.getAllLiveAssessments();
     }
+
+    public LiveData<List<Assessment>> getAllAssessments() { return  mAllAssessments; }
+    public void insert(Assessment assessment) { mRepository.insert(assessment); }
+    public void delete(Assessment assessment) { mRepository.delete(assessment); }
 }

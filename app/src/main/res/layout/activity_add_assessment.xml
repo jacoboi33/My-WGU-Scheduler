@@ -35,6 +35,7 @@
         <!--        CREATE A SELECTION FOR ASSESSMENT TYPE -->
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/type_text_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
@@ -55,20 +56,22 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField"
+            android:id="@+id/date_picker_text_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/select_due_date"
             android:inputType="none"
             android:clickable="true"
-            app:disabled="true"
+            android:cursorVisible="false"
+            android:focusable="false"
+            app:endIconMode="custom"
+            android:paddingTop="16dp"
             app:endIconDrawable="@drawable/select_date"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:disabled="true"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +83,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button_cancel_instructor"
+                android:id="@+id/button_cancel_assessment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -91,7 +94,7 @@
                 style="?android:attr/buttonBarButtonStyle" />
 
             <Button
-                android:id="@+id/button_save_instructor"
+                android:id="@+id/button_save_assessment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
