@@ -22,6 +22,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -31,10 +32,14 @@ import java.util.TimeZone;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.R;
 import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
+import scheduler.wgu.mywguscheduler.ViewModel.CourseViewModel;
 
 public class AssessmentActivity extends AppCompatActivity implements AssessmentAdapter.HandleAssessmentClick{
 
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    private int numAssessments;
     private AssessmentViewModel mAssessmentViewModel;
+    private CourseViewModel mCourseViewModel;
     private Assessment mEditAssessment;
 
     @Override
@@ -49,11 +54,17 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         assessmentRecylcerView.setLayoutManager(new LinearLayoutManager(this));
 
         mAssessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
-        mAssessmentViewModel.getAllAssessments().observe(this, adapter::setWords);
+//        mAssessmentViewModel.getAllAssessments().observe(this, adapter::setWords);
         mAssessmentViewModel.getAllAssessments().observe(this, new Observer<List<Assessment>>() {
             @Override
             public void onChanged(List<Assessment> assessments) {
-                adapter.setWords(assessments);
+                List<Assessment> filteredWords = new ArrayList<>();
+                for (Assessment a: assessments)
+                    if (a.getCourseId() == getIntent().getIntExtra("courseId", 0))
+                        filteredWords.add(a);
+
+                adapter.setWords(filteredWords);
+                numAssessments = filteredWords.size();
             }
         });
 
@@ -155,7 +166,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
                     return;
                 }
 
-                Assessment assessment = new Assessment(id, title, type, date);
+                Assessment assessment = new Assessment(id, title, type, date, courseId);
                 mAssessmentViewModel.insert(assessment);
                 Toast.makeText(AssessmentActivity.this, String.format("Assessment %s updated successfully ", title), Toast.LENGTH_SHORT).show();
                 dialogBuilder.dismiss();

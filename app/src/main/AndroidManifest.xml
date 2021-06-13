@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyWGUScheduler">
-        <activity android:name=".UI.CourseDetailActivity"
+        <activity android:name=".UI.AssessmentDetailActivity"></activity>
+        <activity
+            android:name=".UI.CourseDetailActivity"
             android:label="Course Details"
-            android:parentActivityName=".UI.CoursesActivity"/>
+            android:parentActivityName=".UI.CoursesActivity" />
         <activity
             android:name=".UI.TermDetailActivity"
             android:label="Term Details"

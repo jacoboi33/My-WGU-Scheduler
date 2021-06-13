@@ -20,12 +20,9 @@ public interface AssessmentDAO {
     @Delete
     void delete(Assessment assessment);
 
-    @Query("DELETE FROM Assessment")
-    void deleteAllAssessments();
-
-    @Query("Select * FROM Assessment")
-    List<Assessment> getAllAssessments();
-
     @Query("SELECT * FROM assessment ORDER BY id ASC")
     LiveData<List<Assessment>> getAllLiveAssessments();
+
+    @Query("SELECT * FROM assessment where courseId = :courseId ORDER BY id ASC")
+    LiveData<List<Assessment>> getLiveAllAssociatedCourses(int courseId);
 }

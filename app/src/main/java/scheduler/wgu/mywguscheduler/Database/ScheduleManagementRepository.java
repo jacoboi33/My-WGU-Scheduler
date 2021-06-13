@@ -25,7 +25,8 @@ public class ScheduleManagementRepository {
 
     private LiveData<List<Instructor>> mInstructorsList;
     private LiveData<List<Assessment>> mAssessmentsList;
-
+    private LiveData<List<Assessment>> mAssociatedCourses;
+    private int courseId;
 
     private List<Term> mTermsList;
     private List<Course> mCoursesList;
@@ -40,6 +41,7 @@ public class ScheduleManagementRepository {
         // Get all instructors
         mInstructorsList = mInstructorDao.getAllLiveInstructors();
         mAssessmentsList = mAssessmentDao.getAllLiveAssessments();
+        mAssociatedCourses = mAssessmentDao.getLiveAllAssociatedCourses(courseId);
 
         try {
             Thread.sleep(1000);
@@ -132,6 +134,8 @@ public class ScheduleManagementRepository {
     public LiveData<List<Assessment>> getAllLiveAssessments() {
         return mAssessmentsList;
     }
+    public LiveData<List<Assessment>> getAssociatedCourses(int courseId) { return mAssociatedCourses; }
+
 
     public void insert(Assessment assessment) {
         new insertAssessmentAsyncTask(mAssessmentDao).execute(assessment);
