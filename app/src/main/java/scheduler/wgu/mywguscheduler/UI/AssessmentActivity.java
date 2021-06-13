@@ -96,6 +96,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         type.setAdapter(adapter);
 
         int id = mEditAssessment.getId();
+        int courseId = mEditAssessment.getCourseId();
         TextInputLayout mTitle = dialogView.findViewById(R.id.title_text_input);
         TextInputLayout mType = dialogView.findViewById(R.id.type_text_input);
         TextInputLayout datePicker = dialogView.findViewById(R.id.date_picker_text_input);

@@ -32,7 +32,6 @@ public class AddAssessmentActivity extends AppCompatActivity {
     private AssessmentViewModel viewModel;
 
     private TextInputLayout mTitle;
-    private AutoCompleteTextView mType;
     private TextInputLayout mTypeTextInput;
     private TextInputLayout datePicker;
     private Button datePickerButton;
@@ -50,7 +49,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
 
         // Get a reference to the AutoCompleteTextView in the layout
-        mType = (AutoCompleteTextView) findViewById(R.id.assessment_type);
+        AutoCompleteTextView mType = (AutoCompleteTextView) findViewById(R.id.assessment_type);
         // Get the string array
         String[] items = {"Objective", "Performance"};
         // Create the adapter and set it to the AutoCompleteTextView
@@ -103,7 +102,8 @@ public class AddAssessmentActivity extends AppCompatActivity {
                 Assessment assessment = new Assessment(
                         title,
                         type,
-                        date
+                        date,
+                        0
                 );
                 viewModel.insert(assessment);
                 Toast.makeText(AddAssessmentActivity.this, String.format("Assessment %s added successfully ", title), Toast.LENGTH_SHORT).show();

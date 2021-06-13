@@ -51,6 +51,25 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+<!--        CREATE A COURSE SELECTION TO SELECT A COURSE TO ADD TO THE ASSESSMENT -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/course_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:id="@+id/course_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select a course"
+                android:text="Course"
+                android:inputType="none"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <!--        CREATE A DATE PICKER FOR ASSESSMENT DATE -->
 <!--        android:clickable="true"-->
 
