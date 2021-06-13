@@ -23,9 +23,6 @@ public interface InstructorDAO {
     @Query("DELETE FROM Instructor")
     void deleteAllInstructors();
 
-    @Query("SELECT * FROM Instructor")
-    List<Instructor> getAllInstructors();
-
     @Query("SELECT * FROM Instructor ORDER BY name ASC")
     LiveData<List<Instructor>> getAllLiveInstructors();
 }

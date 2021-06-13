@@ -1,5 +1,6 @@
 package scheduler.wgu.mywguscheduler.DAO;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -9,6 +10,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
 
 @Dao
@@ -16,15 +18,12 @@ public interface CourseDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Course course);
 
-    @Update
-    void update(Course course);
-
     @Delete
     void delete(Course course);
 
-    @Query("DELETE FROM Course")
-    void deleteAllCourses();
+    @Query("SELECT * FROM course ORDER BY id ASC")
+    LiveData<List<Course>> getAllCourses();
 
-    @Query("SELECT * FROM Course")
-    List<Course> getAllCourses();
+    @Query("SELECT * FROM course where termId = :termId ORDER BY id ASC")
+    LiveData<List<Course>> getAllAssociatedTerms(int termId);
 }

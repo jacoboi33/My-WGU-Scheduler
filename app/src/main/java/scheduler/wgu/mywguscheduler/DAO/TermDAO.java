@@ -16,18 +16,11 @@ public interface TermDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Term term);
 
-    @Update
-    void update(Term term);
-
     @Delete
     void delete(Term term);
-
-    @Query("DELETE FROM Term")
-    void deleteAllTerms();
 
     @Query("SELECT * FROM Term")
     List<Term> getAllTerms();
 
-    @Query("SELECT * FROM Term WHERE id = :id")
-    public Term getTerm(long id);
+
 }

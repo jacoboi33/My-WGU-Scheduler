@@ -24,12 +24,16 @@ public class ScheduleManagementRepository {
 
 
     private LiveData<List<Instructor>> mInstructorsList;
+
     private LiveData<List<Assessment>> mAssessmentsList;
     private LiveData<List<Assessment>> mAssociatedCourses;
+
     private int courseId;
 
-    private List<Term> mTermsList;
-    private List<Course> mCoursesList;
+    private LiveData<List<Term>> mTermsList;
+
+    private LiveData<List<Course>> mCoursesList;
+    private LiveData<List<Course>> mAssociatedTerms;
 
     public ScheduleManagementRepository(Application application) {
         ScheduleManagementDatabase db = ScheduleManagementDatabase.getDatabase(application);
@@ -40,6 +44,7 @@ public class ScheduleManagementRepository {
         mAssessmentDao = db.assessmentDAO();
         // Get all instructors
         mInstructorsList = mInstructorDao.getAllLiveInstructors();
+
         mAssessmentsList = mAssessmentDao.getAllLiveAssessments();
         mAssociatedCourses = mAssessmentDao.getLiveAllAssociatedCourses(courseId);
 
@@ -76,6 +81,9 @@ public class ScheduleManagementRepository {
         }
     }
 
+    /**
+     * Assessments
+     * */
     private static class insertAssessmentAsyncTask extends AsyncTask<Assessment, Void, Void> {
         private AssessmentDAO mAsyncTaskDao;
 
@@ -85,6 +93,42 @@ public class ScheduleManagementRepository {
 
         @Override
         protected Void doInBackground(final Assessment... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    /**
+     * Courses
+     * */
+    private static class insertCourseAsyncTask extends AsyncTask<Course, Void, Void> {
+        private CourseDAO mAsyncTaskDao;
+
+        insertCourseAsyncTask(CourseDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Course... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    /**
+     * Term
+     * */
+    public LiveData<List<Term>> getAllLiveTerms() { return mTermsList; }
+
+    private static class insertTermAsyncTask extends AsyncTask<Term, Void, Void> {
+        private TermDAO mAsyncTaskDao;
+
+        insertTermAsyncTask(TermDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Term... params) {
             mAsyncTaskDao.insert(params[0]);
             return null;
         }
@@ -101,30 +145,37 @@ public class ScheduleManagementRepository {
 //        }
 //        return mInstructorsList;
 //    }
+    /**
+     * Terms
+     * */
+//    public List<Term> getAllTerms() {
+//        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
+//            mTermsList = mTermDao.getAllTerms();
+//        });
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return mTermsList;
+//    }
 
-    public List<Term> getAllTerms() {
-        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
-            mTermsList = mTermDao.getAllTerms();
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return mTermsList;
-    }
-
-    public List<Course> getAllCourses() {
-        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
-            mCoursesList = mCourseDao.getAllCourses();
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return mCoursesList;
-    }
+    /**
+     * Courses
+     * */
+    public LiveData<List<Course>> getAllLiveCourses() { return mCoursesList; }
+    public LiveData<List<Course>> getAssociatedTerms(int termId) { return mAssociatedTerms; }
+//    public List<Course> getAllCourses() {
+//        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
+//            mCoursesList = mCourseDao.getAllCourses();
+//        });
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return mCoursesList;
+//    }
 
     /**
      * Assessments
@@ -165,25 +216,11 @@ public class ScheduleManagementRepository {
 //    }
 
     public void insert (Term term) {
-        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
-            mTermDao.insert(term);
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        new insertTermAsyncTask(mTermDao).execute(term);
     }
 
     public void insert (Course course) {
-        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
-            mCourseDao.insert(course);
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        new insertCourseAsyncTask(mCourseDao).execute(course);
     }
 
 //    public void insert (Assessment assessment) {

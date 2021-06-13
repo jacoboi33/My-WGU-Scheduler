@@ -39,6 +39,9 @@ public class Course {
         this.status = status;
     }
 
+    @Ignore
+    public Course() {}
+
     public int getId() {
         return id;
     }

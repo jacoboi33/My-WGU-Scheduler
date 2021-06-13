@@ -1,6 +1,7 @@
 package scheduler.wgu.mywguscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.os.Bundle;
 import android.view.View;
@@ -90,7 +91,7 @@ public class TermDetailActivity extends AppCompatActivity {
         if (id != -1)
             term = new Term(id, editTermTitle.getText().toString(), editStartDate, editEndDate);
         else {
-            List<Term> allTerms = repository.getAllTerms();
+            LiveData<List<Term>> allTerms = repository.getAllLiveTerms();
             id = allTerms.get(allTerms.size() - 1).getId();
             term = new Term(++id, editTermTitle.getText().toString(), editStartDate, editEndDate);
         }
