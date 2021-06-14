@@ -53,19 +53,31 @@ public class TermsActivity extends AppCompatActivity implements TermAdapter.Hand
         termRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mTermViewModel = new ViewModelProvider(this).get(TermViewModel.class);
-//        mTermViewModel.getAllTerms().observe(this, adapter::setWords);
-        try {
-            mTermViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
-                @Override
-                public void onChanged(@Nullable List<Term> terms) {
-//                if (terms == null || terms.isEmpty())
-//                    adapter.setWords(terms.add(0, Term("No terms"));
+
+        mTermViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
+            @Override
+            public void onChanged(@Nullable List<Term> terms) {
+                if (terms != null) {
+//                    List<Term> filteredTerms = new ArrayList<>(terms);
                     adapter.setWords(terms);
                 }
-            });
-        } catch (Exception e) {
-            Toast.makeText(TermsActivity.this, "No Terms Available", Toast.LENGTH_SHORT).show();
-        }
+            }
+        });
+
+//        mTermViewModel.getAllTerms().observe(this, adapter::setWords);
+
+//        try {
+//            mTermViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
+//                @Override
+//                public void onChanged(@Nullable List<Term> terms) {
+////                if (terms == null || terms.isEmpty())
+////                    adapter.setWords(terms.add(0, Term("No terms"));
+//                    adapter.setWords(terms);
+//                }
+//            });
+//        } catch (Exception e) {
+//            Toast.makeText(TermsActivity.this, "No Terms Available", Toast.LENGTH_SHORT).show();
+//        }
 
 
         findViewById(R.id.add_term_button).setOnClickListener(v -> {

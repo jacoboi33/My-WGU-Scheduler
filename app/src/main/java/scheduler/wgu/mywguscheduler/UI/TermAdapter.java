@@ -112,7 +112,10 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
     @Override
     public int getItemCount() {
-        return mTerms.size();
+        if (mTerms != null)
+            return mTerms.size();
+        else
+            return 0;
     }
 
     public void setTerms(List<Term> allTerms) {
