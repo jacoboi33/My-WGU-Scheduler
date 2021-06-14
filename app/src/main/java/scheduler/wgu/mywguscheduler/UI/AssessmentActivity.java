@@ -111,20 +111,9 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
                 picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
                     @Override
                     public void onPositiveButtonClick(Long selection) {
-
-                        TimeZone timeZoneUTC = TimeZone.getDefault();
-                        // It will be negative, so that's the -1
-                        int offsetFromUTC = timeZoneUTC.getOffset(new Date().getTime()) * -1;
-
-                        // Create a date format, then a date object with our offset
-                        SimpleDateFormat simpleFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-                        Date date = new Date(selection + offsetFromUTC);
-
-                        datePicker.getEditText().setText(simpleFormat.format(date));
-
-//                        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-//                        calendar.setTimeInMillis(selection);
-                        Toast.makeText(AssessmentActivity.this, String.format("Due Date %s",  simpleFormat.format(date)), Toast.LENGTH_SHORT).show();
+                        String d = Utils.dateFormatConverter(selection);
+                        datePicker.getEditText().setText(d);
+                        Toast.makeText(AssessmentActivity.this, String.format("Due Date %s", d), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

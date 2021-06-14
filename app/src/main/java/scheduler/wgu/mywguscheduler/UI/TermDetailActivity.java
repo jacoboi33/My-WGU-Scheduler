@@ -21,11 +21,6 @@ import scheduler.wgu.mywguscheduler.R;
 
 public class TermDetailActivity extends AppCompatActivity {
 
-    EditText editTextStartDate;
-    EditText editTextEndDate;
-    private ImageButton mDatePickerButton;
-    private ScheduleManagementRepository repository;
-
     int id;
     String termTitle;
     String startDate;
@@ -42,60 +37,7 @@ public class TermDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_detail);
-//        View view = LayoutInflater.from(this).inflate(R.id.datePickerButton);
-//        Button datePicker = (Button) findViewById(R.id.datePickerButton);
 
-        mDatePickerButton = findViewById(R.id.startDateImageButton);
-        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-        builder.setTitleText("Select a date");
-        MaterialDatePicker materialDatePicker = builder.build();
-
-        mDatePickerButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
-            }
-        });
-
-        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
-            @Override
-            public void onPositiveButtonClick(Object selection) {
-                mStartDate.setText("Selected Date: " + materialDatePicker.getHeaderText());
-            }
-        });
-
-//        editTextStartDate = (EditText)findViewById(R.id.startDate);
-
-
-//        editTextEndDate = (EditText)findViewById(R.id.endDate);
-
-        setContentView(R.layout.activity_term_detail);
-        id = getIntent().getIntExtra("id", -1);
-        termTitle = getIntent().getStringExtra("termTitle");
-        startDate = getIntent().getStringExtra("startDate");
-        endDate = getIntent().getStringExtra("endDate");
-
-        editTermTitle = findViewById(R.id.termTitle);
-//        editStartDate = dateConverter(findViewById(R.id.startDate));
-//        editEndDate = dateConverter(findViewById(R.id.endDate));
-
-        if(id != -1) {
-            editTermTitle.setText(termTitle);
-        }
-        repository = new ScheduleManagementRepository(getApplication());
-    }
-
-    public void addTerm(View view) {
-        Term term;
-        if (id != -1)
-            term = new Term(id, editTermTitle.getText().toString(), editStartDate, editEndDate);
-        else {
-            LiveData<List<Term>> allTerms = repository.getAllLiveTerms();
-            id = allTerms.get(allTerms.size() - 1).getId();
-            term = new Term(++id, editTermTitle.getText().toString(), editStartDate, editEndDate);
-        }
-        repository.insert(term);
     }
 
 
