@@ -47,6 +47,7 @@ public class ScheduleManagementRepository {
 
         mAssessmentsList = mAssessmentDao.getAllLiveAssessments();
         mAssociatedCourses = mAssessmentDao.getLiveAllAssociatedCourses(courseId);
+        mTermsList = mTermDao.getAllTerms();
 
         try {
             Thread.sleep(1000);

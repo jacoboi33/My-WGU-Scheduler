@@ -45,7 +45,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/label"
-                android:text="@string/objective"
                 android:inputType="none"
                 />
 
@@ -109,6 +108,16 @@
                 app:iconGravity="textTop" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/select_course"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Add Course"
+            android:gravity="end"
+            app:iconGravity="textTop" />
 
 
 

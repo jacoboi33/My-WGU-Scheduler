@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="@dimen/cardview_compat_inset_shadow"
-    android:id="@+id/assessment_card_detail_dialog"
+    android:id="@+id/course_card_detail_dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
@@ -23,42 +22,80 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="16dp">
 
             <!-- Title, secondary and supporting text -->
             <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Assessment Title"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                />
-            <TextView
                 android:id="@+id/course_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_margin="4dp"
                 android:text="Course Title"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                />
+
+            <!--            TODO ONLY SHOW WHAT IS NEEDED IN COURSES AND THEN SHOW A DETAIL VIEW OF THE COURSE BY CLICKING ON A COURSE IN THE RECYCLER VIEW TO GET DETAILS -->
+            <TextView
+                android:id="@+id/course_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Course Notes"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                />
+
+            <TextView
+                android:id="@+id/course_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Course Status"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                />
+
+<!--            <TextView-->
+<!--                android:id="@+id/course_instructor"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="4dp"-->
+<!--                android:text="Course Status"-->
+<!--                android:textAppearance="?attr/textAppearanceHeadline6"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--            android:id="@+id/course_assessments"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="4dp"-->
+<!--            android:text="Course Status"-->
+<!--            android:textAppearance="?attr/textAppearanceHeadline6"-->
+<!--            />-->
+
+            <!--     TODO SHOW ALL THE ASSESSMENTS WITH COURSE ID OF ITEM DROP DOWN MENU OF ALL COURSES IN VIEW       -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+            <TextView
+                android:id="@+id/start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Start Date"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary"
                 />
+
             <TextView
-                android:id="@+id/type"
+                android:id="@+id/end_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Assessment Type"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary"
-                />
-            <TextView
-                android:id="@+id/due_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Due Date"
+                android:layout_margin="4dp"
+                android:text="End Date"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary"
                 />
@@ -68,12 +105,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_margin="8dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/delete_assessment"
+                android:id="@+id/delete_course"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -81,7 +117,7 @@
                 style="?attr/borderlessButtonStyle"
                 />
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/edit_assessment"
+                android:id="@+id/edit_course"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_edit"

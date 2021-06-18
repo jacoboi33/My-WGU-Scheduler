@@ -34,25 +34,6 @@ public class InstructorActivity extends AppCompatActivity implements InstructorA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-
-//        repository = new ScheduleManagementRepository(getApplication());
-//        repository.getAllLiveInstructors();  // this is really just to set up the database if there isn't one on your device yet-otherwise synch errors later
-//        LiveData<List<Instructor>> liveInstructors = repository.getAllLiveInstructors();
-//        liveInstructors.observe(this, new Observer<List<Instructor>>() {
-//            @Override
-//            public void onChanged(List<Instructor> instructors) {
-//                for (Instructor instructor: instructors) {
-//
-//                }
-//            }
-//        });
 
         RecyclerView recyclerView = findViewById(R.id.instructorRecyclerView);
         final InstructorAdapter adapter = new InstructorAdapter(this, this);

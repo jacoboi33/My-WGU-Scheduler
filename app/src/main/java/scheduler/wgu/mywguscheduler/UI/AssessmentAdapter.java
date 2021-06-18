@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.zip.Inflater;
 
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.R;
@@ -30,7 +31,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         this.context = context;
     }
 
-    class AssessmentViewHolder extends RecyclerView.ViewHolder {
+    class AssessmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final TextView title;
         private final TextView type;
         private final TextView dueDate;
@@ -39,7 +40,10 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         private final Button deleteAssessmentButton;
         private final Button editAssessmentButton;
 
-        public AssessmentViewHolder(@NonNull View itemView) {
+        HandleAssessmentClick clickListener;
+
+
+        public AssessmentViewHolder(@NonNull View itemView, HandleAssessmentClick clickListener) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             type = itemView.findViewById(R.id.type);
@@ -49,20 +53,27 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             deleteAssessmentButton = itemView.findViewById(R.id.delete_assessment);
             editAssessmentButton = itemView.findViewById(R.id.edit_assessment);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAbsoluteAdapterPosition();
-                    final Assessment current = mAssessments.get(position);
-                    Intent intent = new Intent(context, AssessmentDetailActivity.class);
-                    intent.putExtra("title", current.getTitle());
-                    intent.putExtra("type", current.getType());
-                    intent.putExtra("position", position);
-                    intent.putExtra("id", current.getId());
-                    intent.putExtra("courseId", current.getCourseId());
-                    context.startActivity(intent);
-                }
+            this.clickListener = clickListener;
+
+//            itemView.setOnClickListener(this);
+
+            itemView.setOnClickListener((v) -> {
+                int position = getAbsoluteAdapterPosition();
+                final Assessment current = mAssessments.get(position);
+                Intent intent = new Intent(context, AssessmentDetailActivity.class);
+                intent.putExtra("title", current.getTitle());
+                intent.putExtra("type", current.getType());
+                intent.putExtra("position",position);
+                intent.putExtra("courseTitle", current.getCourseId());
+                intent.putExtra("id",current.getId());
+                intent.putExtra("assessmentDate", current.getEndDate());
+                context.startActivity(intent);
             });
+        }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.onAssessmentClick(getAbsoluteAdapterPosition());
         }
     }
 
@@ -70,7 +81,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     @Override
     public AssessmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.assessment_list_item, parent, false);
-        return new AssessmentViewHolder(itemView);
+        return new AssessmentViewHolder(itemView, clickListener);
     }
 
     @Override
@@ -117,6 +128,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     }
 
     public interface HandleAssessmentClick {
+        void onAssessmentClick(int position);
         void removeAssessments(Assessment assessment);
         void editAssessments(Assessment assessment);
     }

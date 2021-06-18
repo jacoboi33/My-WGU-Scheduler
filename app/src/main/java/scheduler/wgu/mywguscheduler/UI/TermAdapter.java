@@ -33,7 +33,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     class TermViewHolder extends RecyclerView.ViewHolder{
 
         private final TextView title;
-        private final TextView notifications;
+//        private final TextView notifications;
         private final TextView startDate;
         private final TextView endDate;
 
@@ -42,27 +42,27 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
         private TermViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.title_text_input);
-            notifications = itemView.findViewById(R.id.notifications_enabled);
+            title = itemView.findViewById(R.id.term_title);
+//            notifications = itemView.findViewById(R.id.notifications_enabled);
             startDate = itemView.findViewById(R.id.start_date);
             endDate = itemView.findViewById(R.id.end_date);
 
             deleteTerm = itemView.findViewById(R.id.delete_term);
             editTerm = itemView.findViewById(R.id.edit_term);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAbsoluteAdapterPosition();
-                    final Term current = mTerms.get(position);
-                    Intent intent = new Intent(context, TermDetailActivity.class);
-                    intent.putExtra("title", current.getTermTitle());
-                    intent.putExtra("notification", notifications.toString());
-                    intent.putExtra("start date", current.getStartDate());
-                    intent.putExtra("end date", current.getEndDate());
-                    context.startActivity(intent);
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int position = getAbsoluteAdapterPosition();
+//                    final Term current = mTerms.get(position);
+//                    Intent intent = new Intent(context, TermDetailActivity.class);
+//                    intent.putExtra("title", current.getTermTitle());
+////                    intent.putExtra("notification", notifications.toString());
+//                    intent.putExtra("start date", current.getStartDate());
+//                    intent.putExtra("end date", current.getEndDate());
+//                    context.startActivity(intent);
+//                }
+//            });
 
         }
     }
@@ -116,11 +116,6 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
             return mTerms.size();
         else
             return 0;
-    }
-
-    public void setTerms(List<Term> allTerms) {
-        mTerms = allTerms;
-        notifyDataSetChanged();
     }
 
     public interface HandleTermClick {

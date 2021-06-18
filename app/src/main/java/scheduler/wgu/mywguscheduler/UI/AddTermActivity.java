@@ -1,6 +1,7 @@
 package scheduler.wgu.mywguscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Objects;
 
 import scheduler.wgu.mywguscheduler.Entity.Term;
 import scheduler.wgu.mywguscheduler.R;
@@ -24,8 +27,9 @@ public class AddTermActivity extends AppCompatActivity {
     private TextInputLayout mStartDate;
     private TextInputLayout mEndDate;
 
-    private Button startDateButton;
-    private Button endDateButton;
+    private Button dateRangePicker;
+//    private Button startDateButton;
+//    private Button endDateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,49 +44,74 @@ public class AddTermActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(TermViewModel.class);
 
         mStartDate = findViewById(R.id.start_date_picker_text_input);
-        startDateButton = findViewById(R.id.icon_start_date_picker_button);
+//        startDateButton = findViewById(R.id.icon_start_date_picker_button);
 
         mEndDate = findViewById(R.id.end_date_picker_text_input);
-        endDateButton = findViewById(R.id.icon_end_date_picker_button);
+//        endDateButton = findViewById(R.id.icon_end_date_picker_button);
 
-        startDateButton.setOnClickListener(new View.OnClickListener() {
+        dateRangePicker = findViewById(R.id.date_range_picker);
+
+        dateRangePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
-                builder.setTitleText("Select Date");
-                MaterialDatePicker<Long> picker = builder.build();
+                MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+                builder.setTitleText("Select a date range");
+                MaterialDatePicker<Pair<Long, Long>> picker = builder.build();
 
                 picker.show(getSupportFragmentManager(), picker.toString());
-                picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+                picker.addOnPositiveButtonClickListener(( new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
                     @Override
-                    public void onPositiveButtonClick(Long selection) {
-                        String lDate = Utils.dateFormatConverter(selection);
-                        mStartDate.getEditText().setText(lDate);
-                        Toast.makeText(AddTermActivity.this, String.format("Start date %s", lDate), Toast.LENGTH_SHORT).show();
+                    public void onPositiveButtonClick(Pair<Long, Long> selection) {
+
+                        String sDate = Utils.dateFormatConverter(selection.first);
+                        String lDate = Utils.dateFormatConverter(selection.second);
+                        Objects.requireNonNull(mStartDate.getEditText()).setText(sDate);
+                        Objects.requireNonNull(mEndDate.getEditText()).setText(lDate);
+
+                        Toast.makeText(AddTermActivity.this, String.format("Start Date %s End Date %s", sDate, lDate), Toast.LENGTH_SHORT).show();
                     }
-                });
+                }));
             }
         });
 
-        endDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
-                builder.setTitleText("Select Date");
-                MaterialDatePicker<Long> picker = builder.build();
-
-                picker.show(getSupportFragmentManager(), picker.toString());
-
-                picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-                    @Override
-                    public void onPositiveButtonClick(Long selection) {
-                        String lDate = Utils.dateFormatConverter(selection);
-                        mEndDate.getEditText().setText(lDate);
-                        Toast.makeText(AddTermActivity.this, String.format("End date %s", lDate), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+//        startDateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+//                builder.setTitleText("Select Date");
+//                MaterialDatePicker<Long> picker = builder.build();
+//
+//                picker.show(getSupportFragmentManager(), picker.toString());
+//                picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+//                    @Override
+//                    public void onPositiveButtonClick(Long selection) {
+//                        String lDate = Utils.dateFormatConverter(selection);
+//                        mStartDate.getEditText().setText(lDate);
+//                        Toast.makeText(AddTermActivity.this, String.format("Start date %s", lDate), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//        });
+//
+//        endDateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+//                builder.setTitleText("Select Date");
+//                MaterialDatePicker<Long> picker = builder.build();
+//
+//                picker.show(getSupportFragmentManager(), picker.toString());
+//
+//                picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+//                    @Override
+//                    public void onPositiveButtonClick(Long selection) {
+//                        String lDate = Utils.dateFormatConverter(selection);
+//                        mEndDate.getEditText().setText(lDate);
+//                        Toast.makeText(AddTermActivity.this, String.format("End date %s", lDate), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//        });
 
         saveButton.setOnClickListener(v -> {
             try {

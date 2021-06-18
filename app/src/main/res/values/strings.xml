@@ -16,7 +16,7 @@
     <string name="error_string">Field must not be empty.</string>
     <string name="email">email</string>
     <string name="phone_number">phone number</string>
-    <string name="status">status</string>
+    <string name="status">Status</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>

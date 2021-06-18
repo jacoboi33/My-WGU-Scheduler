@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,13 +23,9 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.TimeZone;
 
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.R;
@@ -40,7 +38,16 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     private int numAssessments;
     private AssessmentViewModel mAssessmentViewModel;
     private CourseViewModel mCourseViewModel;
+    private List<Assessment> mAssessments;
     private Assessment mEditAssessment;
+//    private final LayoutInflater mInflater;
+//    private final Context context;
+
+//    public AssessmentActivity(LayoutInflater mInflater, Context context){
+//        this.mInflater = mInflater;
+//        this.context = context;
+//    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,24 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     }
 
     @Override
+    public void onAssessmentClick(int position) {
+//        mAssessments.get(position);
+        //        TODO Add the intent to the detail view in My WGU Scheduler.
+//        final Assessment current = mAssessments.get(position);
+//        Intent intent = new Intent();
+//        intent.putExtra("title", current.getTitle());
+//        intent.putExtra("type", current.getType());
+//        intent.putExtra("position",position);
+//        intent.putExtra("courseTitle", current.getCourseId());
+//        intent.putExtra("id",current.getId());
+//        intent.putExtra("assessmentDate", current.getEndDate());
+//        context.startActivity(intent);
+
+        Intent intent = new Intent(AssessmentActivity.this, AssessmentDetailActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void removeAssessments(Assessment assessment) {
         mAssessmentViewModel.delete(assessment);
     }
@@ -91,6 +116,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
 
         AutoCompleteTextView type = (AutoCompleteTextView) dialogView.findViewById(R.id.assessment_type);
         String[] items = {"Objective", "Performance"};
+        type.setText(items[0]);
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, items);
         type.setAdapter(adapter);

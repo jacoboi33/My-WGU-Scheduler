@@ -1,5 +1,6 @@
 package scheduler.wgu.mywguscheduler.DAO;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -19,8 +20,6 @@ public interface TermDAO {
     @Delete
     void delete(Term term);
 
-    @Query("SELECT * FROM Term")
-    List<Term> getAllTerms();
-
-
+    @Query("SELECT * FROM Term ORDER BY id ASC")
+    LiveData<List<Term>> getAllTerms();
 }

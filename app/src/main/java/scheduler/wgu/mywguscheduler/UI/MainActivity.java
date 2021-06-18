@@ -17,12 +17,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ViewTerms(View view) {
-        Intent intent = new Intent(MainActivity.this, TermsActivity.class);
+        Intent intent = new Intent(MainActivity.this, TermActivity.class);
         startActivity(intent);
     }
 
     public void ViewCourses(View view) {
-        Intent intent = new Intent(MainActivity.this, CoursesActivity.class);
+        Intent intent = new Intent(MainActivity.this, CourseActivity.class);
         startActivity(intent);
     }
 
