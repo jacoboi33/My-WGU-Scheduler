@@ -19,4 +19,5 @@ public class AddCourseActivity extends AppCompatActivity {
 
     public void addCourse(View view) {
     }
+
 }

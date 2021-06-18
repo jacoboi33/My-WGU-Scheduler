@@ -58,8 +58,13 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.H
         View dialogView = getLayoutInflater().inflate(R.layout.activity_add_course, null);
 
         int id = mEditCourse.getId();
+        int termId = mEditCourse.getTermId();
+        int instructorId = mEditCourse.getInstructorId();
+
         TextInputLayout mTitle = dialogView.findViewById(R.id.title_text_input);
         TextInputLayout mNotes = dialogView.findViewById(R.id.notes_text_input);
+        TextInputLayout startDate = dialogView.findViewById(R.id.start_date);
+        TextInputLayout endDate = dialogView.findViewById(R.id.end_date);
 
     }
 }

@@ -26,4 +26,7 @@ public interface CourseDAO {
 
     @Query("SELECT * FROM course where termId = :termId ORDER BY id ASC")
     LiveData<List<Course>> getAllAssociatedTerms(int termId);
+
+    @Query("SELECT * FROM course where instructorId = :instructorId ORDER BY id ASC")
+    LiveData<List<Course>> getAllAssociatedInstructors(int instructorId);
 }

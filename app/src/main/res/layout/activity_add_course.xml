@@ -48,7 +48,7 @@
         <!--        SELECT A STATUS  -->
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/course_text_input"
+            android:id="@+id/course_status_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
@@ -57,7 +57,7 @@
                 android:id="@+id/course_status_selection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/label"
+                android:hint="Select a status"
                 android:text="@string/status"
                 android:inputType="none"
                 />
@@ -73,7 +73,7 @@
             android:gravity="end">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/select_instructor"
+                android:id="@+id/select_instructor_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,24 +82,26 @@
                 android:paddingEnd="5dp"
                 android:textAlignment="center">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="165dp"
+                <AutoCompleteTextView
+                    android:id="@+id/course_instructor_selection"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:gravity="top"
-                    android:text="Select Instructor" />
+                    android:hint="Select a instructor"
+                    android:text="Instructor name"
+                    android:inputType="none"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/select_instructor_button"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:gravity="end"
-                app:icon="@drawable/person"
-                app:iconGravity="textTop" />
+<!--            <Button-->
+<!--                android:id="@+id/select_instructor_button"-->
+<!--                style="?attr/materialButtonOutlinedStyle"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="14dp"-->
+<!--                android:gravity="end"-->
+<!--                app:icon="@drawable/person"-->
+<!--                app:iconGravity="textTop" />-->
 
         </LinearLayout>
 
@@ -113,7 +115,7 @@
             android:gravity="end">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/select_term"
+                android:id="@+id/select_term_input"
                 android:paddingEnd="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,23 +123,26 @@
                 android:enabled="false"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
+                    android:id="@+id/course_term_selection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Select Term"
+                    android:hint="Select a instructor"
+                    android:text="Instructor name"
+                    android:inputType="none"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/select_term_button"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                app:icon="@drawable/term"
-                android:gravity="end"
-                app:iconGravity="textTop" />
+<!--            <Button-->
+<!--                android:id="@+id/select_term_button"-->
+<!--                style="?attr/materialButtonOutlinedStyle"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="14dp"-->
+<!--                app:icon="@drawable/term"-->
+<!--                android:gravity="end"-->
+<!--                app:iconGravity="textTop" />-->
 
         </LinearLayout>
 

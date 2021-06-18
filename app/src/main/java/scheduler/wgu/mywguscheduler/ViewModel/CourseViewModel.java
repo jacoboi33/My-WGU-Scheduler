@@ -33,6 +33,7 @@ public class CourseViewModel extends AndroidViewModel {
         mAssociatedTerms = mRepository.getAssociatedTerms(termId);
     }
 
+    public LiveData<List<Course>> getAssociatedInstructors(int instructorId) { return mRepository.getmAssociatedInstructors(instructorId); }
     public LiveData<List<Course>> getmAssociatedTerms(int termId) { return mRepository.getAssociatedTerms(termId); }
     public LiveData<List<Course>> getAllCourses() { return mAllCourses; }
     public void insert(Course course) { mRepository.insert(course); }

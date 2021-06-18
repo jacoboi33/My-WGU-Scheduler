@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -54,6 +55,9 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment);
         getSupportActionBar().setTitle("Assessments");
+//        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+//        getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+
 
         RecyclerView assessmentRecylcerView = findViewById(R.id.assessmentRecyclerView);
         final AssessmentAdapter adapter = new AssessmentAdapter(this, this);
