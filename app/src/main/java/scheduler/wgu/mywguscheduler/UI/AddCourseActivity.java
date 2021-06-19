@@ -76,18 +76,25 @@ public class AddCourseActivity extends AppCompatActivity {
 
             instructorViewModel.getAllLiveInstructors().observe(this, new Observer<List<Instructor>>() {
                 @Override
-                public void onChanged(List<Instructor> instructors) {
+                public void onChanged(List<Instructor> instructorList) {
+                    ArrayAdapter<Instructor> instructorArrayAdapter = new ArrayAdapter<>(AddCourseActivity.this, R.layout.list_item, instructorList);
+                    instructors.setText(instructorList.get(0).getName());
+                    instructors.setAdapter(instructorArrayAdapter);
 
-                    for (Instructor i : instructors) {
-                        itemInstructors.add(i.getName());
-                    }
-                    adapter.setWords(instructors);
+//                    for (int i = 0; i < instructorList.size(); i++) {
+//                        instructors.setAdapter(<T>instructorList.get(i).getName(););
+//                    }
+//
+//                    for (Instructor i : instructorList) {
+//                        instructors.setAdapter(instructorArrayAdapter.getItem(i.getId()).getName());
+//                    }
+//                    adapter.setWords(instructorList);
                 }
             });
 
-            ArrayAdapter<String> iAdapter = new ArrayAdapter<>(this, R.layout.list_item, itemInstructors);
-            instructors.setText(itemInstructors.get(0));
-            instructors.setAdapter(iAdapter);
+//            ArrayAdapter<String> iAdapter = new ArrayAdapter<>(this, R.layout.list_item, itemInstructors);
+//            instructors.setText(itemInstructors.get(0));
+//            instructors.setAdapter(iAdapter);
 
         } catch (Exception e) {
             Toast.makeText(AddCourseActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
