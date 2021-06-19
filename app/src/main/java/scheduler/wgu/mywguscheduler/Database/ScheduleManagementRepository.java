@@ -23,9 +23,11 @@ public class ScheduleManagementRepository {
     private final AssessmentDAO mAssessmentDao;
 
 
-    private LiveData<List<Instructor>> mInstructorsList;
+    private LiveData<List<Instructor>> mInstructorsListLiveData;
     private LiveData<List<Assessment>> mAssessmentsList;
     private LiveData<List<Assessment>> mAssociatedCourses;
+
+    private List<Instructor> mInstructorList;
 
     private int courseId;
     private int instructorId;
@@ -45,7 +47,8 @@ public class ScheduleManagementRepository {
         mCourseDao = db.courseDAO();
         mAssessmentDao = db.assessmentDAO();
         // Get all instructors
-        mInstructorsList = mInstructorDao.getAllLiveInstructors();
+        mInstructorsListLiveData = mInstructorDao.getAllLiveInstructors();
+//        mInstructorList = mInstructorDao.getAllInstructors();
         //        Get all Assessments
         mAssessmentsList = mAssessmentDao.getAllLiveAssessments();
         mAssociatedCourses = mAssessmentDao.getLiveAllAssociatedCourses(courseId);
@@ -69,7 +72,18 @@ public class ScheduleManagementRepository {
      *
      * */
     public LiveData<List<Instructor>> getAllLiveInstructors() {
-        return mInstructorsList;
+        return mInstructorsListLiveData;
+    }
+    public List<Instructor> getAllInstructors() {
+        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
+            mInstructorList = mInstructorDao.getAllInstructors();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mInstructorList;
     }
 
     public void insert(Instructor instructor) {

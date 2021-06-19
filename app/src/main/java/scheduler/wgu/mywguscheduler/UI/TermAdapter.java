@@ -30,6 +30,11 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
         this.context = context;
     }
 
+    public TermAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+        this.context = context;
+    }
+
     class TermViewHolder extends RecyclerView.ViewHolder{
 
         private final TextView title;

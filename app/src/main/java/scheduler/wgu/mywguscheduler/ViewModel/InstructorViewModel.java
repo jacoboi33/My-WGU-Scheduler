@@ -13,15 +13,19 @@ import scheduler.wgu.mywguscheduler.Entity.Instructor;
 public class InstructorViewModel extends AndroidViewModel {
 
     private ScheduleManagementRepository mRepository;
-    private LiveData<List<Instructor>> mAllInstructors;
+    private LiveData<List<Instructor>> mAllLLiveInstructors;
+    private List<Instructor> mAllInstructors;
 
     public InstructorViewModel(Application application) {
         super(application);
         mRepository = new ScheduleManagementRepository(application);
-        mAllInstructors = mRepository.getAllLiveInstructors();
+        mAllLLiveInstructors = mRepository.getAllLiveInstructors();
+        mAllInstructors = mRepository.getAllInstructors();
     }
 
-    public LiveData<List<Instructor>> getAllInstructors() { return mAllInstructors; }
+    public LiveData<List<Instructor>> getAllLiveInstructors() { return mAllLLiveInstructors; }
+    public List<Instructor> getAllInstructors() { return mAllInstructors; }
+
     public void insert (Instructor instructor) {
         mRepository.insert(instructor);
     }

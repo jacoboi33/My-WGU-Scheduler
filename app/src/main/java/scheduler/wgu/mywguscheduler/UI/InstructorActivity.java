@@ -43,9 +43,9 @@ public class InstructorActivity extends AppCompatActivity implements InstructorA
 
         mInstructorViewModel = new ViewModelProvider(this).get(InstructorViewModel.class);
 
-        mInstructorViewModel.getAllInstructors().observe(this, adapter::setWords);
+        mInstructorViewModel.getAllLiveInstructors().observe(this, adapter::setWords);
 
-        mInstructorViewModel.getAllInstructors().observe(this, new Observer<List<Instructor>>() {
+        mInstructorViewModel.getAllLiveInstructors().observe(this, new Observer<List<Instructor>>() {
             @Override
             public void onChanged(List<Instructor> instructors) {
                 adapter.setWords(instructors);

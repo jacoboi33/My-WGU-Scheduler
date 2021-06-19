@@ -22,13 +22,18 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
     private final LayoutInflater mInflater;
     private List<Instructor> mInstructors;
     private HandleInstructorClick clickListener;
-//    private final Context context;
+    private final Context context;
 
 
     public InstructorAdapter(Context context, HandleInstructorClick clickListener) {
         mInflater = LayoutInflater.from(context);
         this.clickListener = clickListener;
-//        this.context = context;
+        this.context = context;
+    }
+
+    public InstructorAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     class InstructorViewHolder extends RecyclerView.ViewHolder {
@@ -122,6 +127,11 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
     public void setWords(List<Instructor> instructors) {
         mInstructors = instructors;
         notifyDataSetChanged();
+    }
+
+    public List<Instructor> getWords() {
+        notifyDataSetChanged();
+        return mInstructors;
     }
 
     public interface HandleInstructorClick {

@@ -65,86 +65,44 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--       SELECT INSTRUCTOR -->
-        <LinearLayout
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/select_instructor_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:textAlignment="textEnd"
-            android:gravity="end">
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/select_instructor_input"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="wrap_content"
+            <AutoCompleteTextView
+                android:id="@+id/course_instructor_selection"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
+                android:hint="Select Instructor"
+                android:text="instructor name"
                 android:inputType="none"
-                android:paddingEnd="5dp"
-                android:textAlignment="center">
+                />
 
-                <AutoCompleteTextView
-                    android:id="@+id/course_instructor_selection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Select a instructor"
-                    android:text="Instructor name"
-                    android:inputType="none"
-                    />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-<!--            <Button-->
-<!--                android:id="@+id/select_instructor_button"-->
-<!--                style="?attr/materialButtonOutlinedStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="14dp"-->
-<!--                android:gravity="end"-->
-<!--                app:icon="@drawable/person"-->
-<!--                app:iconGravity="textTop" />-->
-
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!--       SELECT TERM  -->
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/select_term_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:textAlignment="textEnd"
-            android:gravity="end">
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/select_term_input"
-                android:paddingEnd="5dp"
-                android:layout_width="wrap_content"
+            <AutoCompleteTextView
+                android:id="@+id/course_term_selection"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Select Term"
+                android:text="Term Title"
                 android:inputType="none"
-                android:enabled="false"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                />
 
-                <AutoCompleteTextView
-                    android:id="@+id/course_term_selection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Select a instructor"
-                    android:text="Instructor name"
-                    android:inputType="none"
-                    />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-<!--            <Button-->
-<!--                android:id="@+id/select_term_button"-->
-<!--                style="?attr/materialButtonOutlinedStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="14dp"-->
-<!--                app:icon="@drawable/term"-->
-<!--                android:gravity="end"-->
-<!--                app:iconGravity="textTop" />-->
-
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!--        CREATE A DATE PICKER FOR COURSE DATE -->
         <!--        android:clickable="true"-->
@@ -152,14 +110,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:textAlignment="textEnd"
-            android:gravity="end">
+            android:gravity="center">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/start_date_picker_text_input"
-                android:paddingEnd="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:inputType="none"
                 android:enabled="false"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -167,35 +124,16 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="mm/dd/yyyy"
+                    android:text="@string/start_date"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/icon_start_date_picker_button"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                app:icon="@drawable/calendar"
-                android:gravity="end"
-                app:iconGravity="textTop" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:textAlignment="textEnd"
-            android:gravity="end">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/end_date_picker_text_input"
-                android:paddingEnd="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:inputType="none"
                 android:enabled="false"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -203,24 +141,22 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="mm/dd/yyyy"
+                    android:text="@string/end_date"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/icon_end_date_picker_button"
+                android:id="@+id/date_range_picker_button"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_margin="8dp"
                 app:icon="@drawable/calendar"
                 android:gravity="end"
                 app:iconGravity="textTop" />
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -121,6 +121,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         AutoCompleteTextView type = (AutoCompleteTextView) dialogView.findViewById(R.id.assessment_type);
         String[] items = {"Objective", "Performance"};
         type.setText(items[0]);
+
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, items);
         type.setAdapter(adapter);
