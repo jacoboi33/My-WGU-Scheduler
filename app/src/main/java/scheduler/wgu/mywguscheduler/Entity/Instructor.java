@@ -64,11 +64,6 @@ public class Instructor {
 
     @Override
     public String toString() {
-        return "InstructorEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                '}';
+        return name;
     }
 }

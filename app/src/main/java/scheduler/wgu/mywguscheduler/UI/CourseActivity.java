@@ -2,6 +2,7 @@ package scheduler.wgu.mywguscheduler.UI;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,9 @@ import android.view.View;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.R;
 import scheduler.wgu.mywguscheduler.ViewModel.CourseViewModel;
@@ -21,6 +25,7 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.H
 
     private CourseViewModel mCourseViewModel;
     private Course mEditCourse;
+    private int numCourses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +40,29 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.H
 
         mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
         mCourseViewModel.getAllCourses().observe(this, adapter::setWords);
+        mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+            @Override
+            public void onChanged(List<Course> courses) {
+                List<Course> filteredWords = new ArrayList<>();
+                for (Course c : courses)
+                    filteredWords.add(c);
+
+                adapter.setWords(filteredWords);
+                numCourses = filteredWords.size();
+
+            }
+        });
 
         findViewById(R.id.add_course_button).setOnClickListener(v -> {
             Intent intent = new Intent(CourseActivity.this, AddCourseActivity.class);
             startActivity(intent);
         });
+    }
+
+    @Override
+    public void onCourseClick(int position) {
+        Intent intent = new Intent(CourseActivity.this, AssessmentDetailActivity.class);
+        startActivity(intent);
     }
 
     @Override

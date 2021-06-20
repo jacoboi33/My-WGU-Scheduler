@@ -10,8 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import scheduler.wgu.mywguscheduler.Entity.Course;
@@ -34,10 +32,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     @Override
     public CourseAdapter.CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.course_list_item, parent, false);
-        return new CourseViewHolder(itemView);
+        return new CourseViewHolder(itemView, clickListener);
     }
 
-    class CourseViewHolder extends RecyclerView.ViewHolder {
+    class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private final TextView courseTitle;
         private final TextView courseNotes;
@@ -48,7 +46,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         private final Button deleteCourseButton;
         private final Button editCourseButton;
 
-        public CourseViewHolder(@NonNull View itemView) {
+        HandleCourseClick clickListener;
+
+        public CourseViewHolder(@NonNull View itemView, HandleCourseClick clickListener) {
             super(itemView);
 
             courseTitle = itemView.findViewById(R.id.course_title);
@@ -59,6 +59,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
             deleteCourseButton = itemView.findViewById(R.id.delete_course);
             editCourseButton = itemView.findViewById(R.id.edit_course);
+
+            this.clickListener = clickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.onCourseClick(getAbsoluteAdapterPosition());
         }
     }
 
@@ -106,6 +113,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     }
 
     public interface HandleCourseClick {
+        void onCourseClick(int position);
         void removeCourse(Course course);
         void editCourse(Course course);
     }

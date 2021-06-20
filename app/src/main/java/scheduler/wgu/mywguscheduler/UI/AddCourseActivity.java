@@ -19,10 +19,12 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.Entity.Instructor;
 import scheduler.wgu.mywguscheduler.Entity.Term;
 import scheduler.wgu.mywguscheduler.R;
@@ -59,10 +61,13 @@ public class AddCourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_course);
         getSupportActionBar().setTitle("Add New Course");
 
-        List<String> itemInstructors = new ArrayList<>();
+//        List<String> itemInstructors = new ArrayList<>();
+//        List<Integer> itemInstructorId = new ArrayList<>();
 //        mInstructors = new ArrayList<>();ArrayList
 
         AutoCompleteTextView status = findViewById(R.id.course_status_selection);
+        final Button saveButton = findViewById(R.id.button_save_course);
+        final Button cancelButton = findViewById(R.id.button_cancel_course);
         String[] items = {"Plan to take", "In Progress", "Completed", "Dropped"};
         ArrayAdapter<String> statusAdapter = new ArrayAdapter<>(this, R.layout.list_item, items);
         status.setText(items[0]);
@@ -72,9 +77,7 @@ public class AddCourseActivity extends AppCompatActivity {
         try {
             final InstructorAdapter adapter = new InstructorAdapter(this);
             instructorViewModel = new ViewModelProvider(this).get(InstructorViewModel.class);
-
             instructorViewModel.getAllLiveInstructors().observe(this, adapter::setWords);
-
             instructorViewModel.getAllLiveInstructors().observe(this, new Observer<List<Instructor>>() {
                 @Override
                 public void onChanged(List<Instructor> instructorList) {
@@ -83,6 +86,22 @@ public class AddCourseActivity extends AppCompatActivity {
                     instructors.setText(instructorList.get(0).getName());
                     instructors.setAdapter(instructorArrayAdapter);
 
+//                    instructorList.forEach(n -> {
+//                        itemInstructors.add(n.getName());
+//                        itemInstructorId.add(n.getId());
+//                    });
+
+//                    instructors.setText(itemInstructors.get(0));
+//                    instructors.setAdapter(nameArrayAdapter);
+
+//                    instructors.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            instructorList.forEach(n -> {
+//                                instructors.setText(n.getName());
+//                            });
+//                        }
+//                    });
 //                    instructorList.forEach(n -> {
 //                        instructors.setAdapter((Adapter) n.getName());
 //                    });
@@ -97,6 +116,13 @@ public class AddCourseActivity extends AppCompatActivity {
 //                    adapter.setWords(instructorList);
                 }
             });
+
+//            instructors.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
 
             instructors.setOnItemClickListener((parent, view, position, id) -> {
                 Instructor selectedInstructor = (Instructor)parent.getItemAtPosition(position);
@@ -133,12 +159,16 @@ public class AddCourseActivity extends AppCompatActivity {
             termViewModel.getAllTerms().observe(this, adapter::setWords);
             termViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
                 @Override
-                public void onChanged(List<Term> terms) {
-                    for (Term i : terms) {
-                        itemTerms.add(i.getTermTitle());
-                    }
-                    adapter.setWords(terms);
+                public void onChanged(List<Term> termList) {
+                    ArrayAdapter<Term> termArrayAdapter = new ArrayAdapter<>(AddCourseActivity.this, R.layout.list_item, termList);
+                    terms.setText(termList.get(0).getTermTitle());
+                    terms.setAdapter(termArrayAdapter);
                 }
+            });
+
+            terms.setOnItemClickListener((parent, view, position, id) -> {
+                Term selectedTerm = (Term)parent.getItemAtPosition(position);
+                termId = selectedTerm.getId();
             });
 
             //                mTerms = termViewModel.getAllTerms();
@@ -190,9 +220,31 @@ public class AddCourseActivity extends AppCompatActivity {
             Toast.makeText(AddCourseActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
         }
 
-    }
+        saveButton.setOnClickListener(v -> {
+            try {
+                String title = Objects.requireNonNull(mTitle.getEditText()).getText().toString();
+                Course course = new Course(
+                        instructorId,
+                        termId,
+                        Objects.requireNonNull(mNote.getEditText()).getText().toString(),
+                        title,
+                        Objects.requireNonNull(startDate.getEditText()).getText().toString(),
+                        Objects.requireNonNull(endDate.getEditText()).getText().toString(),
+                        Objects.requireNonNull(mStatus.getEditText()).getText().toString()
+                );
+                courseViewModel.insert(course);
+                Toast.makeText(AddCourseActivity.this, String.format("Course %s added successfully ", title), Toast.LENGTH_SHORT).show();
+                finish();
+            } catch (Exception e) {
+                Toast.makeText(AddCourseActivity.this, "All Fields are required " + e, Toast.LENGTH_SHORT).show();
+            }
 
-    public void addCourse(View view) {
+        });
+
+        cancelButton.setOnClickListener(v -> {
+            finish();
+        });
+
     }
 
 }
