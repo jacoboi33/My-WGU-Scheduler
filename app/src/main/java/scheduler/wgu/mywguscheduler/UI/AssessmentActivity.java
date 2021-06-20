@@ -142,25 +142,29 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         TextInputLayout mType = dialogView.findViewById(R.id.type_text_input);
         TextInputLayout datePicker = dialogView.findViewById(R.id.date_picker_text_input);
 
+        // TODO Create associated courses to get all the associated courses with a give item.
         AutoCompleteTextView courses = (AutoCompleteTextView) dialogView.findViewById(R.id.ac_course_title);
         try {
+            final Course acCourse = new Course();
             final CourseAdapter courseAdapter= new CourseAdapter(this);
+            mAssessmentViewModel.getAssociatedCourses(courseId);
             mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
             mCourseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
             mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
                 @Override
                 public void onChanged(List<Course> coursesList) {
                     ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AssessmentActivity.this, R.layout.list_item, coursesList);
-                    coursesList.stream()
-                            .filter(a -> {
-                        if (a.getId() == courseId) {
-                            courses.setText(a.getTitle());
-                        }
-                        return Boolean.parseBoolean(a.getTitle());
-                    });
-//                    int i = coursesList.indexOf(coursesList.get(courseId));
-                    courses.setText(coursesList.get(coursesList.indexOf(courseId)).getTitle());
-//                    courses.setAdapter(courseArrayAdapter);
+
+//                    coursesList.stream()
+//                            .filter(a -> {
+//                        if (a.getId() == courseId) {
+//                            courses.setText(a.getTitle());
+//                        }
+//                        return Boolean.parseBoolean(a.getTitle());
+//                    });
+                    int i = coursesList.indexOf(mEditAssessment);
+                    courses.setText(coursesList.get(coursesList.indexOf(mEditAssessment.getCourseId())).getTitle());
+                    courses.setAdapter(courseArrayAdapter);
                 }
             });
 
@@ -170,7 +174,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
                 mCourseId = selectedCourse.getId();
             });
 
-        } catch (Exception e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             Toast.makeText(AssessmentActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
         }
 
