@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -78,8 +79,13 @@ public class AddCourseActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(List<Instructor> instructorList) {
                     ArrayAdapter<Instructor> instructorArrayAdapter = new ArrayAdapter<>(AddCourseActivity.this, R.layout.list_item, instructorList);
+//                    ArrayAdapter<String> nameArrayAdapter = new ArrayAdapter<String>(AddCourseActivity.this, R.layout.list_item, itemInstructors);
                     instructors.setText(instructorList.get(0).getName());
                     instructors.setAdapter(instructorArrayAdapter);
+
+//                    instructorList.forEach(n -> {
+//                        instructors.setAdapter((Adapter) n.getName());
+//                    });
 
 //                    for (int i = 0; i < instructorList.size(); i++) {
 //                        instructors.setAdapter(<T>instructorList.get(i).getName(););
@@ -90,6 +96,11 @@ public class AddCourseActivity extends AppCompatActivity {
 //                    }
 //                    adapter.setWords(instructorList);
                 }
+            });
+
+            instructors.setOnItemClickListener((parent, view, position, id) -> {
+                Instructor selectedInstructor = (Instructor)parent.getItemAtPosition(position);
+                instructorId = selectedInstructor.getId();
             });
 
 //            ArrayAdapter<String> iAdapter = new ArrayAdapter<>(this, R.layout.list_item, itemInstructors);
