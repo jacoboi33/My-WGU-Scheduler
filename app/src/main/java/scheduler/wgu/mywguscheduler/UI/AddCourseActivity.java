@@ -64,6 +64,7 @@ public class AddCourseActivity extends AppCompatActivity {
 //        List<String> itemInstructors = new ArrayList<>();
 //        List<Integer> itemInstructorId = new ArrayList<>();
 //        mInstructors = new ArrayList<>();ArrayList
+        courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
 
         AutoCompleteTextView status = findViewById(R.id.course_status_selection);
         final Button saveButton = findViewById(R.id.button_save_course);

@@ -59,7 +59,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
-                android:id="@+id/course_title"
+                android:id="@+id/ac_course_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Select a course"
@@ -109,15 +109,15 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/select_course"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="Add Course"
-            android:gravity="end"
-            app:iconGravity="textTop" />
+<!--        <Button-->
+<!--            android:id="@+id/select_course"-->
+<!--            style="?attr/materialButtonOutlinedStyle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="14dp"-->
+<!--            android:text="Add Course"-->
+<!--            android:gravity="end"-->
+<!--            app:iconGravity="textTop" />-->
 
 
 

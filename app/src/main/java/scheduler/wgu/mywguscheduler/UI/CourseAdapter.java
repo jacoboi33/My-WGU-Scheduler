@@ -28,6 +28,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         this.context = context;
     }
 
+    public CourseAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public CourseAdapter.CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

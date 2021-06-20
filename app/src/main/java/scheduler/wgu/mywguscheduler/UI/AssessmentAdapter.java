@@ -31,6 +31,11 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         this.context = context;
     }
 
+    public AssessmentAdapter(Context context) {
+        this.mInflater = LayoutInflater.from(context);
+        this.context = context;
+    }
+
     class AssessmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final TextView title;
         private final TextView type;

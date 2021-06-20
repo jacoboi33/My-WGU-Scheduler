@@ -2,6 +2,7 @@ package scheduler.wgu.mywguscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -17,19 +18,26 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
+import scheduler.wgu.mywguscheduler.Entity.Course;
+import scheduler.wgu.mywguscheduler.Entity.Instructor;
 import scheduler.wgu.mywguscheduler.R;
 import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
+import scheduler.wgu.mywguscheduler.ViewModel.CourseViewModel;
 
 public class AddAssessmentActivity extends AppCompatActivity {
 
     private AssessmentViewModel viewModel;
+    private CourseViewModel courseViewModel;
+    private int courseId;
 
     private TextInputLayout mTitle;
     private TextInputLayout mTypeTextInput;
@@ -58,6 +66,29 @@ public class AddAssessmentActivity extends AppCompatActivity {
 //        TODO Set dueDate = picker.tostring
 //        TODO Set type = autocompleteview
 //        TODO insert delete edit assessments
+
+        AutoCompleteTextView courses = findViewById(R.id.ac_course_title);
+        try {
+            final CourseAdapter courseAdapter= new CourseAdapter(this);
+            courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+            courseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
+            courseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+                @Override
+                public void onChanged(List<Course> coursesList) {
+                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AddAssessmentActivity.this, R.layout.list_item, coursesList);
+                    courses.setText(coursesList.get(0).getTitle());
+                    courses.setAdapter(courseArrayAdapter);
+                }
+            });
+
+            courses.setOnItemClickListener((parent, view, position, id) -> {
+                Course selectedCourse = (Course) parent.getItemAtPosition(position);
+                courseId = selectedCourse.getId();
+            });
+
+        } catch (Exception e) {
+            Toast.makeText(AddAssessmentActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
+        }
 
         datePicker = findViewById(R.id.date_picker_text_input);
         Button datePickerButton = findViewById(R.id.icon_date_picker_button);
@@ -102,7 +133,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
                         title,
                         type,
                         date,
-                        0
+                        courseId
                 );
                 viewModel.insert(assessment);
                 Toast.makeText(AddAssessmentActivity.this, String.format("Assessment %s added successfully ", title), Toast.LENGTH_SHORT).show();

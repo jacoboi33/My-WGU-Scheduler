@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Objects;
 
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
+import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.R;
 import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
 import scheduler.wgu.mywguscheduler.ViewModel.CourseViewModel;
@@ -37,10 +38,13 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private int numAssessments;
+    private int mCourseId;
     private AssessmentViewModel mAssessmentViewModel;
     private CourseViewModel mCourseViewModel;
     private List<Assessment> mAssessments;
+    private List<Course> mCourseList;
     private Assessment mEditAssessment;
+    private boolean courseChange = false;
 //    private final LayoutInflater mInflater;
 //    private final Context context;
 
@@ -70,9 +74,15 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
             @Override
             public void onChanged(List<Assessment> assessments) {
                 List<Assessment> filteredWords = new ArrayList<>();
-                for (Assessment a: assessments)
-                    if (a.getCourseId() == getIntent().getIntExtra("courseId", 0))
-                        filteredWords.add(a);
+                for (Assessment a: assessments) {
+                    if(a.getCourseId() != -1){
+                        mAssessmentViewModel.getAssociatedCourses(a.getCourseId());
+                    }
+                    filteredWords.add(a);
+                }
+
+//                    if (a.getCourseId() == getIntent().getIntExtra("courseId", 0))
+//                        filteredWords.add(a);
 
                 adapter.setWords(filteredWords);
                 numAssessments = filteredWords.size();
@@ -126,12 +136,46 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, items);
         type.setAdapter(adapter);
 
-        int id = mEditAssessment.getId();
+        int editId = mEditAssessment.getId();
         int courseId = mEditAssessment.getCourseId();
         TextInputLayout mTitle = dialogView.findViewById(R.id.title_text_input);
         TextInputLayout mType = dialogView.findViewById(R.id.type_text_input);
         TextInputLayout datePicker = dialogView.findViewById(R.id.date_picker_text_input);
-        datePicker.setEndIconOnClickListener(new View.OnClickListener() {
+
+        AutoCompleteTextView courses = (AutoCompleteTextView) dialogView.findViewById(R.id.ac_course_title);
+        try {
+            final CourseAdapter courseAdapter= new CourseAdapter(this);
+            mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+            mCourseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
+            mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+                @Override
+                public void onChanged(List<Course> coursesList) {
+                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AssessmentActivity.this, R.layout.list_item, coursesList);
+                    coursesList.stream()
+                            .filter(a -> {
+                        if (a.getId() == courseId) {
+                            courses.setText(a.getTitle());
+                        }
+                        return Boolean.parseBoolean(a.getTitle());
+                    });
+//                    int i = coursesList.indexOf(coursesList.get(courseId));
+                    courses.setText(coursesList.get(coursesList.indexOf(courseId)).getTitle());
+//                    courses.setAdapter(courseArrayAdapter);
+                }
+            });
+
+            courses.setOnItemClickListener((parent, view, position, id) -> {
+                courseChange = true;
+                Course selectedCourse = (Course) parent.getItemAtPosition(position);
+                mCourseId = selectedCourse.getId();
+            });
+
+        } catch (Exception e) {
+            Toast.makeText(AssessmentActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
+        }
+
+        Button datePickerButton = (Button)dialogView.findViewById(R.id.icon_date_picker_button);
+        datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
@@ -168,6 +212,8 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (courseChange == false)
+                    mCourseId = courseId;
                 String title = mTitle.getEditText().getText().toString();
                 String type = mType.getEditText().getText().toString();
                 String date = datePicker.getEditText().getText().toString();
@@ -187,7 +233,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
                     return;
                 }
 
-                Assessment assessment = new Assessment(id, title, type, date, courseId);
+                Assessment assessment = new Assessment(editId, title, type, date, mCourseId);
                 mAssessmentViewModel.insert(assessment);
                 Toast.makeText(AssessmentActivity.this, String.format("Assessment %s updated successfully ", title), Toast.LENGTH_SHORT).show();
                 dialogBuilder.dismiss();
