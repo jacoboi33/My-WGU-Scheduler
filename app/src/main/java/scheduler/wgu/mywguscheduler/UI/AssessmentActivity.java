@@ -74,8 +74,13 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
             @Override
             public void onChanged(List<Assessment> assessments) {
                 List<Assessment> filteredWords = new ArrayList<>();
+                List<Course> associatedCourses = new ArrayList<>();
                 for (Assessment a: assessments) {
                     if(a.getCourseId() != -1){
+                        for (Course c: associatedCourses) {
+                           c.setId(a.getCourseId());
+
+                        }
                         mAssessmentViewModel.getAssociatedCourses(a.getCourseId());
                     }
                     filteredWords.add(a);

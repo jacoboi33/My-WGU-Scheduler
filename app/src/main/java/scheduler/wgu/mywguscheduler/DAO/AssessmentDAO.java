@@ -1,5 +1,6 @@
 package scheduler.wgu.mywguscheduler.DAO;
 
+import androidx.core.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -11,6 +12,7 @@ import androidx.room.Update;
 import java.util.List;
 
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
+import scheduler.wgu.mywguscheduler.Entity.Course;
 
 @Dao
 public interface AssessmentDAO {
@@ -25,4 +27,7 @@ public interface AssessmentDAO {
 
     @Query("SELECT * FROM assessment where courseId = :courseId ORDER BY id ASC")
     LiveData<List<Assessment>> getLiveAllAssociatedCourses(int courseId);
+
+    @Query("SELECT c.* FROM course c INNER JOIN assessment a ON c.id = a.courseId")
+    LiveData<List<Course>> getLiveAssociatedCourses();
 }
