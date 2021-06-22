@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import scheduler.wgu.mywguscheduler.Database.ScheduleManagementDatabase;
+import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.R;
@@ -45,41 +48,35 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     private List<Course> mCourseList;
     private Assessment mEditAssessment;
     private boolean courseChange = false;
-//    private final LayoutInflater mInflater;
-//    private final Context context;
 
-//    public AssessmentActivity(LayoutInflater mInflater, Context context){
-//        this.mInflater = mInflater;
-//        this.context = context;
-//    }
-
+    private ScheduleManagementRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment);
         getSupportActionBar().setTitle("Assessments");
-//        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//        getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-
+        repository = new ScheduleManagementRepository(getApplication());
+        List<Course> allAssessmentCourses = repository.getAllCourses();
+        TextView courseTitle = findViewById(R.id.course_title);
         RecyclerView assessmentRecylcerView = findViewById(R.id.assessmentRecyclerView);
         final AssessmentAdapter adapter = new AssessmentAdapter(this, this);
         assessmentRecylcerView.setAdapter(adapter);
         assessmentRecylcerView.setLayoutManager(new LinearLayoutManager(this));
 
         mAssessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
-//        mAssessmentViewModel.getAllAssessments().observe(this, adapter::setWords);
+        mAssessmentViewModel.getAllAssessments().observe(this, adapter::setWords);
         mAssessmentViewModel.getAllAssessments().observe(this, new Observer<List<Assessment>>() {
             @Override
             public void onChanged(List<Assessment> assessments) {
                 List<Assessment> filteredWords = new ArrayList<>();
                 List<Course> associatedCourses = new ArrayList<>();
                 for (Assessment a: assessments) {
-                    if(a.getCourseId() != -1){
-                        for (Course c: associatedCourses) {
-                           c.setId(a.getCourseId());
-
+                    if(a.getCourseId() > 0){
+                        for (Course c: allAssessmentCourses) {
+                            if(c.getId() == a.getCourseId())
+                                courseTitle.setText(c.getTitle());
                         }
                         mAssessmentViewModel.getAssociatedCourses(a.getCourseId());
                     }

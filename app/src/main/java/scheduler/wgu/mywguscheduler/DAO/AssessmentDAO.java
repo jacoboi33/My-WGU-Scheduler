@@ -28,6 +28,8 @@ public interface AssessmentDAO {
     @Query("SELECT * FROM assessment where courseId = :courseId ORDER BY id ASC")
     LiveData<List<Assessment>> getLiveAllAssociatedCourses(int courseId);
 
-    @Query("SELECT c.* FROM course c INNER JOIN assessment a ON c.id = a.courseId")
-    LiveData<List<Course>> getLiveAssociatedCourses();
+    @Query("SELECT * FROM course " +
+            "INNER JOIN assessment ON course.id = assessment.courseId")
+    List<Course> getAssociatedCourses();
+
 }

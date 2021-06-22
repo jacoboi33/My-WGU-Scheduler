@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.zip.Inflater;
 
+import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
+import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.R;
 
 
@@ -60,6 +62,8 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
             this.clickListener = clickListener;
 
+
+
 //            itemView.setOnClickListener(this);
 
             itemView.setOnClickListener((v) -> {
@@ -85,6 +89,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     @NonNull
     @Override
     public AssessmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View itemView = mInflater.inflate(R.layout.assessment_list_item, parent, false);
         return new AssessmentViewHolder(itemView, clickListener);
     }

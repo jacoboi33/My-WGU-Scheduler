@@ -22,26 +22,17 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:gravity="center"
             android:padding="16dp">
 
-            <!-- Title, secondary and supporting text -->
             <TextView
                 android:id="@+id/course_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
+                android:layout_marginRight="16dp"
                 android:text="Course Title"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                />
-
-            <!--            TODO ONLY SHOW WHAT IS NEEDED IN COURSES AND THEN SHOW A DETAIL VIEW OF THE COURSE BY CLICKING ON A COURSE IN THE RECYCLER VIEW TO GET DETAILS -->
-            <TextView
-                android:id="@+id/course_notes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="Course Notes"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 />
 
@@ -53,26 +44,22 @@
                 android:text="Course Status"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 />
+        </LinearLayout>
+        <LinearLayout
 
-<!--            <TextView-->
-<!--                android:id="@+id/course_instructor"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="4dp"-->
-<!--                android:text="Course Status"-->
-<!--                android:textAppearance="?attr/textAppearanceHeadline6"-->
-<!--                />-->
-
-<!--            <TextView-->
-<!--            android:id="@+id/course_assessments"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="4dp"-->
-<!--            android:text="Course Status"-->
-<!--            android:textAppearance="?attr/textAppearanceHeadline6"-->
-<!--            />-->
-
-            <!--     TODO SHOW ALL THE ASSESSMENTS WITH COURSE ID OF ITEM DROP DOWN MENU OF ALL COURSES IN VIEW       -->
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
+            <TextView
+                android:id="@+id/course_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Course Notes"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +88,6 @@
                 />
         </LinearLayout>
 
-        <!-- Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -124,8 +110,6 @@
                 style="?attr/borderlessButtonStyle"
                 />
         </LinearLayout>
-
     </LinearLayout>
-
 
 </com.google.android.material.card.MaterialCardView>
