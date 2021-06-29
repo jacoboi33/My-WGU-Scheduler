@@ -28,6 +28,7 @@ public class ScheduleManagementRepository {
     private LiveData<List<Assessment>> mAssessmentsList;
     private LiveData<List<Course>> mAssociatedCourses;
     private List<Course> mCourseList;
+    private List<Course> mCourseTitle;
 
     private List<Instructor> mInstructorList;
 
@@ -168,6 +169,19 @@ public class ScheduleManagementRepository {
     /**
      * Courses
      * */
+
+    public List<Course> getCourseTitle() {
+        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
+            mCourseTitle = mAssessmentDao.getAssessmentCourseTitle();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mCourseTitle;
+    }
+
     public List<Course> getCourseList() {
         ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
             mCourseList = mCourseDao.getCourseList();

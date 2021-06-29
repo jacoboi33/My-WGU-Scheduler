@@ -44,8 +44,9 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     private int numAssessments;
     private int mCourseId;
     private AssessmentViewModel mAssessmentViewModel;
+    private CourseViewModel mCoursViewModel;
     private List<Assessment> mAssessments;
-//    private List<Course> mCourseList;
+    private List<Course> mCourseList;
     private Assessment mEditAssessment;
     private boolean courseChange = false;
 
@@ -76,7 +77,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
             @Override
             public void onChanged(List<Assessment> assessments) {
 
-
+                mAssessments = assessments;
 
 //                assessments.forEach((a) -> {
 //                    allAssessmentCourses.forEach((c) -> {
@@ -127,10 +128,21 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
 //                                .collect(Collectors.toList());
 //                adapter.setWords(assessments, courseList);
                 adapter.setWords(assessments);
-                numAssessments = assessments.size();
+//                numAssessments = assessments.size();
             }
-
         });
+
+        mCoursViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+        mCoursViewModel.getAllCourses().observe(this, adapter::setCourses);
+        mCoursViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+            @Override
+            public void onChanged(List<Course> courses) {
+                mCourseList = courses;
+                adapter.setCourses(courses);
+            }
+        });
+
+//        adapter.setWords(mAssessments, mCourseList);
 
         findViewById(R.id.add_assessment_button).setOnClickListener(v -> {
             Intent intent = new Intent(AssessmentActivity.this, AddAssessmentActivity.class);

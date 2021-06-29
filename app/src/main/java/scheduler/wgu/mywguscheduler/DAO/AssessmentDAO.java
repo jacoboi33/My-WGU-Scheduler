@@ -35,6 +35,10 @@ public interface AssessmentDAO {
             "INNER JOIN assessment ON course.id = assessment.courseId")
     List<Course> getAssociatedCourses();
 
+    @Query("SELECT course.* FROM course " +
+            "INNER JOIN assessment ON course.id = assessment.courseId")
+    List<Course> getAssessmentCourseTitle();
+
 }
 
 //    select distinct(course.id), course.* from course inner join assessment on course.id = assessment.courseId;

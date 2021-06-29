@@ -40,6 +40,12 @@ public class Course {
     }
 
     @Ignore
+    public Course(int id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
+    @Ignore
     public Course() {}
 
     public int getId() {
@@ -110,5 +116,4 @@ public class Course {
     public String toString() {
         return title;
     }
-
 }

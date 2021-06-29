@@ -2,6 +2,7 @@ package scheduler.wgu.mywguscheduler.UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,11 @@ import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
 
+//    private ScheduleManagementRepository repository;
     private final LayoutInflater mInflater;
     private List<Assessment> mAssessments;
     private List<Course> mCourses;
+//    private final List<Course> mCourseTitle;
     private HandleAssessmentClick clickListener;
     private final Context context;
 
@@ -40,6 +43,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     }
 
     public AssessmentAdapter(Context context) {
+//        mCourseTitle = repository.getCourseTitle();
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
     }
@@ -113,6 +117,29 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 //        ScheduleManagementRepository repository = new ScheduleManagementRepository(context, );
         if (mAssessments != null) {
             Assessment current = mAssessments.get(position);
+            // HELP HELP HELP HELP
+            // TODO The below stops the program I am trying to add
+            // TODO add the course titles to the recycler view.
+            // TODO I kinda got it working where it was adding the wrong course title.
+            if(current.getCourseId() > 0) {
+
+                mCourses.forEach((course) -> {
+                    if (course.getId() == current.getCourseId()){
+                        holder.title.setText(current.getTitle());
+                        holder.type.setText(current.getType());
+                        holder.dueDate.setText(current.getEndDate());
+                        holder.courseTitle.setText(course.getTitle());
+                    }
+//                        Log.i("COURSEID ", " COURSEID " + course.getId());
+//               course.getId() ==
+                });
+            } else {
+                holder.title.setText(current.getTitle());
+                holder.type.setText(current.getType());
+                holder.dueDate.setText(current.getEndDate());
+                holder.courseTitle.setText("No Courses Added");
+            }
+
 
 
 //            Comparator<Course> c = new Comparator<Course>() {
@@ -155,9 +182,9 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
 //            if (current.getCourseId() == )
 
-            holder.title.setText(current.getTitle());
-            holder.type.setText(current.getType());
-            holder.dueDate.setText(current.getEndDate());
+//            holder.title.setText(current.getTitle());
+//            holder.type.setText(current.getType());
+//            holder.dueDate.setText(current.getEndDate());
 //            holder.courseTitle.setText(current.getCourseId() > 0 ? mCourses.get(current.getCourseId()).getTitle() : "No Courses Added");
         } else {
             holder.title.setText("No title");
