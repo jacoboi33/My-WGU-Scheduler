@@ -28,11 +28,9 @@ import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
 
-//    private ScheduleManagementRepository repository;
     private final LayoutInflater mInflater;
     private List<Assessment> mAssessments;
     private List<Course> mCourses;
-//    private final List<Course> mCourseTitle;
     private HandleAssessmentClick clickListener;
     private final Context context;
 
@@ -43,7 +41,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     }
 
     public AssessmentAdapter(Context context) {
-//        mCourseTitle = repository.getCourseTitle();
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
     }
@@ -60,11 +57,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
         HandleAssessmentClick clickListener;
 
-//        private AssessmentViewholder(View itemView) {
-//            super(itemView);
-//
-//        }
-
 
         public AssessmentViewHolder(@NonNull View itemView, HandleAssessmentClick clickListener) {
             super(itemView);
@@ -78,22 +70,31 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
             this.clickListener = clickListener;
 
-
-
-//            itemView.setOnClickListener(this);
-
             itemView.setOnClickListener((v) -> {
                 int position = getAbsoluteAdapterPosition();
                 final Assessment current = mAssessments.get(position);
-                final Course currentCourse = mCourses.get(current.getCourseId());
                 Intent intent = new Intent(context, AssessmentDetailActivity.class);
-                intent.putExtra("title", current.getTitle());
-                intent.putExtra("type", current.getType());
-                intent.putExtra("position",position);
-                intent.putExtra("courseId", current.getCourseId());
-//                intent.putExtra("courseTitle", current.getCourseTitle());
-                intent.putExtra("id",current.getId());
-                intent.putExtra("assessmentDate", current.getEndDate());
+                if (current.getCourseId() > 0) {
+                    mCourses.forEach(course -> {
+                        if (course.getId() == current.getCourseId()) {
+                            intent.putExtra("title", current.getTitle());
+                            intent.putExtra("type", current.getType());
+                            intent.putExtra("position", position);
+                            intent.putExtra("courseId", current.getCourseId());
+                            intent.putExtra("courseTitle", course.getTitle());
+                            intent.putExtra("id", current.getId());
+                            intent.putExtra("assessmentDate", current.getEndDate());
+                        }
+                    });
+                } else {
+                    intent.putExtra("title", current.getTitle());
+                    intent.putExtra("type", current.getType());
+                    intent.putExtra("position",position);
+                    intent.putExtra("courseId", current.getCourseId());
+                    intent.putExtra("courseTitle", "No courses added");
+                    intent.putExtra("id",current.getId());
+                    intent.putExtra("assessmentDate", current.getEndDate());
+                }
                 context.startActivity(intent);
             });
         }
@@ -113,16 +114,19 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
     @Override
     public void onBindViewHolder(@NonNull AssessmentAdapter.AssessmentViewHolder holder, int position) {
-//        AssessmentViewModel viewModel = new AssessmentViewModel(AssessmentActivity.class);
-//        ScheduleManagementRepository repository = new ScheduleManagementRepository(context, );
         if (mAssessments != null) {
             Assessment current = mAssessments.get(position);
-            // HELP HELP HELP HELP
+
             // TODO The below stops the program I am trying to add
             // TODO add the course titles to the recycler view.
             // TODO I kinda got it working where it was adding the wrong course title.
+            /**
+             * SETS THE TEXT VALUES FROM THE CURRENT COURSE AND
+             * COURSES TITLE IF ITS BEEN ADDED.
+             *
+             *
+             * */
             if(current.getCourseId() > 0) {
-
                 mCourses.forEach((course) -> {
                     if (course.getId() == current.getCourseId()){
                         holder.title.setText(current.getTitle());
@@ -130,8 +134,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                         holder.dueDate.setText(current.getEndDate());
                         holder.courseTitle.setText(course.getTitle());
                     }
-//                        Log.i("COURSEID ", " COURSEID " + course.getId());
-//               course.getId() ==
                 });
             } else {
                 holder.title.setText(current.getTitle());
@@ -139,53 +141,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                 holder.dueDate.setText(current.getEndDate());
                 holder.courseTitle.setText("No Courses Added");
             }
-
-
-
-//            Comparator<Course> c = new Comparator<Course>() {
-//                public int compare(Course u1, Course u2)
-//                {
-//                    return u1.getId().compareTo(u2.getId());
-//                }
-//            };
-
-//            Course currentCourse;
-
-//            if (current.getCourseId() > 0) {
-//                mCourses.;
-//                int index = mCourses.indexOf(0, current.getCourseId());
-//                int index = Collections.binarySearch(
-//                        mCourses,
-//                        new Course(
-//                                current.getCourseId(),
-//                                0,
-//                                0,
-//                                null,
-//                                null,
-//                                null,
-//                                null,
-//                                null),
-//                        Collections.reverseOrder());
-//
-//                Course currentCourse = mCourses.get(index);
-//                holder.courseTitle.setText(currentCourse.getTitle());
-////                mCourses.
-////                for (Course course: mCourses) {
-////                    if(current.getCourseId() == course.getId())
-////                        currentCourse = course;
-////                }
-////                currentCourse = mCourses.get(current.getCourseId());
-//            } else {
-//                holder.courseTitle.setText("No Courses Added");
-////                currentCourse = new Course();
-//            }
-
-//            if (current.getCourseId() == )
-
-//            holder.title.setText(current.getTitle());
-//            holder.type.setText(current.getType());
-//            holder.dueDate.setText(current.getEndDate());
-//            holder.courseTitle.setText(current.getCourseId() > 0 ? mCourses.get(current.getCourseId()).getTitle() : "No Courses Added");
         } else {
             holder.title.setText("No title");
 //            holder.courseTitle.setText("No Courses Added");

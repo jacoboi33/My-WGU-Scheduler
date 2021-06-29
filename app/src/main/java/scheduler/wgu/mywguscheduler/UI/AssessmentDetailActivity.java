@@ -34,7 +34,7 @@ public class AssessmentDetailActivity extends AppCompatActivity {
             mType.getEditText().setText(getIntent().getStringExtra("type"));
             mTitle.getEditText().setText(getIntent().getStringExtra("title"));
             mDueDate.getEditText().setText(getIntent().getStringExtra("assessmentDate"));
-            mCourseTitle.getEditText().setText(getIntent().getStringExtra(""));
+            mCourseTitle.getEditText().setText(getIntent().getStringExtra("courseTitle"));
         }
 
     }
