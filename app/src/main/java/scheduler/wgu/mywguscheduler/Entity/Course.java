@@ -114,6 +114,16 @@ public class Course {
 
     @Override
     public String toString() {
-        return title;
+        return "Course{" +
+                "id=" + id +
+                ", instructorId=" + instructorId +
+                ", termId=" + termId +
+                ", note='" + note + '\'' +
+                ", title='" + title + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
+
 }

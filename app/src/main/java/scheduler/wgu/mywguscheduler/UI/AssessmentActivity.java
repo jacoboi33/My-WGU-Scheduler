@@ -7,17 +7,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -25,12 +21,9 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import scheduler.wgu.mywguscheduler.Database.ScheduleManagementDatabase;
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
@@ -44,7 +37,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     private int numAssessments;
     private int mCourseId;
     private AssessmentViewModel mAssessmentViewModel;
-    private CourseViewModel mCoursViewModel;
+    private CourseViewModel mCourseViewModel;
     private List<Assessment> mAssessments;
     private List<Course> mCourseList;
     private Assessment mEditAssessment;
@@ -132,9 +125,9 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
             }
         });
 
-        mCoursViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-        mCoursViewModel.getAllCourses().observe(this, adapter::setCourses);
-        mCoursViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+        mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+        mCourseViewModel.getAllCourses().observe(this, adapter::setCourses);
+        mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> courses) {
                 mCourseList = courses;
@@ -153,7 +146,8 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     @Override
     public void onAssessmentClick(int position) {
 //        mAssessments.get(position);
-        //        TODO Add the intent to the detail view in My WGU Scheduler.
+        //        TODO Add the intent to the detail view in My WGU Scheduler. DONE
+        // TODO get edit and delete buttons working
 //        final Assessment current = mAssessments.get(position);
 //        Intent intent = new Intent();
 //        intent.putExtra("title", current.getTitle());
@@ -176,7 +170,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     @Override
     public void editAssessments(Assessment assessment) {
         this.mEditAssessment = assessment;
-//        showEditAssessmentDialog();
+        showEditAssessmentDialog();
     }
 
     private void showEditAssessmentDialog() {
@@ -200,28 +194,20 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         // TODO Create associated courses to get all the associated courses with a give item.
         AutoCompleteTextView courses = (AutoCompleteTextView) dialogView.findViewById(R.id.ac_course_title);
         try {
-//            final Course acCourse = new Course();
-//            final CourseAdapter courseAdapter= new CourseAdapter(this);
+            final Course acCourse = new Course();
+            final CourseAdapter courseAdapter= new CourseAdapter(this);
 //            mAssessmentViewModel.getAssociatedCourses(courseId);
-//            mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-//            mCourseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
-//            mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
-//                @Override
-//                public void onChanged(List<Course> coursesList) {
-//                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AssessmentActivity.this, R.layout.list_item, coursesList);
-//
-////                    coursesList.stream()
-////                            .filter(a -> {
-////                        if (a.getId() == courseId) {
-////                            courses.setText(a.getTitle());
-////                        }
-////                        return Boolean.parseBoolean(a.getTitle());
-////                    });
+            mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+            mCourseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
+            mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+                @Override
+                public void onChanged(List<Course> coursesList) {
+                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AssessmentActivity.this, R.layout.list_item, coursesList);
 //                    int i = coursesList.indexOf(mEditAssessment);
-//                    courses.setText(coursesList.get(coursesList.indexOf(mEditAssessment.getCourseId())).getTitle());
-//                    courses.setAdapter(courseArrayAdapter);
-//                }
-//            });
+                    courses.setText(coursesList.get(coursesList.indexOf(mEditAssessment.getCourseId())).getTitle());
+                    courses.setAdapter(courseArrayAdapter);
+                }
+            });
 
             courses.setOnItemClickListener((parent, view, position, id) -> {
                 courseChange = true;

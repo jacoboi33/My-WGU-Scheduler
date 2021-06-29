@@ -44,6 +44,11 @@ public class AddCourseActivity extends AppCompatActivity {
     private int instructorId;
     private int termId;
 
+    // TODO DONT DELETE TERM IF COURSES ARE ADDED TO A TERM
+    // TODO DONT DELETE COURSE IF ASSESSMENTS ARE ADDED TO A COURSE
+    // TODO CREATE A QUERY TO CHECK IF THERE ARE COURSES ADDED TO TERMS AND ASSESSMENTS ADDED TO COURSES USE COUNT SQL
+
+
     private TextInputLayout mTitle;
     private TextInputLayout mNote;
     private TextInputLayout mStatus; // TODO Selection add only one status per course
