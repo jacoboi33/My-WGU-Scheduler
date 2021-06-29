@@ -9,21 +9,27 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.*;
 import java.util.zip.Inflater;
 
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.R;
+import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
 
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
 
     private final LayoutInflater mInflater;
     private List<Assessment> mAssessments;
+    private List<Course> mCourses;
     private HandleAssessmentClick clickListener;
     private final Context context;
 
@@ -39,6 +45,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     }
 
     class AssessmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
         private final TextView title;
         private final TextView type;
         private final TextView dueDate;
@@ -48,6 +55,11 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         private final Button editAssessmentButton;
 
         HandleAssessmentClick clickListener;
+
+//        private AssessmentViewholder(View itemView) {
+//            super(itemView);
+//
+//        }
 
 
         public AssessmentViewHolder(@NonNull View itemView, HandleAssessmentClick clickListener) {
@@ -69,11 +81,13 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             itemView.setOnClickListener((v) -> {
                 int position = getAbsoluteAdapterPosition();
                 final Assessment current = mAssessments.get(position);
+                final Course currentCourse = mCourses.get(current.getCourseId());
                 Intent intent = new Intent(context, AssessmentDetailActivity.class);
                 intent.putExtra("title", current.getTitle());
                 intent.putExtra("type", current.getType());
                 intent.putExtra("position",position);
-                intent.putExtra("courseTitle", current.getCourseId());
+                intent.putExtra("courseId", current.getCourseId());
+//                intent.putExtra("courseTitle", current.getCourseTitle());
                 intent.putExtra("id",current.getId());
                 intent.putExtra("assessmentDate", current.getEndDate());
                 context.startActivity(intent);
@@ -89,22 +103,65 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     @NonNull
     @Override
     public AssessmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View itemView = mInflater.inflate(R.layout.assessment_list_item, parent, false);
         return new AssessmentViewHolder(itemView, clickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AssessmentAdapter.AssessmentViewHolder holder, int position) {
+//        AssessmentViewModel viewModel = new AssessmentViewModel(AssessmentActivity.class);
+//        ScheduleManagementRepository repository = new ScheduleManagementRepository(context, );
         if (mAssessments != null) {
             Assessment current = mAssessments.get(position);
+
+
+//            Comparator<Course> c = new Comparator<Course>() {
+//                public int compare(Course u1, Course u2)
+//                {
+//                    return u1.getId().compareTo(u2.getId());
+//                }
+//            };
+
+//            Course currentCourse;
+
+//            if (current.getCourseId() > 0) {
+//                mCourses.;
+//                int index = mCourses.indexOf(0, current.getCourseId());
+//                int index = Collections.binarySearch(
+//                        mCourses,
+//                        new Course(
+//                                current.getCourseId(),
+//                                0,
+//                                0,
+//                                null,
+//                                null,
+//                                null,
+//                                null,
+//                                null),
+//                        Collections.reverseOrder());
+//
+//                Course currentCourse = mCourses.get(index);
+//                holder.courseTitle.setText(currentCourse.getTitle());
+////                mCourses.
+////                for (Course course: mCourses) {
+////                    if(current.getCourseId() == course.getId())
+////                        currentCourse = course;
+////                }
+////                currentCourse = mCourses.get(current.getCourseId());
+//            } else {
+//                holder.courseTitle.setText("No Courses Added");
+////                currentCourse = new Course();
+//            }
+
+//            if (current.getCourseId() == )
+
             holder.title.setText(current.getTitle());
             holder.type.setText(current.getType());
             holder.dueDate.setText(current.getEndDate());
-            holder.courseTitle.setText(Integer.toString(current.getCourseId()));
+//            holder.courseTitle.setText(current.getCourseId() > 0 ? mCourses.get(current.getCourseId()).getTitle() : "No Courses Added");
         } else {
             holder.title.setText("No title");
-            holder.courseTitle.setText("No Courses Added");
+//            holder.courseTitle.setText("No Courses Added");
             holder.type.setText("No Assessment Type Selected");
             holder.dueDate.setText("No Date");
         }
@@ -132,8 +189,19 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             return 0;
     }
 
+    public void setWords(List<Assessment> assessments, List<Course> courses) {
+        mCourses = courses;
+        mAssessments = assessments;
+        notifyDataSetChanged();
+    }
+
     public void setWords(List<Assessment> assessments) {
         mAssessments = assessments;
+        notifyDataSetChanged();
+    }
+
+    public void setCourses(List<Course> courses) {
+        mCourses = courses;
         notifyDataSetChanged();
     }
 

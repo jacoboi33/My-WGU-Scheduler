@@ -1,6 +1,7 @@
 package scheduler.wgu.mywguscheduler.Database;
 
 import android.app.Application;
+import android.net.CaptivePortal;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
@@ -25,7 +26,8 @@ public class ScheduleManagementRepository {
 
     private LiveData<List<Instructor>> mInstructorsListLiveData;
     private LiveData<List<Assessment>> mAssessmentsList;
-    private LiveData<List<Assessment>> mAssociatedCourses;
+    private LiveData<List<Course>> mAssociatedCourses;
+    private List<Course> mCourseList;
 
     private List<Instructor> mInstructorList;
 
@@ -38,6 +40,7 @@ public class ScheduleManagementRepository {
     private LiveData<List<Course>> mCoursesList;
     private LiveData<List<Course>> mAssociatedTerms;
     private LiveData<List<Course>> mAssociatedInstructors;
+    private Course course;
 
     private List<Course> mCourses;
 
@@ -53,14 +56,17 @@ public class ScheduleManagementRepository {
 //        mInstructorList = mInstructorDao.getAllInstructors();
         //        Get all Assessments
         mAssessmentsList = mAssessmentDao.getAllLiveAssessments();
-        mAssociatedCourses = mAssessmentDao.getLiveAllAssociatedCourses(courseId);
+//        mAssociatedCourses = mAssessmentDao.getAssessmentAssociatedCourses(courseId);
         //        GET ALL TERMS
         mTermsList = mTermDao.getAllTerms();
 
         //        GET ALL COURSES
+//        mCourseList = mCourseDao.getCourseList();
         mCoursesList = mCourseDao.getAllCourses();
         mAssociatedTerms = mCourseDao.getAllAssociatedTerms(termId);
         mAssociatedInstructors = mCourseDao.getAllAssociatedInstructors(instructorId);
+//        course = mCourseDao.getCourse(courseId);
+
 
         try {
             Thread.sleep(1000);
@@ -162,10 +168,26 @@ public class ScheduleManagementRepository {
     /**
      * Courses
      * */
+    public List<Course> getCourseList() {
+        ScheduleManagementDatabase.databaseWriteExecuter.execute(() -> {
+            mCourseList = mCourseDao.getCourseList();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mCourseList;
+    }
     public LiveData<List<Course>> getAllLiveCourses() { return mCoursesList; }
     public LiveData<List<Course>> getAssociatedTerms(int termId) { return mAssociatedTerms; }
     public LiveData<List<Course>> getmAssociatedInstructors(int instructorId) { return mAssociatedTerms; }
-
+    public LiveData<List<Course>> getAssessmentAssociatedCourses(int courseId) {
+        return mAssessmentDao.getAssessmentAssociatedCourses(courseId);
+    }
+    public Course getCourse(int courseId) {
+        return mCourseDao.getCourse(courseId);
+    };
 
     /**
      * Assessments
@@ -175,7 +197,7 @@ public class ScheduleManagementRepository {
     public LiveData<List<Assessment>> getAllLiveAssessments() {
         return mAssessmentsList;
     }
-    public LiveData<List<Assessment>> getAssociatedCourses(int courseId) { return mAssociatedCourses; }
+//    public LiveData<List<Assessment>> getAssociatedCourses(int courseId) { return mAssociatedCourses; }
 
     public List<Course> getAllCourses(){
         ScheduleManagementDatabase.databaseWriteExecuter.execute(()->{

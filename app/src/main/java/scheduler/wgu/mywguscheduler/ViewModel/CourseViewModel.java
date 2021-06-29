@@ -18,6 +18,7 @@ public class CourseViewModel extends AndroidViewModel {
     private ScheduleManagementRepository mRepository;
     private LiveData<List<Course>> mAllCourses;
     private LiveData<List<Course>> mAssociatedTerms;
+    private List<Course> mCourses;
     int termId;
 
     public CourseViewModel(Application application, int termId) {
@@ -31,8 +32,10 @@ public class CourseViewModel extends AndroidViewModel {
         mRepository = new ScheduleManagementRepository(application);
         mAllCourses = mRepository.getAllLiveCourses();
         mAssociatedTerms = mRepository.getAssociatedTerms(termId);
+        mCourses = mRepository.getCourseList();
     }
 
+    public List<Course> getCourses() { return mCourses; }
     public LiveData<List<Course>> getAssociatedInstructors(int instructorId) { return mRepository.getmAssociatedInstructors(instructorId); }
     public LiveData<List<Course>> getmAssociatedTerms(int termId) { return mRepository.getAssociatedTerms(termId); }
     public LiveData<List<Course>> getAllCourses() { return mAllCourses; }

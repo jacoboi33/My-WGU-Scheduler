@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementDatabase;
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
@@ -43,9 +44,8 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     private int numAssessments;
     private int mCourseId;
     private AssessmentViewModel mAssessmentViewModel;
-    private CourseViewModel mCourseViewModel;
     private List<Assessment> mAssessments;
-    private List<Course> mCourseList;
+//    private List<Course> mCourseList;
     private Assessment mEditAssessment;
     private boolean courseChange = false;
 
@@ -57,38 +57,79 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         setContentView(R.layout.activity_assessment);
         getSupportActionBar().setTitle("Assessments");
 
-        repository = new ScheduleManagementRepository(getApplication());
-        List<Course> allAssessmentCourses = repository.getAllCourses();
-        TextView courseTitle = findViewById(R.id.course_title);
+//        CourseViewModel mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+//        Intent extraIntent = new Intent();
+
+
+//        repository = new ScheduleManagementRepository(getApplication());
+//        List<Course> allAssessmentCourses = repository.getCourseList();
+//        TextView courseTitle = findViewById(R.id.course_title);
         RecyclerView assessmentRecylcerView = findViewById(R.id.assessmentRecyclerView);
         final AssessmentAdapter adapter = new AssessmentAdapter(this, this);
         assessmentRecylcerView.setAdapter(adapter);
         assessmentRecylcerView.setLayoutManager(new LinearLayoutManager(this));
+//        List<Course> courseList = new ArrayList<>();
 
         mAssessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
         mAssessmentViewModel.getAllAssessments().observe(this, adapter::setWords);
         mAssessmentViewModel.getAllAssessments().observe(this, new Observer<List<Assessment>>() {
             @Override
             public void onChanged(List<Assessment> assessments) {
-                List<Assessment> filteredWords = new ArrayList<>();
-                List<Course> associatedCourses = new ArrayList<>();
-                for (Assessment a: assessments) {
-                    if(a.getCourseId() > 0){
-                        for (Course c: allAssessmentCourses) {
-                            if(c.getId() == a.getCourseId())
-                                courseTitle.setText(c.getTitle());
-                        }
-                        mAssessmentViewModel.getAssociatedCourses(a.getCourseId());
-                    }
-                    filteredWords.add(a);
-                }
+
+
+
+//                assessments.forEach((a) -> {
+//                    allAssessmentCourses.forEach((c) -> {
+//                        if (a.getCourseId() == c.getId()) {
+//                            courseList.add(c);
+//                        }
+//                    });
+//                });
+
+//                mAssessmentViewModel.getAssessmentAssociatedCourses(extraIntent.getIntExtra("position", 0)).observe(this,  new Observer<List<Course>>() {
+//                    @Override
+//                    public void onChanged(List<Course> courses) {
+//                        assessments.forEach((e) -> {
+//                            courses.forEach((c) -> {
+//                                if (e.getCourseId() == c.getId())
+//                                    courseList.add(c);
+//                            });
+//                        });
+//                    }
+//                });
+//                List<Assessment> filteredWords = new ArrayList<>();
+//                List<Course> associatedCourses = mAssessmentViewModel.getAssessmentAssociatedCourses();
+//                filteredWords = assessments;
+//                for (Assessment a: assessments) {
+//                    if(a.getCourseId() > 0){
+//                        associatedCourses.get(a.getCourseId());
+//                        for (Course c: allAssessmentCourses) {
+//                            if(c.getId() == a.getCourseId()) {
+//                                associatedCourses.add(c);
+//                                extraIntent.putExtra("courseId", a.getCourseId());
+//                                extraIntent.putExtra("courseTitle", c.getTitle());
+//                            }
+
+//                                courseTitle.setText(c.getTitle());
+//                        }
+//                        mAssessmentViewModel.getAssociatedCourses(a.getCourseId());
+//                    }
+//                    filteredWords.add(a);
+//                }
 
 //                    if (a.getCourseId() == getIntent().getIntExtra("courseId", 0))
 //                        filteredWords.add(a);
 
-                adapter.setWords(filteredWords);
-                numAssessments = filteredWords.size();
+//                List<Course> result = allAssessmentCourses.stream()
+//                        .filter( course -> course.getId() ==  getId.stream()person.phoneNumber.stream()
+//                                .anyMatch(phone -> phone.type.equals("HOME") &&
+//                                        phone.number.contains("888"))
+//                                .collect(Collectors.toList());
+//                adapter.setWords(assessments, courseList);
+                adapter.setWords(assessments);
+                numAssessments = assessments.size();
             }
+
         });
 
         findViewById(R.id.add_assessment_button).setOnClickListener(v -> {
@@ -123,7 +164,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     @Override
     public void editAssessments(Assessment assessment) {
         this.mEditAssessment = assessment;
-        showEditAssessmentDialog();
+//        showEditAssessmentDialog();
     }
 
     private void showEditAssessmentDialog() {
@@ -147,28 +188,28 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         // TODO Create associated courses to get all the associated courses with a give item.
         AutoCompleteTextView courses = (AutoCompleteTextView) dialogView.findViewById(R.id.ac_course_title);
         try {
-            final Course acCourse = new Course();
-            final CourseAdapter courseAdapter= new CourseAdapter(this);
-            mAssessmentViewModel.getAssociatedCourses(courseId);
-            mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-            mCourseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
-            mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
-                @Override
-                public void onChanged(List<Course> coursesList) {
-                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AssessmentActivity.this, R.layout.list_item, coursesList);
-
-//                    coursesList.stream()
-//                            .filter(a -> {
-//                        if (a.getId() == courseId) {
-//                            courses.setText(a.getTitle());
-//                        }
-//                        return Boolean.parseBoolean(a.getTitle());
-//                    });
-                    int i = coursesList.indexOf(mEditAssessment);
-                    courses.setText(coursesList.get(coursesList.indexOf(mEditAssessment.getCourseId())).getTitle());
-                    courses.setAdapter(courseArrayAdapter);
-                }
-            });
+//            final Course acCourse = new Course();
+//            final CourseAdapter courseAdapter= new CourseAdapter(this);
+//            mAssessmentViewModel.getAssociatedCourses(courseId);
+//            mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+//            mCourseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
+//            mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+//                @Override
+//                public void onChanged(List<Course> coursesList) {
+//                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AssessmentActivity.this, R.layout.list_item, coursesList);
+//
+////                    coursesList.stream()
+////                            .filter(a -> {
+////                        if (a.getId() == courseId) {
+////                            courses.setText(a.getTitle());
+////                        }
+////                        return Boolean.parseBoolean(a.getTitle());
+////                    });
+//                    int i = coursesList.indexOf(mEditAssessment);
+//                    courses.setText(coursesList.get(coursesList.indexOf(mEditAssessment.getCourseId())).getTitle());
+//                    courses.setAdapter(courseArrayAdapter);
+//                }
+//            });
 
             courses.setOnItemClickListener((parent, view, position, id) -> {
                 courseChange = true;

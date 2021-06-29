@@ -12,30 +12,40 @@ import java.util.List;
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementDatabase;
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
+import scheduler.wgu.mywguscheduler.Entity.Course;
 
 public class AssessmentViewModel extends AndroidViewModel {
 
     private ScheduleManagementRepository mRepository;
     private LiveData<List<Assessment>> mAllAssessments;
-    private LiveData<List<Assessment>> mAssociatedCourses;
+//    private LiveData<List<Assessment>> mAssociatedCourses;
+    private LiveData<List<Course>> mAssociatedCourses;
+    private Course course;
+
     int courseId;
 
     public AssessmentViewModel(Application application, int courseId) {
         super(application);
         mRepository = new ScheduleManagementRepository(application);
-        mAssociatedCourses = mRepository.getAssociatedCourses(courseId);
+//        mAssociatedCourses = mRepository.getAssociatedCourses(courseId);
+        mAssociatedCourses = mRepository.getAssessmentAssociatedCourses(courseId);
+//        course = mRepository.getCourse(courseId);
     }
 
     public AssessmentViewModel(Application application) {
         super(application);
         mRepository = new ScheduleManagementRepository(application);
         mAllAssessments = mRepository.getAllLiveAssessments();
-        mAssociatedCourses = mRepository.getAssociatedCourses(courseId);
+//        mAssociatedCourses = mRepository.getAssociatedCourses(courseId);
+//        mAssociatedCourses = mRepository.getAllCourses();
     }
 
-    public LiveData<List<Assessment>> getAssociatedCourses(int courseId) { return mRepository.getAssociatedCourses(courseId); }
+//    public LiveData<List<Assessment>> getAssociatedCourses(int courseId) { return mRepository.getAssociatedCourses(courseId); }
     public LiveData<List<Assessment>> getAllAssessments() { return  mAllAssessments; }
+    public LiveData<List<Course>> getAssessmentAssociatedCourses(int courseId) { return mRepository.getAssessmentAssociatedCourses(courseId); }
+
     public void insert(Assessment assessment) { mRepository.insert(assessment); }
     public void delete(Assessment assessment) { mRepository.delete(assessment); }
     public int lastId() { return mAllAssessments.getValue().size(); }
+    public Course getCourse() { return course; }
 }
