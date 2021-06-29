@@ -76,15 +76,23 @@ public class AddAssessmentActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(List<Course> coursesList) {
                     ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AddAssessmentActivity.this, R.layout.list_item, coursesList);
-                    courses.setText(coursesList.get(0).getTitle());
-                    courses.setAdapter(courseArrayAdapter);
+                    if (!coursesList.isEmpty()) {
+                        courses.setText(coursesList.get(0).getTitle());
+                        courses.setAdapter(courseArrayAdapter);
+
+                        courses.setOnItemClickListener((parent, view, position, id) -> {
+                            Course selectedCourse = (Course) parent.getItemAtPosition(position);
+                            courseId = selectedCourse.getId();
+                        });
+                    } else {
+                        courses.setText("No Courses Available");
+                        courseId = 0;
+                    }
+
                 }
             });
 
-            courses.setOnItemClickListener((parent, view, position, id) -> {
-                Course selectedCourse = (Course) parent.getItemAtPosition(position);
-                courseId = selectedCourse.getId();
-            });
+
 
         } catch (Exception e) {
             Toast.makeText(AddAssessmentActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();

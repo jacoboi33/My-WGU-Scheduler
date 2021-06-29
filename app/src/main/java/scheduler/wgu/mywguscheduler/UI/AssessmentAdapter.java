@@ -118,7 +118,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             Assessment current = mAssessments.get(position);
             // TODO the below doesnt work because mCourses.get is looking for an index
             // TODO HOW DO I GET THE CURRENT COURSE MATCHING THE CURRENT COURSE ID FROM ASSESSMENTS
-            Course currentCourse = mCourses.get(current.getCourseId());
+//            Course currentCourse = mCourses.get(current.getCourseId());
 
             // TODO The below stops the program I am trying to add
             // TODO add the course titles to the recycler view.
@@ -129,31 +129,34 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
              *
              *
              * */
+                mAssessments.forEach(assessment -> {
+                    if(assessment.getCourseId() > 0) {
+                        mCourses.forEach((course) -> {
+                            // TODO HELP HELP HELP
+                            // TODO FOR SOME REASON ANYTHING IN THE LIST ISNT VALID
+                            if (course.getId() == assessment.getCourseId()){
+                                holder.title.setText(assessment.getTitle());
+                                holder.type.setText(assessment.getType());
+                                holder.dueDate.setText(assessment.getEndDate());
+                                holder.courseTitle.setText(course.getTitle());
+                            }
+                        });
+                    } else if (assessment.getCourseId() == 0) {
+                        holder.title.setText(current.getTitle());
+                        holder.type.setText(current.getType());
+                        holder.dueDate.setText(current.getEndDate());
+                        holder.courseTitle.setText("No Courses Added");
+                    }
+                });
 
-                if(current.getCourseId() > 0) {
-                    mCourses.forEach((course) -> {
-                        // TODO HELP HELP HELP
-                    // TODO FOR SOME REASON ANYTHING IN THE LIST ISNT VALID
-                        if (course.getId() == current.getCourseId()){
-                            holder.title.setText(current.getTitle());
-                            holder.type.setText(current.getType());
-                            holder.dueDate.setText(current.getEndDate());
-                            holder.courseTitle.setText(course.getTitle());
-                        }
-                    });
-                } else {
-                    holder.title.setText(current.getTitle());
-                    holder.type.setText(current.getType());
-                    holder.dueDate.setText(current.getEndDate());
-                    holder.courseTitle.setText("No Courses Added");
-                }
 
-        } else {
-            holder.title.setText("No title");
-//            holder.courseTitle.setText("No Courses Added");
-            holder.type.setText("No Assessment Type Selected");
-            holder.dueDate.setText("No Date");
         }
+//        else {
+//            holder.title.setText("No title");
+////            holder.courseTitle.setText("No Courses Added");
+//            holder.type.setText("No Assessment Type Selected");
+//            holder.dueDate.setText("No Date");
+//        }
 
         holder.deleteAssessmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,5 +201,9 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         void onAssessmentClick(int position);
         void removeAssessments(Assessment assessment);
         void editAssessments(Assessment assessment);
+    }
+
+    public class AssessmentCourse () {
+
     }
 }
