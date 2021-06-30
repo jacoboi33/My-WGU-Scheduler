@@ -39,6 +39,7 @@ public class CourseViewModel extends AndroidViewModel {
     public LiveData<List<Course>> getAssociatedInstructors(int instructorId) { return mRepository.getmAssociatedInstructors(instructorId); }
     public LiveData<List<Course>> getmAssociatedTerms(int termId) { return mRepository.getAssociatedTerms(termId); }
     public LiveData<List<Course>> getAllCourses() { return mAllCourses; }
+    public LiveData<List<Course>> getAssessmentCourses(int courseId) {return mRepository.getAssessmentAssociatedCourses(courseId); }
     public void insert(Course course) { mRepository.insert(course); }
     public void delete(Course course) { mRepository.delete(course); }
     public int assessmentCount() { return Objects.requireNonNull(mAllCourses.getValue()).size(); }

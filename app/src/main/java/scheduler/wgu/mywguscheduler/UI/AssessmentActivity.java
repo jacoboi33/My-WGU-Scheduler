@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -24,6 +25,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 import java.util.Objects;
 
+import scheduler.wgu.mywguscheduler.Data.AssessmentCourse;
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
@@ -40,6 +42,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     private CourseViewModel mCourseViewModel;
     private List<Assessment> mAssessments;
     private List<Course> mCourseList;
+    private List<AssessmentCourse> mAssessmentCourseList;
     private Assessment mEditAssessment;
     private boolean courseChange = false;
 
@@ -65,12 +68,33 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
 //        List<Course> courseList = new ArrayList<>();
 
         mAssessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
+        mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+
         mAssessmentViewModel.getAllAssessments().observe(this, adapter::setWords);
         mAssessmentViewModel.getAllAssessments().observe(this, new Observer<List<Assessment>>() {
             @Override
             public void onChanged(List<Assessment> assessments) {
 
-                mAssessments = assessments;
+//                if (!allAssessmentCourses.isEmpty()) {
+//                    mCourseList = allAssessmentCourses;
+//                }
+
+
+
+//                mAssessments = assessments;
+//                if (!mAssessments.isEmpty()) {
+//                    mAssessments.forEach(assessment -> {
+//                        if (assessment.getCourseId() > 0) {
+//                            mCourseViewModel.getAssessmentCourses(assessment.getCourseId()).observe(LifecycleOwner, new Observer<List<Course>>() {
+//                                @Override
+//                                public void onChanged(List<Course> courses) {
+//
+//                                }
+//                            });
+//                        }
+//
+//                    });
+//                }
 
 //                assessments.forEach((a) -> {
 //                    allAssessmentCourses.forEach((c) -> {

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.*;
 import java.util.zip.Inflater;
 
+import scheduler.wgu.mywguscheduler.Data.AssessmentCourse;
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
@@ -31,6 +32,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     private final LayoutInflater mInflater;
     private List<Assessment> mAssessments;
     private List<Course> mCourses;
+    private List<AssessmentCourse> assessmentCourseList;
     private HandleAssessmentClick clickListener;
     private final Context context;
 
@@ -203,7 +205,4 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         void editAssessments(Assessment assessment);
     }
 
-    public class AssessmentCourse () {
-
-    }
 }
