@@ -151,6 +151,7 @@ public class ScheduleManagementRepository {
      * Term
      * */
     public LiveData<List<Term>> getAllLiveTerms() { return mTermsList; }
+    public LiveData<List<Course>> getAllTermCourses(int termId) { return mAssociatedCourses; }
 
     private static class insertTermAsyncTask extends AsyncTask<Term, Void, Void> {
         private TermDAO mAsyncTaskDao;
@@ -195,7 +196,7 @@ public class ScheduleManagementRepository {
     }
     public LiveData<List<Course>> getAllLiveCourses() { return mCoursesList; }
     public LiveData<List<Course>> getAssociatedTerms(int termId) { return mAssociatedTerms; }
-    public LiveData<List<Course>> getmAssociatedInstructors(int instructorId) { return mAssociatedTerms; }
+    public LiveData<List<Course>> getmAssociatedInstructors(int instructorId) { return mAssociatedInstructors; }
     public LiveData<List<Course>> getAssessmentAssociatedCourses(int courseId) {
         return mAssessmentDao.getAssessmentAssociatedCourses(courseId);
     }
@@ -205,6 +206,8 @@ public class ScheduleManagementRepository {
 
     /**
      * Assessments
+     *
+     *
      *
      * */
 
