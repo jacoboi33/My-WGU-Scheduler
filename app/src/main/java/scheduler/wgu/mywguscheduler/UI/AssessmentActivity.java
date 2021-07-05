@@ -54,19 +54,10 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         setContentView(R.layout.activity_assessment);
         getSupportActionBar().setTitle("Assessments");
 
-//        CourseViewModel mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-//        Intent extraIntent = new Intent();
-
-
-//        repository = new ScheduleManagementRepository(getApplication());
-//        List<Course> allAssessmentCourses = repository.getCourseList();
-//        TextView courseTitle = findViewById(R.id.course_title);
         RecyclerView assessmentRecylcerView = findViewById(R.id.assessmentRecyclerView);
         final AssessmentAdapter adapter = new AssessmentAdapter(this, this);
         assessmentRecylcerView.setAdapter(adapter);
         assessmentRecylcerView.setLayoutManager(new LinearLayoutManager(this));
-//        List<Course> courseList = new ArrayList<>();
-
         mAssessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
         mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
 
@@ -74,78 +65,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         mAssessmentViewModel.getAllAssessments().observe(this, new Observer<List<Assessment>>() {
             @Override
             public void onChanged(List<Assessment> assessments) {
-
-//                if (!allAssessmentCourses.isEmpty()) {
-//                    mCourseList = allAssessmentCourses;
-//                }
-
-
-
-//                mAssessments = assessments;
-//                if (!mAssessments.isEmpty()) {
-//                    mAssessments.forEach(assessment -> {
-//                        if (assessment.getCourseId() > 0) {
-//                            mCourseViewModel.getAssessmentCourses(assessment.getCourseId()).observe(LifecycleOwner, new Observer<List<Course>>() {
-//                                @Override
-//                                public void onChanged(List<Course> courses) {
-//
-//                                }
-//                            });
-//                        }
-//
-//                    });
-//                }
-
-//                assessments.forEach((a) -> {
-//                    allAssessmentCourses.forEach((c) -> {
-//                        if (a.getCourseId() == c.getId()) {
-//                            courseList.add(c);
-//                        }
-//                    });
-//                });
-
-//                mAssessmentViewModel.getAssessmentAssociatedCourses(extraIntent.getIntExtra("position", 0)).observe(this,  new Observer<List<Course>>() {
-//                    @Override
-//                    public void onChanged(List<Course> courses) {
-//                        assessments.forEach((e) -> {
-//                            courses.forEach((c) -> {
-//                                if (e.getCourseId() == c.getId())
-//                                    courseList.add(c);
-//                            });
-//                        });
-//                    }
-//                });
-//                List<Assessment> filteredWords = new ArrayList<>();
-//                List<Course> associatedCourses = mAssessmentViewModel.getAssessmentAssociatedCourses();
-//                filteredWords = assessments;
-//                for (Assessment a: assessments) {
-//                    if(a.getCourseId() > 0){
-//                        associatedCourses.get(a.getCourseId());
-//                        for (Course c: allAssessmentCourses) {
-//                            if(c.getId() == a.getCourseId()) {
-//                                associatedCourses.add(c);
-//                                extraIntent.putExtra("courseId", a.getCourseId());
-//                                extraIntent.putExtra("courseTitle", c.getTitle());
-//                            }
-
-//                                courseTitle.setText(c.getTitle());
-//                        }
-//                        mAssessmentViewModel.getAssociatedCourses(a.getCourseId());
-//                    }
-//                    filteredWords.add(a);
-//                }
-
-//                    if (a.getCourseId() == getIntent().getIntExtra("courseId", 0))
-//                        filteredWords.add(a);
-
-//                List<Course> result = allAssessmentCourses.stream()
-//                        .filter( course -> course.getId() ==  getId.stream()person.phoneNumber.stream()
-//                                .anyMatch(phone -> phone.type.equals("HOME") &&
-//                                        phone.number.contains("888"))
-//                                .collect(Collectors.toList());
-//                adapter.setWords(assessments, courseList);
                 adapter.setWords(assessments);
-//                numAssessments = assessments.size();
             }
         });
 
@@ -169,19 +89,6 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
 
     @Override
     public void onAssessmentClick(int position) {
-//        mAssessments.get(position);
-        //        TODO Add the intent to the detail view in My WGU Scheduler. DONE
-        // TODO get edit and delete buttons working
-//        final Assessment current = mAssessments.get(position);
-//        Intent intent = new Intent();
-//        intent.putExtra("title", current.getTitle());
-//        intent.putExtra("type", current.getType());
-//        intent.putExtra("position",position);
-//        intent.putExtra("courseTitle", current.getCourseId());
-//        intent.putExtra("id",current.getId());
-//        intent.putExtra("assessmentDate", current.getEndDate());
-//        context.startActivity(intent);
-
         Intent intent = new Intent(AssessmentActivity.this, AssessmentDetailActivity.class);
         startActivity(intent);
     }

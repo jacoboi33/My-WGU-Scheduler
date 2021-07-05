@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
@@ -18,7 +19,8 @@ public class AssessmentViewModel extends AndroidViewModel {
 
     private ScheduleManagementRepository mRepository;
     private LiveData<List<Assessment>> mAllAssessments;
-//    private LiveData<List<Assessment>> mAssociatedCourses;
+
+    private final MutableLiveData<String> mAssessmentCourseTitle = new MutableLiveData<>();
     private LiveData<List<Course>> mAssociatedCourses;
     private Course course;
 
