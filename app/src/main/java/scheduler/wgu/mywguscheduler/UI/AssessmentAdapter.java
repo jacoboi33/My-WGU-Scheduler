@@ -153,12 +153,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
 
         }
-//        else {
-//            holder.title.setText("No title");
-////            holder.courseTitle.setText("No Courses Added");
-//            holder.type.setText("No Assessment Type Selected");
-//            holder.dueDate.setText("No Date");
-//        }
 
         holder.deleteAssessmentButton.setOnClickListener(new View.OnClickListener() {
             @Override

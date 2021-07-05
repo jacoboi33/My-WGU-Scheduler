@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:layout_margin="8dp"
-            android:hint="Course Type">
+            android:hint="Assessment Type">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
