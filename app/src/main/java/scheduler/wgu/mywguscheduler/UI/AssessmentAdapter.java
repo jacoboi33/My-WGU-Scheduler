@@ -2,7 +2,6 @@ package scheduler.wgu.mywguscheduler.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.*;
-import java.util.zip.Inflater;
 
-import scheduler.wgu.mywguscheduler.Data.AssessmentCourse;
-import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.R;
-import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
 
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
@@ -77,17 +68,24 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                 final Assessment current = mAssessments.get(position);
                 Intent intent = new Intent(context, AssessmentDetailActivity.class);
                 if (current.getCourseId() > 0) {
-                    mCourses.forEach(course -> {
-                        if (course.getId() == current.getCourseId()) {
-                            intent.putExtra("title", current.getTitle());
-                            intent.putExtra("type", current.getType());
-                            intent.putExtra("position", position);
-                            intent.putExtra("courseId", current.getCourseId());
-                            intent.putExtra("courseTitle", course.getTitle());
-                            intent.putExtra("id", current.getId());
-                            intent.putExtra("assessmentDate", current.getEndDate());
-                        }
-                    });
+                    intent.putExtra("title", current.getTitle());
+                    intent.putExtra("type", current.getType());
+                    intent.putExtra("position", position);
+                    intent.putExtra("courseId", current.getCourseId());
+//                    intent.putExtra("courseTitle", course.getTitle());
+                    intent.putExtra("id", current.getId());
+                    intent.putExtra("assessmentDate", current.getEndDate());
+//                    mCourses.forEach(course -> {
+//                        if (course.getId() == current.getCourseId()) {
+//                            intent.putExtra("title", current.getTitle());
+//                            intent.putExtra("type", current.getType());
+//                            intent.putExtra("position", position);
+//                            intent.putExtra("courseId", current.getCourseId());
+//                            intent.putExtra("courseTitle", course.getTitle());
+//                            intent.putExtra("id", current.getId());
+//                            intent.putExtra("assessmentDate", current.getEndDate());
+//                        }
+//                    });
                 } else {
                     intent.putExtra("title", current.getTitle());
                     intent.putExtra("type", current.getType());
@@ -125,6 +123,18 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             // TODO The below stops the program I am trying to add
             // TODO add the course titles to the recycler view.
             // TODO I kinda got it working where it was adding the wrong course title.
+
+//            if (current.getCourseId() > 0) {
+//                holder.title.setText(current.getTitle());
+//                holder.type.setText(current.getType());
+//                holder.dueDate.setText(current.getEndDate());
+////                        holder.courseTitle.setText(String.format("%d Course", assessment.getCourseId()));
+//            } else {
+//                holder.title.setText(current.getTitle());
+//                holder.type.setText(current.getType());
+//                holder.dueDate.setText(current.getEndDate());
+//                holder.courseTitle.setText("No Courses Added");
+//            }
             /**
              * SETS THE TEXT VALUES FROM THE CURRENT COURSE AND
              * COURSES TITLE IF ITS BEEN ADDED.
@@ -132,23 +142,36 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
              *
              * */
                 mAssessments.forEach(assessment -> {
-                    if(assessment.getCourseId() > 0) {
-                        mCourses.forEach((course) -> {
-                            // TODO HELP HELP HELP
-                            // TODO FOR SOME REASON ANYTHING IN THE LIST ISNT VALID
-                            if (course.getId() == assessment.getCourseId()){
-                                holder.title.setText(assessment.getTitle());
-                                holder.type.setText(assessment.getType());
-                                holder.dueDate.setText(assessment.getEndDate());
-                                holder.courseTitle.setText(course.getTitle());
-                            }
-                        });
-                    } else if (assessment.getCourseId() == 0) {
+                    if (current.getCourseId() > 0) {
+                        holder.title.setText(current.getTitle());
+                        holder.type.setText(current.getType());
+                        holder.dueDate.setText(current.getEndDate());
+                        holder.courseTitle.setText("course");
+                    } else {
                         holder.title.setText(current.getTitle());
                         holder.type.setText(current.getType());
                         holder.dueDate.setText(current.getEndDate());
                         holder.courseTitle.setText("No Courses Added");
                     }
+
+//                    if(assessment.getCourseId() > 0) {
+//                        mCourses.forEach((course) -> {
+//                            // TODO HELP HELP HELP
+//                            // TODO FOR SOME REASON ANYTHING IN THE LIST ISNT VALID
+//                            if (course.getId() == assessment.getCourseId()){
+//                                holder.title.setText(assessment.getTitle());
+//                                holder.type.setText(assessment.getType());
+//                                holder.dueDate.setText(assessment.getEndDate());
+//                                holder.courseTitle.setText(course.getTitle());
+//                            }
+//                        });
+//                    }
+//                    else if (assessment.getCourseId() == 0) {
+//                        holder.title.setText(current.getTitle());
+//                        holder.type.setText(current.getType());
+//                        holder.dueDate.setText(current.getEndDate());
+//                        holder.courseTitle.setText("No Courses Added");
+//                    }
                 });
 
 

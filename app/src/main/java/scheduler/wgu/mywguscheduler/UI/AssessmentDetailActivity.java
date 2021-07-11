@@ -14,7 +14,6 @@ import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
 
 public class AssessmentDetailActivity extends AppCompatActivity {
 
-    private AssessmentViewModel mAssessmentViewModel;
     private TextInputLayout mTitle;
     private TextInputLayout mType;
     private TextInputLayout mDueDate;

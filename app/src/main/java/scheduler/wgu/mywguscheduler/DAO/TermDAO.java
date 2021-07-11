@@ -15,7 +15,7 @@ import scheduler.wgu.mywguscheduler.Entity.Term;
 @Dao
 public interface TermDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Term term);
+    long insert(Term term);
 
     @Delete
     void delete(Term term);

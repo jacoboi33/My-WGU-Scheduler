@@ -67,36 +67,36 @@ public class AddAssessmentActivity extends AppCompatActivity {
 //        TODO Set type = autocompleteview
 //        TODO insert delete edit assessments
 
-        AutoCompleteTextView courses = findViewById(R.id.ac_course_title);
-        try {
-            final CourseAdapter courseAdapter= new CourseAdapter(this);
-            courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-            courseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
-            courseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
-                @Override
-                public void onChanged(List<Course> coursesList) {
-                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AddAssessmentActivity.this, R.layout.list_item, coursesList);
-                    if (!coursesList.isEmpty()) {
-                        courses.setText(coursesList.get(0).getTitle());
-                        courses.setAdapter(courseArrayAdapter);
-
-                        courses.setOnItemClickListener((parent, view, position, id) -> {
-                            Course selectedCourse = (Course) parent.getItemAtPosition(position);
-                            courseId = selectedCourse.getId();
-                        });
-                    } else {
-                        courses.setText("No Courses Available");
-                        courseId = 0;
-                    }
-
-                }
-            });
-
-
-
-        } catch (Exception e) {
-            Toast.makeText(AddAssessmentActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
-        }
+//        AutoCompleteTextView courses = findViewById(R.id.ac_course_title);
+//        try {
+//            final CourseAdapter courseAdapter= new CourseAdapter(this);
+//            courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+//            courseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
+//            courseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+//                @Override
+//                public void onChanged(List<Course> coursesList) {
+//                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AddAssessmentActivity.this, R.layout.list_item, coursesList);
+//                    if (!coursesList.isEmpty()) {
+//                        courses.setText(coursesList.get(0).getTitle());
+//                        courses.setAdapter(courseArrayAdapter);
+//
+//                        courses.setOnItemClickListener((parent, view, position, id) -> {
+//                            Course selectedCourse = (Course) parent.getItemAtPosition(position);
+//                            courseId = selectedCourse.getId();
+//                        });
+//                    } else {
+//                        courses.setText("No Courses Available");
+//                        courseId = 0;
+//                    }
+//
+//                }
+//            });
+//
+//
+//
+//        } catch (Exception e) {
+//            Toast.makeText(AddAssessmentActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
+//        }
 
         datePicker = findViewById(R.id.date_picker_text_input);
         Button datePickerButton = findViewById(R.id.icon_date_picker_button);
@@ -141,7 +141,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
                         title,
                         type,
                         date,
-                        courseId
+                        0
                 );
                 viewModel.insert(assessment);
                 Toast.makeText(AddAssessmentActivity.this, String.format("Assessment %s added successfully ", title), Toast.LENGTH_SHORT).show();

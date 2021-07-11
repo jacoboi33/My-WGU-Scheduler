@@ -20,9 +20,9 @@ public class AssessmentViewModel extends AndroidViewModel {
     private ScheduleManagementRepository mRepository;
     private LiveData<List<Assessment>> mAllAssessments;
 
-    private final MutableLiveData<String> mAssessmentCourseTitle = new MutableLiveData<>();
-    private LiveData<List<Course>> mAssociatedCourses;
-    private Course course;
+//    private final MutableLiveData<String> mAssessmentCourseTitle = new MutableLiveData<>();
+//    private LiveData<List<Course>> mAssociatedCourses;
+//    private Course course;
 
     int courseId;
 
@@ -30,7 +30,7 @@ public class AssessmentViewModel extends AndroidViewModel {
         super(application);
         mRepository = new ScheduleManagementRepository(application);
 //        mAssociatedCourses = mRepository.getAssociatedCourses(courseId);
-        mAssociatedCourses = mRepository.getAssessmentAssociatedCourses(courseId);
+//        mAssociatedCourses = mRepository.getAssessmentAssociatedCourses(courseId);
 //        course = mRepository.getCourse(courseId);
     }
 
@@ -44,10 +44,10 @@ public class AssessmentViewModel extends AndroidViewModel {
 
 //    public LiveData<List<Assessment>> getAssociatedCourses(int courseId) { return mRepository.getAssociatedCourses(courseId); }
     public LiveData<List<Assessment>> getAllAssessments() { return  mAllAssessments; }
-    public LiveData<List<Course>> getAssessmentAssociatedCourses(int courseId) { return mRepository.getAssessmentAssociatedCourses(courseId); }
+//    public LiveData<List<Course>> getAssessmentAssociatedCourses(int courseId) { return mRepository.getAssessmentAssociatedCourses(courseId); }
 
     public void insert(Assessment assessment) { mRepository.insert(assessment); }
     public void delete(Assessment assessment) { mRepository.delete(assessment); }
     public int lastId() { return mAllAssessments.getValue().size(); }
-    public Course getCourse() { return course; }
+//    public Course getCourse() { return course; }
 }

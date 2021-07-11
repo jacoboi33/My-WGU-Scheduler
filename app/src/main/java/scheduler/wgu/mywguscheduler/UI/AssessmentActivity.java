@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -25,7 +24,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 import java.util.Objects;
 
-import scheduler.wgu.mywguscheduler.Data.AssessmentCourse;
 import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
@@ -69,22 +67,22 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
             }
         });
 
-        mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-        mCourseViewModel.getAllCourses().observe(this, adapter::setCourses);
-        mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
-            @Override
-            public void onChanged(List<Course> courses) {
-                mCourseList = courses;
-                adapter.setCourses(courses);
-            }
-        });
+//        mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+//        mCourseViewModel.getAllCourses().observe(this, adapter::setCourses);
+//        mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+//            @Override
+//            public void onChanged(List<Course> courses) {
+//                mCourseList = courses;
+//                adapter.setCourses(courses);
+//            }
+//        });
 
 //        adapter.setWords(mAssessments, mCourseList);
 
-        findViewById(R.id.add_assessment_button).setOnClickListener(v -> {
-            Intent intent = new Intent(AssessmentActivity.this, AddAssessmentActivity.class);
-            startActivity(intent);
-        });
+//        findViewById(R.id.add_assessment_button).setOnClickListener(v -> {
+//            Intent intent = new Intent(AssessmentActivity.this, AddAssessmentActivity.class);
+//            startActivity(intent);
+//        });
     }
 
     @Override
@@ -110,45 +108,46 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
 
         AutoCompleteTextView type = (AutoCompleteTextView) dialogView.findViewById(R.id.assessment_type);
         String[] items = {"Objective", "Performance"};
-        type.setText(items[0]);
+//        type.setText(items[0]);
 
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, items);
-        type.setAdapter(adapter);
 
         int editId = mEditAssessment.getId();
         int courseId = mEditAssessment.getCourseId();
         TextInputLayout mTitle = dialogView.findViewById(R.id.title_text_input);
         TextInputLayout mType = dialogView.findViewById(R.id.type_text_input);
         TextInputLayout datePicker = dialogView.findViewById(R.id.date_picker_text_input);
+        type.setAdapter(adapter);
+
 
         // TODO Create associated courses to get all the associated courses with a give item.
-        AutoCompleteTextView courses = (AutoCompleteTextView) dialogView.findViewById(R.id.ac_course_title);
-        try {
-            final Course acCourse = new Course();
-            final CourseAdapter courseAdapter= new CourseAdapter(this);
-//            mAssessmentViewModel.getAssociatedCourses(courseId);
-            mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-            mCourseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
-            mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
-                @Override
-                public void onChanged(List<Course> coursesList) {
-                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AssessmentActivity.this, R.layout.list_item, coursesList);
-//                    int i = coursesList.indexOf(mEditAssessment);
-                    courses.setText(coursesList.get(coursesList.indexOf(mEditAssessment.getCourseId())).getTitle());
-                    courses.setAdapter(courseArrayAdapter);
-                }
-            });
-
-            courses.setOnItemClickListener((parent, view, position, id) -> {
-                courseChange = true;
-                Course selectedCourse = (Course) parent.getItemAtPosition(position);
-                mCourseId = selectedCourse.getId();
-            });
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-            Toast.makeText(AssessmentActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
-        }
+//        AutoCompleteTextView courses = (AutoCompleteTextView) dialogView.findViewById(R.id.ac_course_title);
+//        try {
+//            final Course acCourse = new Course();
+//            final CourseAdapter courseAdapter= new CourseAdapter(this);
+////            mAssessmentViewModel.getAssociatedCourses(courseId);
+//            mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+//            mCourseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
+//            mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
+//                @Override
+//                public void onChanged(List<Course> coursesList) {
+//                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AssessmentActivity.this, R.layout.list_item, coursesList);
+////                    int i = coursesList.indexOf(mEditAssessment); todo fix line 138 to just gett the list of courses
+//                    courses.setText(coursesList.get().getTitle());
+//                    courses.setAdapter(courseArrayAdapter);
+//                }
+//            });
+//
+//            courses.setOnItemClickListener((parent, view, position, id) -> {
+//                courseChange = true;
+//                Course selectedCourse = (Course) parent.getItemAtPosition(position);
+//                mCourseId = selectedCourse.getId();
+//            });
+//
+//        } catch (ArrayIndexOutOfBoundsException e) {
+//            Toast.makeText(AssessmentActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
+//        }
 
         Button datePickerButton = (Button)dialogView.findViewById(R.id.icon_date_picker_button);
         datePickerButton.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +187,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (courseChange == false)
+                if (!courseChange)
                     mCourseId = courseId;
                 String title = mTitle.getEditText().getText().toString();
                 String type = mType.getEditText().getText().toString();

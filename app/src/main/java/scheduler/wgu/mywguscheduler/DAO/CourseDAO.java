@@ -16,7 +16,7 @@ import scheduler.wgu.mywguscheduler.Entity.Course;
 @Dao
 public interface CourseDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Course course);
+    long insert(Course course);
 
     @Delete
     void delete(Course course);
@@ -27,13 +27,20 @@ public interface CourseDAO {
     @Query("SELECT * FROM course where termId = :termId ORDER BY id ASC")
     LiveData<List<Course>> getAllAssociatedTerms(int termId);
 
-    @Query("SELECT * FROM course where id = :courseId")
-    Course getCourse(int courseId);
-
     @Query("SELECT * FROM course where instructorId = :instructorId ORDER BY id ASC")
     LiveData<List<Course>> getAllAssociatedInstructors(int instructorId);
 
-    @Query("SELECT * FROM course")
-    List<Course> getCourseList();
+    @Query("SELECT assessment.id FROM assessment where courseId = :courseId ORDER BY id ASC")
+    LiveData<List<AssessmentsByCourse>> getLiveAllAssociatedCourses(int courseId);
+
+
+    static class AssessmentsByCourse {
+        public int assessmentId;
+        public String assessmentTitle;
+        public int courseId;
+        public String courseTitle;
+    }
+
+
 
 }

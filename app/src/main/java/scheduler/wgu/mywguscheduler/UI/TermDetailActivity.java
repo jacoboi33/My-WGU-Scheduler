@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
@@ -21,17 +23,10 @@ import scheduler.wgu.mywguscheduler.R;
 
 public class TermDetailActivity extends AppCompatActivity {
 
-    int id;
-    String termTitle;
-    String startDate;
-    String endDate;
+    private TextInputLayout termTitle;
+    private TextInputLayout startDate;
+    private TextInputLayout endDate;
 
-    EditText editTermTitle;
-    String editStartDate;
-    String editEndDate;
-
-    TextView mStartDate;
-    TextView mEndDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

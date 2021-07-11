@@ -15,7 +15,7 @@ import scheduler.wgu.mywguscheduler.Entity.Instructor;
 @Dao
 public interface InstructorDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Instructor instructor);
+    long insert(Instructor instructor);
 
     @Delete
     void delete(Instructor instructor);

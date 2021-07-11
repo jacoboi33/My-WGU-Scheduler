@@ -20,11 +20,11 @@ public class InstructorViewModel extends AndroidViewModel {
         super(application);
         mRepository = new ScheduleManagementRepository(application);
         mAllLLiveInstructors = mRepository.getAllLiveInstructors();
-        mAllInstructors = mRepository.getAllInstructors();
+//        mAllInstructors = mRepository.getAllInstructors();
     }
 
     public LiveData<List<Instructor>> getAllLiveInstructors() { return mAllLLiveInstructors; }
-    public List<Instructor> getAllInstructors() { return mAllInstructors; }
+//    public List<Instructor> getAllInstructors() { return mAllInstructors; }
 
     public void insert (Instructor instructor) {
         mRepository.insert(instructor);
