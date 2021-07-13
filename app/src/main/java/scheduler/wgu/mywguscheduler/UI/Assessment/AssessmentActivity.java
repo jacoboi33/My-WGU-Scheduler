@@ -1,4 +1,4 @@
-package scheduler.wgu.mywguscheduler.UI;
+package scheduler.wgu.mywguscheduler.UI.Assessment;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,10 +28,11 @@ import scheduler.wgu.mywguscheduler.Database.ScheduleManagementRepository;
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.R;
+import scheduler.wgu.mywguscheduler.UI.Utils;
 import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
 import scheduler.wgu.mywguscheduler.ViewModel.CourseViewModel;
 
-public class AssessmentActivity extends AppCompatActivity implements AssessmentAdapter.HandleAssessmentClick{
+public class AssessmentActivity extends AppCompatActivity implements AssessmentAdapter.HandleAssessmentClick {
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private int numAssessments;
@@ -40,7 +41,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     private CourseViewModel mCourseViewModel;
     private List<Assessment> mAssessments;
     private List<Course> mCourseList;
-    private List<AssessmentCourse> mAssessmentCourseList;
+//    private List<AssessmentCourse> mAssessmentCourseList;
     private Assessment mEditAssessment;
     private boolean courseChange = false;
 
@@ -79,10 +80,10 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
 
 //        adapter.setWords(mAssessments, mCourseList);
 
-//        findViewById(R.id.add_assessment_button).setOnClickListener(v -> {
-//            Intent intent = new Intent(AssessmentActivity.this, AddAssessmentActivity.class);
-//            startActivity(intent);
-//        });
+        findViewById(R.id.add_assessment_button).setOnClickListener(v -> {
+            Intent intent = new Intent(AssessmentActivity.this, AddAssessmentActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override

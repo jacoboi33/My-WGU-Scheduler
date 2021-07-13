@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import scheduler.wgu.mywguscheduler.R;
+import scheduler.wgu.mywguscheduler.UI.Assessment.AssessmentActivity;
+import scheduler.wgu.mywguscheduler.UI.Course.CourseActivity;
+import scheduler.wgu.mywguscheduler.UI.Instructor.InstructorActivity;
+import scheduler.wgu.mywguscheduler.UI.Term.TermActivity;
 
 public class MainActivity extends AppCompatActivity {
 

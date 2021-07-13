@@ -30,8 +30,8 @@ public interface CourseDAO {
     @Query("SELECT * FROM course where instructorId = :instructorId ORDER BY id ASC")
     LiveData<List<Course>> getAllAssociatedInstructors(int instructorId);
 
-    @Query("SELECT assessment.id FROM assessment where courseId = :courseId ORDER BY id ASC")
-    LiveData<List<AssessmentsByCourse>> getLiveAllAssociatedCourses(int courseId);
+//    @Query("SELECT assessment.id FROM assessment where courseId = :courseId ORDER BY id ASC")
+//    LiveData<List<AssessmentsByCourse>> getLiveAllAssociatedCourses(int courseId);
 
 
     static class AssessmentsByCourse {

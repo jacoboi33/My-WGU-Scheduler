@@ -1,4 +1,4 @@
-package scheduler.wgu.mywguscheduler.UI;
+package scheduler.wgu.mywguscheduler.UI.Assessment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,7 +33,7 @@ public class AssessmentDetailActivity extends AppCompatActivity {
             mType.getEditText().setText(getIntent().getStringExtra("type"));
             mTitle.getEditText().setText(getIntent().getStringExtra("title"));
             mDueDate.getEditText().setText(getIntent().getStringExtra("assessmentDate"));
-            mCourseTitle.getEditText().setText(getIntent().getStringExtra("courseTitle"));
+//            mCourseTitle.getEditText().setText(getIntent().getStringExtra("courseTitle"));
         }
 
     }

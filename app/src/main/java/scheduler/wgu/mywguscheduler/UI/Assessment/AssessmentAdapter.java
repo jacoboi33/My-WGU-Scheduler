@@ -1,4 +1,4 @@
-package scheduler.wgu.mywguscheduler.UI;
+package scheduler.wgu.mywguscheduler.UI.Assessment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     private final LayoutInflater mInflater;
     private List<Assessment> mAssessments;
     private List<Course> mCourses;
-    private List<AssessmentCourse> assessmentCourseList;
+//    private List<AssessmentCourse> assessmentCourseList;
     private HandleAssessmentClick clickListener;
     private final Context context;
 
@@ -38,7 +38,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         this.context = context;
     }
 
-    class AssessmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class AssessmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView title;
         private final TextView type;
@@ -146,12 +146,12 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                         holder.title.setText(current.getTitle());
                         holder.type.setText(current.getType());
                         holder.dueDate.setText(current.getEndDate());
-                        holder.courseTitle.setText("course");
+//                        holder.courseTitle.setText("course");
                     } else {
                         holder.title.setText(current.getTitle());
                         holder.type.setText(current.getType());
                         holder.dueDate.setText(current.getEndDate());
-                        holder.courseTitle.setText("No Courses Added");
+//                        holder.courseTitle.setText("No Courses Added");
                     }
 
 //                    if(assessment.getCourseId() > 0) {

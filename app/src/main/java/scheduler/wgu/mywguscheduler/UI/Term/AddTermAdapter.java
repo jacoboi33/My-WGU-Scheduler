@@ -1,4 +1,4 @@
-package scheduler.wgu.mywguscheduler.UI;
+package scheduler.wgu.mywguscheduler.UI.Term;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package scheduler.wgu.mywguscheduler.UI;
+package scheduler.wgu.mywguscheduler.UI.Course;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import java.util.List;
 
 import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.R;
+import scheduler.wgu.mywguscheduler.UI.Assessment.AssessmentDetailActivity;
 import scheduler.wgu.mywguscheduler.ViewModel.CourseViewModel;
 
 public class CourseActivity extends AppCompatActivity implements CourseAdapter.HandleCourseClick {
@@ -81,7 +82,7 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.H
         View dialogView = getLayoutInflater().inflate(R.layout.activity_add_course, null);
 
         int id = mEditCourse.getId();
-        int termId = mEditCourse.getTermId();
+//        int termId = mEditCourse.getTermId();
         int instructorId = mEditCourse.getInstructorId();
 
         TextInputLayout mTitle = dialogView.findViewById(R.id.title_text_input);

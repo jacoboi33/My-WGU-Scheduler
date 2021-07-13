@@ -1,7 +1,6 @@
-package scheduler.wgu.mywguscheduler.UI;
+package scheduler.wgu.mywguscheduler.UI.Instructor;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import java.util.List;
 
 import scheduler.wgu.mywguscheduler.Entity.Instructor;
 import scheduler.wgu.mywguscheduler.R;
-import scheduler.wgu.mywguscheduler.ViewModel.InstructorViewModel;
 
 public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.InstructorViewHolder> {
 

@@ -10,48 +10,48 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyWGUScheduler">
         <activity
-            android:name=".UI.AssessmentDetailActivity"
+            android:name=".UI.Assessment.AssessmentDetailActivity"
             android:label="Assessment Details"
-            android:parentActivityName=".UI.AssessmentActivity"
+            android:parentActivityName=".UI.Assessment.AssessmentActivity"
             />
         <activity
-            android:name=".UI.CourseDetailActivity"
+            android:name=".UI.Course.CourseDetailActivity"
             android:label="Course Details"
-            android:parentActivityName=".UI.CourseActivity" />
+            android:parentActivityName=".UI.Course.CourseActivity" />
         <activity
-            android:name=".UI.TermDetailActivity"
+            android:name=".UI.Term.TermDetailActivity"
             android:label="Term Details"
-            android:parentActivityName=".UI.TermActivity" />
+            android:parentActivityName=".UI.Term.TermActivity" />
         <activity
-            android:name=".UI.AddTermActivity"
+            android:name=".UI.Term.AddTermActivity"
             android:label="Add Term"
-            android:parentActivityName=".UI.TermActivity" />
+            android:parentActivityName=".UI.Term.TermActivity" />
         <activity
-            android:name=".UI.AddInstructorActivity"
+            android:name=".UI.Instructor.AddInstructorActivity"
             android:label="Add Instructor"
-            android:parentActivityName=".UI.InstructorActivity" />
+            android:parentActivityName=".UI.Instructor.InstructorActivity" />
         <activity
-            android:name=".UI.AddCourseActivity"
+            android:name=".UI.Course.AddCourseActivity"
             android:label="Add Course"
-            android:parentActivityName=".UI.CourseActivity" />
+            android:parentActivityName=".UI.Course.CourseActivity" />
         <activity
-            android:name=".UI.AddAssessmentActivity"
+            android:name=".UI.Assessment.AddAssessmentActivity"
             android:label="Add Assessment"
-            android:parentActivityName=".UI.AssessmentActivity" />
+            android:parentActivityName=".UI.Assessment.AssessmentActivity" />
         <activity
-            android:name=".UI.TermActivity"
+            android:name=".UI.Term.TermActivity"
             android:label="Terms"
             android:parentActivityName=".UI.MainActivity" />
         <activity
-            android:name=".UI.InstructorActivity"
+            android:name=".UI.Instructor.InstructorActivity"
             android:label="Instructors"
             android:parentActivityName=".UI.MainActivity" />
         <activity
-            android:name=".UI.CourseActivity"
+            android:name=".UI.Course.CourseActivity"
             android:label="Courses"
             android:parentActivityName=".UI.MainActivity" />
         <activity
-            android:name=".UI.AssessmentActivity"
+            android:name=".UI.Assessment.AssessmentActivity"
             android:label="Assessments"
             android:parentActivityName=".UI.MainActivity" />
         <activity android:name=".UI.MainActivity">

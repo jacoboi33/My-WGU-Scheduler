@@ -1,48 +1,57 @@
-package scheduler.wgu.mywguscheduler.UI;
+package scheduler.wgu.mywguscheduler.UI.Course;
 
+import androidx.annotation.MenuRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.Entity.Course;
 import scheduler.wgu.mywguscheduler.Entity.Instructor;
 import scheduler.wgu.mywguscheduler.Entity.Term;
 import scheduler.wgu.mywguscheduler.R;
+import scheduler.wgu.mywguscheduler.UI.Instructor.InstructorAdapter;
+import scheduler.wgu.mywguscheduler.UI.Utils;
+import scheduler.wgu.mywguscheduler.ViewModel.AssessmentViewModel;
 import scheduler.wgu.mywguscheduler.ViewModel.CourseViewModel;
 import scheduler.wgu.mywguscheduler.ViewModel.InstructorViewModel;
 import scheduler.wgu.mywguscheduler.ViewModel.TermViewModel;
 
 public class AddCourseActivity extends AppCompatActivity {
 
-    private List<Instructor> mInstructors;
-    private List<Term> mTerms;
+//    private List<Instructor> mInstructors;
+//    private List<Term> mTerms;
     private CourseViewModel courseViewModel;
     private InstructorViewModel instructorViewModel;
-    private TermViewModel termViewModel;
+//    private TermViewModel termViewModel;
     private ArrayAdapter myAdapter;
+//    boolean[] selectedAssessments;
+    private List<Assessment> courseAssessments;
+    private AssessmentViewModel assessmentViewModel;
 
     private int instructorId;
-    private int termId;
+//    private int termId;
 
     // TODO DONT DELETE TERM IF COURSES ARE ADDED TO A TERM
     // TODO DONT DELETE COURSE IF ASSESSMENTS ARE ADDED TO A COURSE
@@ -53,11 +62,12 @@ public class AddCourseActivity extends AppCompatActivity {
     private TextInputLayout mNote;
     private TextInputLayout mStatus; // TODO Selection add only one status per course
     private TextInputLayout mInstructorName; // TODO Selection add only one instructor per course
-    private TextInputLayout mTermTitle; // TODO Selection add only one term per course
+//    private TextInputLayout mTermTitle; // TODO Selection add only one term per course
     private TextInputLayout startDate;
     private TextInputLayout endDate;
 
     private Button dateRangePickerButton;
+    private Button selectAssessments;
 
 
     @Override
@@ -144,6 +154,7 @@ public class AddCourseActivity extends AppCompatActivity {
         }
 
 
+
 //        instructorViewModel.getAllInstructors().observe(this, new Observer<List<Instructor>>() {
 //            @Override
 //            public void onChanged(List<Instructor> instructors) {
@@ -157,36 +168,36 @@ public class AddCourseActivity extends AppCompatActivity {
 //        instructors.setText(itemInstructors.get(0));
 //        instructors.setAdapter(iAdapter);
 
-        AutoCompleteTextView terms = findViewById(R.id.course_term_selection);
-        List<String> itemTerms = new ArrayList<>();
-        try {
-            final TermAdapter adapter = new TermAdapter(this);
-            termViewModel = new ViewModelProvider(this).get(TermViewModel.class);
-            termViewModel.getAllTerms().observe(this, adapter::setWords);
-            termViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
-                @Override
-                public void onChanged(List<Term> termList) {
-                    ArrayAdapter<Term> termArrayAdapter = new ArrayAdapter<>(AddCourseActivity.this, R.layout.list_item, termList);
-                    terms.setText(termList.get(0).getTermTitle());
-                    terms.setAdapter(termArrayAdapter);
-                }
-            });
-
-            terms.setOnItemClickListener((parent, view, position, id) -> {
-                Term selectedTerm = (Term)parent.getItemAtPosition(position);
-                termId = selectedTerm.getId();
-            });
-
-            //                mTerms = termViewModel.getAllTerms();
-//                for (Instructor i : mInstructors) {
-//                    itemInstructors.add(i.getName());
+//        AutoCompleteTextView terms = findViewById(R.id.course_term_selection);
+//        List<String> itemTerms = new ArrayList<>();
+//        try {
+//            final TermAdapter adapter = new TermAdapter(this);
+//            termViewModel = new ViewModelProvider(this).get(TermViewModel.class);
+//            termViewModel.getAllTerms().observe(this, adapter::setWords);
+//            termViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
+//                @Override
+//                public void onChanged(List<Term> termList) {
+//                    ArrayAdapter<Term> termArrayAdapter = new ArrayAdapter<>(AddCourseActivity.this, R.layout.list_item, termList);
+//                    terms.setText(termList.get(0).getTermTitle());
+//                    terms.setAdapter(termArrayAdapter);
 //                }
-            ArrayAdapter<String> iAdapter = new ArrayAdapter<>(this, R.layout.list_item, itemTerms);
-            terms.setText(itemTerms.get(0));
-            terms.setAdapter(iAdapter);
-        } catch (Exception e) {
-            Toast.makeText(AddCourseActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
-        }
+//            });
+//
+//            terms.setOnItemClickListener((parent, view, position, id) -> {
+//                Term selectedTerm = (Term)parent.getItemAtPosition(position);
+//                termId = selectedTerm.getId();
+//            });
+//
+//            //                mTerms = termViewModel.getAllTerms();
+////                for (Instructor i : mInstructors) {
+////                    itemInstructors.add(i.getName());
+////                }
+//            ArrayAdapter<String> iAdapter = new ArrayAdapter<>(this, R.layout.list_item, itemTerms);
+//            terms.setText(itemTerms.get(0));
+//            terms.setAdapter(iAdapter);
+//        } catch (Exception e) {
+//            Toast.makeText(AddCourseActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
+//        }
 
 
 
@@ -194,7 +205,7 @@ public class AddCourseActivity extends AppCompatActivity {
         mNote = findViewById(R.id.notes_text_input);
         mStatus = findViewById(R.id.course_status_input);
         mInstructorName = findViewById(R.id.select_instructor_input);
-        mTermTitle = findViewById(R.id.select_term_input);
+//        mTermTitle = findViewById(R.id.select_term_input);
 
         startDate = findViewById(R.id.start_date_picker_text_input);
         endDate = findViewById(R.id.end_date_picker_text_input);
@@ -226,12 +237,15 @@ public class AddCourseActivity extends AppCompatActivity {
             Toast.makeText(AddCourseActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
         }
 
+
+        selectAssessments = findViewById(R.id.menu_button);
+
         saveButton.setOnClickListener(v -> {
             try {
                 String title = Objects.requireNonNull(mTitle.getEditText()).getText().toString();
                 Course course = new Course(
                         instructorId,
-                        termId,
+                        0,
                         Objects.requireNonNull(mNote.getEditText()).getText().toString(),
                         title,
                         Objects.requireNonNull(startDate.getEditText()).getText().toString(),
@@ -251,6 +265,14 @@ public class AddCourseActivity extends AppCompatActivity {
             finish();
         });
 
+    }
+
+    private void showAssessmentDialog() {
+//        AlertDialog dialogBuilder = new MaterialAlertDialogBuilder(this).create();
+//        View dialogView = getLayoutInflater().inflate(R.layout.activity_add_assessment, null);
+
+//        CheckBox box = (CheckBox) dialogView.findViewById(R.id.)
+        RecyclerView courseRecyclerView = findViewById(R.id.rv_course_assessments);
     }
 
 }

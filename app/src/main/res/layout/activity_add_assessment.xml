@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.AddAssessmentActivity">
+    tools:context=".UI.Assessment.AddAssessmentActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,23 +51,23 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 <!--        CREATE A COURSE SELECTION TO SELECT A COURSE TO ADD TO THE ASSESSMENT -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/course_select"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/course_select"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingTop="16dp"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">-->
 
-            <AutoCompleteTextView
-                android:id="@+id/ac_course_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Select a course"
-                android:text="Course"
-                android:inputType="none"
-                />
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/ac_course_title"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Select a course"-->
+<!--                android:text="Course"-->
+<!--                android:inputType="none"-->
+<!--                />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <!--        CREATE A DATE PICKER FOR ASSESSMENT DATE -->
 <!--        android:clickable="true"-->

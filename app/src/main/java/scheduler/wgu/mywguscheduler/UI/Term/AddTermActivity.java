@@ -1,4 +1,4 @@
-package scheduler.wgu.mywguscheduler.UI;
+package scheduler.wgu.mywguscheduler.UI.Term;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
@@ -17,6 +17,7 @@ import java.util.Objects;
 
 import scheduler.wgu.mywguscheduler.Entity.Term;
 import scheduler.wgu.mywguscheduler.R;
+import scheduler.wgu.mywguscheduler.UI.Utils;
 import scheduler.wgu.mywguscheduler.ViewModel.TermViewModel;
 
 public class AddTermActivity extends AppCompatActivity {
