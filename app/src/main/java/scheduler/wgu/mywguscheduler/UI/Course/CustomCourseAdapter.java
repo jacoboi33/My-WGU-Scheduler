@@ -13,9 +13,8 @@ import java.util.List;
 
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
 import scheduler.wgu.mywguscheduler.R;
-import scheduler.wgu.mywguscheduler.UI.Assessment.AssessmentAdapter;
 
-public class AddCourseAdapter extends RecyclerView.Adapter<AddCourseAdapter.AssessmentViewHolder> {
+public class CustomCourseAdapter extends RecyclerView.Adapter<CustomCourseAdapter.AssessmentViewHolder> {
 
     private final LayoutInflater mInflater;
     private List<Assessment> mAssessments;
@@ -39,23 +38,28 @@ public class AddCourseAdapter extends RecyclerView.Adapter<AddCourseAdapter.Asse
 
     }
 
-    public AddCourseAdapter(LayoutInflater mInflater, List<Assessment> mAssessments, Context context) {
-        this.mInflater = mInflater;
+    public CustomCourseAdapter(Context context, List<Assessment> mAssessments) {
+        mInflater = LayoutInflater.from(context);
         this.mAssessments = mAssessments;
         this.context = context;
+    }
+
+    public void setAssessments(List<Assessment> assessments) {
+        mAssessments = assessments;
+        notifyDataSetChanged();
     }
 
 
     @NonNull
     @Override
-    public AddCourseAdapter.AssessmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CustomCourseAdapter.AssessmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_assessment_list_item, parent, false);
         return new AssessmentViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddCourseAdapter.AssessmentViewHolder holder, int position) {
-        holder.getAssessmentTitle().setText();
+    public void onBindViewHolder(@NonNull CustomCourseAdapter.AssessmentViewHolder holder, int position) {
+        holder.getAssessmentTitle().setText(mAssessments.get(position).getTitle());
     }
 
     @Override

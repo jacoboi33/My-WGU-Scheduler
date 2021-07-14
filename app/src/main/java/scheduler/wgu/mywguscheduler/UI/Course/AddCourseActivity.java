@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,8 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +50,8 @@ public class AddCourseActivity extends AppCompatActivity {
     private InstructorViewModel instructorViewModel;
 //    private TermViewModel termViewModel;
     private ArrayAdapter myAdapter;
-//    boolean[] selectedAssessments;
+    boolean[] selectedAssessments;
+    List<Integer> assessmentList = new ArrayList<>();
     private List<Assessment> courseAssessments;
     private AssessmentViewModel assessmentViewModel;
 
@@ -84,6 +89,8 @@ public class AddCourseActivity extends AppCompatActivity {
         AutoCompleteTextView status = findViewById(R.id.course_status_selection);
         final Button saveButton = findViewById(R.id.button_save_course);
         final Button cancelButton = findViewById(R.id.button_cancel_course);
+        selectAssessments = findViewById(R.id.menu_button);
+
         String[] items = {"Plan to take", "In Progress", "Completed", "Dropped"};
         ArrayAdapter<String> statusAdapter = new ArrayAdapter<>(this, R.layout.list_item, items);
         status.setText(items[0]);
@@ -101,105 +108,17 @@ public class AddCourseActivity extends AppCompatActivity {
 //                    ArrayAdapter<String> nameArrayAdapter = new ArrayAdapter<String>(AddCourseActivity.this, R.layout.list_item, itemInstructors);
                     instructors.setText(instructorList.get(0).getName());
                     instructors.setAdapter(instructorArrayAdapter);
-
-//                    instructorList.forEach(n -> {
-//                        itemInstructors.add(n.getName());
-//                        itemInstructorId.add(n.getId());
-//                    });
-
-//                    instructors.setText(itemInstructors.get(0));
-//                    instructors.setAdapter(nameArrayAdapter);
-
-//                    instructors.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            instructorList.forEach(n -> {
-//                                instructors.setText(n.getName());
-//                            });
-//                        }
-//                    });
-//                    instructorList.forEach(n -> {
-//                        instructors.setAdapter((Adapter) n.getName());
-//                    });
-
-//                    for (int i = 0; i < instructorList.size(); i++) {
-//                        instructors.setAdapter(<T>instructorList.get(i).getName(););
-//                    }
-//
-//                    for (Instructor i : instructorList) {
-//                        instructors.setAdapter(instructorArrayAdapter.getItem(i.getId()).getName());
-//                    }
-//                    adapter.setWords(instructorList);
                 }
             });
-
-//            instructors.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
 
             instructors.setOnItemClickListener((parent, view, position, id) -> {
                 Instructor selectedInstructor = (Instructor)parent.getItemAtPosition(position);
                 instructorId = selectedInstructor.getId();
             });
 
-//            ArrayAdapter<String> iAdapter = new ArrayAdapter<>(this, R.layout.list_item, itemInstructors);
-//            instructors.setText(itemInstructors.get(0));
-//            instructors.setAdapter(iAdapter);
-
         } catch (Exception e) {
             Toast.makeText(AddCourseActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
         }
-
-
-
-//        instructorViewModel.getAllInstructors().observe(this, new Observer<List<Instructor>>() {
-//            @Override
-//            public void onChanged(List<Instructor> instructors) {
-//                for (Instructor i : instructors) {
-//                    itemInstructors.add(i.getName());
-//                }
-//            }
-//        });
-
-//        ArrayAdapter<String> iAdapter = new ArrayAdapter<>(this, R.layout.list_item, itemInstructors);
-//        instructors.setText(itemInstructors.get(0));
-//        instructors.setAdapter(iAdapter);
-
-//        AutoCompleteTextView terms = findViewById(R.id.course_term_selection);
-//        List<String> itemTerms = new ArrayList<>();
-//        try {
-//            final TermAdapter adapter = new TermAdapter(this);
-//            termViewModel = new ViewModelProvider(this).get(TermViewModel.class);
-//            termViewModel.getAllTerms().observe(this, adapter::setWords);
-//            termViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
-//                @Override
-//                public void onChanged(List<Term> termList) {
-//                    ArrayAdapter<Term> termArrayAdapter = new ArrayAdapter<>(AddCourseActivity.this, R.layout.list_item, termList);
-//                    terms.setText(termList.get(0).getTermTitle());
-//                    terms.setAdapter(termArrayAdapter);
-//                }
-//            });
-//
-//            terms.setOnItemClickListener((parent, view, position, id) -> {
-//                Term selectedTerm = (Term)parent.getItemAtPosition(position);
-//                termId = selectedTerm.getId();
-//            });
-//
-//            //                mTerms = termViewModel.getAllTerms();
-////                for (Instructor i : mInstructors) {
-////                    itemInstructors.add(i.getName());
-////                }
-//            ArrayAdapter<String> iAdapter = new ArrayAdapter<>(this, R.layout.list_item, itemTerms);
-//            terms.setText(itemTerms.get(0));
-//            terms.setAdapter(iAdapter);
-//        } catch (Exception e) {
-//            Toast.makeText(AddCourseActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
-//        }
-
-
 
         mTitle = findViewById(R.id.title_text_input);
         mNote = findViewById(R.id.notes_text_input);
@@ -238,7 +157,9 @@ public class AddCourseActivity extends AppCompatActivity {
         }
 
 
-        selectAssessments = findViewById(R.id.menu_button);
+        selectAssessments.setOnClickListener(v -> {
+            showAssessmentDialog();
+        });
 
         saveButton.setOnClickListener(v -> {
             try {
@@ -267,12 +188,61 @@ public class AddCourseActivity extends AppCompatActivity {
 
     }
 
+    /***
+     * SELECT ASSESSMENTS FOR COURSES
+     */
     private void showAssessmentDialog() {
-//        AlertDialog dialogBuilder = new MaterialAlertDialogBuilder(this).create();
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+            AddCourseActivity.this
+        );
 //        View dialogView = getLayoutInflater().inflate(R.layout.activity_add_assessment, null);
 
+        builder.setTitle("Add Assessments to course");
+        builder.setCancelable(false);
+
 //        CheckBox box = (CheckBox) dialogView.findViewById(R.id.)
-        RecyclerView courseRecyclerView = findViewById(R.id.rv_course_assessments);
+        RecyclerView courseRecyclerView = findViewById(R.id.rv_assessments_by_course);
+
+        // Get All Assessments to create check box and select them.
+        final CustomCourseAdapter adapter = new CustomCourseAdapter(this, courseAssessments);
+        courseRecyclerView.setAdapter(adapter);
+        courseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        assessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
+        assessmentViewModel.getAllAssessments().observe(this, adapter::setAssessments);
+        assessmentViewModel.getAllAssessments().observe(this, new Observer<List<Assessment>>() {
+            @Override
+            public void onChanged(List<Assessment> assessments) {
+
+
+//                Collections.sort(assessments.toArray().);
+                selectedAssessments = new boolean[assessments.size()];
+
+//                builder.setMultiChoiceItems(assessments.toArray(T[] a), selectedAssessments, new DialogInterface.OnMultiChoiceClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//                        if (isChecked) {
+//                            assessmentList.add(which);
+//
+//                            Collections.sort(assessmentList);
+//
+//                        } else {
+//                            assessmentList.remove(which);
+//                        }
+//                    }
+//                });
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                adapter.setAssessments(assessments);
+
+            }
+        });
     }
 
 }

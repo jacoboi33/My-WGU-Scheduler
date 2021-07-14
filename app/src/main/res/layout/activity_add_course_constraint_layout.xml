@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,37 +8,29 @@
     android:orientation="vertical"
     tools:context=".UI.Course.AddCourseActivity">
 
-    <LinearLayout
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/title_text_input"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:errorEnabled="true"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/title_text_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/title_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/title_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="title" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:hint="title" />
+    </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/notes_text_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            app:layout_constraintTop_toBottomOf="@+id/title_text_input">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/notes_edit_text"
@@ -52,7 +45,8 @@
             android:id="@+id/course_status_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/notes_text_input">
 
             <AutoCompleteTextView
                 android:id="@+id/course_status_selection"
@@ -71,7 +65,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/course_status_input">
 
             <AutoCompleteTextView
                 android:id="@+id/course_instructor_selection"
@@ -83,33 +78,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--       SELECT TERM  -->
 
-        <!--        <com.google.android.material.textfield.TextInputLayout-->
-        <!--            android:id="@+id/select_term_input"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">-->
-
-        <!--            <AutoCompleteTextView-->
-        <!--                android:id="@+id/course_term_selection"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:hint="Select Term"-->
-        <!--                android:text="Term Title"-->
-        <!--                android:inputType="none"-->
-        <!--                />-->
-
-        <!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-        <!--        CREATE A DATE PICKER FOR COURSE DATE -->
-        <!--        android:clickable="true"-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/start_date_picker_text_input"
@@ -118,7 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:enabled="false"
-                android:inputType="none">
+                android:inputType="none"
+                app:layout_constraintTop_toBottomOf="@+id/select_instructor_input">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -134,7 +104,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:enabled="false"
-                android:inputType="none">
+                android:inputType="none"
+                app:layout_constraintTop_toBottomOf="@+id/select_instructor_input"
+                app:layout_constraintStart_toEndOf="@id/start_date_picker_text_input">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -151,60 +123,61 @@
                 android:layout_margin="8dp"
                 android:gravity="end"
                 app:icon="@drawable/calendar"
-                app:iconGravity="textTop" />
+                app:iconGravity="textTop"
+                app:layout_constraintTop_toBottomOf="@+id/select_instructor_input"
+                app:layout_constraintStart_toEndOf="@+id/end_date_picker_text_input"/>
 
-        </LinearLayout>
 
         <Button
             android:id="@+id/menu_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Assessments" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_margin="5dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_assessments_by_course"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/course_assessment_list_item" />
-
-        </LinearLayout>
+            android:text="Select Assessments"
+            app:layout_constraintTop_toBottomOf="@id/date_range_picker_button"
+            app:layout_constraintBottom_toTopOf="@+id/rv_assessments_by_course"/>
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_assessments_by_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/button_cancel_course"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_button"
+        tools:listitem="@layout/course_assessment_list_item" />
 
-        <LinearLayout
-            android:id="@+id/linear_layout_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+    <Button
+        android:id="@+id/button_cancel_course"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_margin="4dp"
+        android:layout_marginEnd="319dp"
+        android:layout_marginBottom="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/cancel"
+        app:layout_constraintStart_toEndOf="@+id/button_save_course"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_save_course"/>
 
-            <Button
-                android:id="@+id/button_cancel_course"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center"
-                android:layout_margin="4dp"
-                android:text="@string/cancel" />
+    <Button
+        android:id="@+id/button_save_course"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_margin="4dp"
+        android:layout_marginStart="287dp"
+        android:layout_marginBottom="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/button_save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_cancel_course" />
 
-            <Button
-                android:id="@+id/button_save_course"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center"
-                android:layout_margin="4dp"
-                android:text="@string/button_save" />
-        </LinearLayout>
 
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
