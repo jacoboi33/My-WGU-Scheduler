@@ -19,6 +19,7 @@ public class AssessmentViewModel extends AndroidViewModel {
 
     private ScheduleManagementRepository mRepository;
     private LiveData<List<Assessment>> mAllAssessments;
+    private LiveData<List<Assessment>> getUnassignedAssessments;
 
 //    private final MutableLiveData<String> mAssessmentCourseTitle = new MutableLiveData<>();
 //    private LiveData<List<Course>> mAssociatedCourses;
@@ -38,12 +39,15 @@ public class AssessmentViewModel extends AndroidViewModel {
         super(application);
         mRepository = new ScheduleManagementRepository(application);
         mAllAssessments = mRepository.getAllLiveAssessments();
+        getUnassignedAssessments = mRepository.getUnassignedAssessments();
 //        mAssociatedCourses = mRepository.getAssociatedCourses(courseId);
 //        mAssociatedCourses = mRepository.getAllCourses();
     }
 
 //    public LiveData<List<Assessment>> getAssociatedCourses(int courseId) { return mRepository.getAssociatedCourses(courseId); }
     public LiveData<List<Assessment>> getAllAssessments() { return  mAllAssessments; }
+    public LiveData<List<Assessment>> getUnassignedAssessments() { return  getUnassignedAssessments; }
+
 //    public LiveData<List<Course>> getAssessmentAssociatedCourses(int courseId) { return mRepository.getAssessmentAssociatedCourses(courseId); }
 
     public void insert(Assessment assessment) { mRepository.insert(assessment); }

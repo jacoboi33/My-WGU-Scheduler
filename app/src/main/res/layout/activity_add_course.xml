@@ -156,10 +156,13 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/menu_button"
+            android:id="@+id/containedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Assessments" />
+            style="?attr/materialButtonOutlinedStyle"
+            android:text="Select Assessments"
+            android:enabled="false"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -169,12 +172,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_assessments_by_course"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:listitem="@layout/course_assessment_list_item" />
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:id="@+id/linear_layout_buttons"

@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -47,6 +48,7 @@ public class AddCourseActivity extends AppCompatActivity {
 //    private List<Instructor> mInstructors;
 //    private List<Term> mTerms;
     private CourseViewModel courseViewModel;
+    private MaterialCardView card;
     private InstructorViewModel instructorViewModel;
 //    private TermViewModel termViewModel;
     private ArrayAdapter myAdapter;
@@ -80,6 +82,7 @@ public class AddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
         getSupportActionBar().setTitle("Add New Course");
+        card = findViewById(R.id.assessments_by_course_card);
 
 //        List<String> itemInstructors = new ArrayList<>();
 //        List<Integer> itemInstructorId = new ArrayList<>();
@@ -157,9 +160,28 @@ public class AddCourseActivity extends AppCompatActivity {
         }
 
 
-        selectAssessments.setOnClickListener(v -> {
-            showAssessmentDialog();
+        RecyclerView courseRecyclerView = findViewById(R.id.rv_assessments_by_course);
+
+        final CustomCourseAdapter adapter = new CustomCourseAdapter(this, courseAssessments);
+        courseRecyclerView.setAdapter(adapter);
+        courseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        assessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
+        assessmentViewModel.getUnassignedAssessments().observe(this, adapter::setAssessments);
+        assessmentViewModel.getUnassignedAssessments().observe(this, new Observer<List<Assessment>>() {
+            @Override
+            public void onChanged(List<Assessment> assessments) {
+                adapter.setAssessments(assessments);
+            }
         });
+
+//        card.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                card.setChecked(!card.isChecked());
+//                card.setChecked(true);
+//            }
+//        });
 
         saveButton.setOnClickListener(v -> {
             try {
@@ -184,64 +206,6 @@ public class AddCourseActivity extends AppCompatActivity {
 
         cancelButton.setOnClickListener(v -> {
             finish();
-        });
-
-    }
-
-    /***
-     * SELECT ASSESSMENTS FOR COURSES
-     */
-    private void showAssessmentDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(
-            AddCourseActivity.this
-        );
-//        View dialogView = getLayoutInflater().inflate(R.layout.activity_add_assessment, null);
-
-        builder.setTitle("Add Assessments to course");
-        builder.setCancelable(false);
-
-//        CheckBox box = (CheckBox) dialogView.findViewById(R.id.)
-        RecyclerView courseRecyclerView = findViewById(R.id.rv_assessments_by_course);
-
-        // Get All Assessments to create check box and select them.
-        final CustomCourseAdapter adapter = new CustomCourseAdapter(this, courseAssessments);
-        courseRecyclerView.setAdapter(adapter);
-        courseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        assessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
-        assessmentViewModel.getAllAssessments().observe(this, adapter::setAssessments);
-        assessmentViewModel.getAllAssessments().observe(this, new Observer<List<Assessment>>() {
-            @Override
-            public void onChanged(List<Assessment> assessments) {
-
-
-//                Collections.sort(assessments.toArray().);
-                selectedAssessments = new boolean[assessments.size()];
-
-//                builder.setMultiChoiceItems(assessments.toArray(T[] a), selectedAssessments, new DialogInterface.OnMultiChoiceClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-//                        if (isChecked) {
-//                            assessmentList.add(which);
-//
-//                            Collections.sort(assessmentList);
-//
-//                        } else {
-//                            assessmentList.remove(which);
-//                        }
-//                    }
-//                });
-
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-                adapter.setAssessments(assessments);
-
-            }
         });
     }
 

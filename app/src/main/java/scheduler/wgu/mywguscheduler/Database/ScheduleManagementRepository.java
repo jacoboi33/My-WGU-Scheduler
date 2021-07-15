@@ -26,6 +26,7 @@ public class ScheduleManagementRepository {
 
     private LiveData<List<Instructor>> mInstructorsListLiveData;
     private LiveData<List<Assessment>> mAssessmentsList;
+    private LiveData<List<Assessment>> getUnassignedAssessments;
     private LiveData<List<Course>> mAssociatedCourses;
     private List<Course> mCourseList;
     private List<Course> mCourseTitle;
@@ -57,6 +58,7 @@ public class ScheduleManagementRepository {
 //        mInstructorList = mInstructorDao.getAllInstructors();
         //        Get all Assessments
         mAssessmentsList = mAssessmentDao.getAllLiveAssessments();
+        getUnassignedAssessments = mAssessmentDao.getUnassignedAssessments();
 //        mAssociatedCourses = mAssessmentDao.getAssessmentAssociatedCourses(courseId);
         //        GET ALL TERMS
         mTermsList = mTermDao.getAllTerms();
@@ -243,6 +245,7 @@ public class ScheduleManagementRepository {
     public LiveData<List<Assessment>> getAllLiveAssessments() {
         return mAssessmentsList;
     }
+    public LiveData<List<Assessment>> getUnassignedAssessments() { return getUnassignedAssessments; }
 
     /***
      * INSERT ASSESSMENT

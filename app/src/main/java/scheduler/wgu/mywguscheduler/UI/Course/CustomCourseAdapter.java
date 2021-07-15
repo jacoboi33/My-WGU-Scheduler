@@ -30,7 +30,9 @@ public class CustomCourseAdapter extends RecyclerView.Adapter<CustomCourseAdapte
         }
 
         @Override
-        public void onClick(View v) { }
+        public void onClick(View v) {
+            
+        }
 
         public TextView getAssessmentTitle() {
             return assessmentTitle;

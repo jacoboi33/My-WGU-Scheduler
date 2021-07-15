@@ -28,7 +28,8 @@ public interface AssessmentDAO {
 //    @Query("SELECT * FROM assessment where courseId = :courseId ORDER BY id ASC")
 //    LiveData<List<Assessment>> getLiveAllAssociatedCourses(int courseId);
 
-
+    @Query("SELECT * FROM assessment where courseId = 0 ORDER BY id ASC")
+    LiveData<List<Assessment>> getUnassignedAssessments();
 
     static class AssessmentCourse {
         public int assessmentId;
