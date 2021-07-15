@@ -121,35 +121,6 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
         TextInputLayout datePicker = dialogView.findViewById(R.id.date_picker_text_input);
         type.setAdapter(adapter);
 
-
-        // TODO Create associated courses to get all the associated courses with a give item.
-//        AutoCompleteTextView courses = (AutoCompleteTextView) dialogView.findViewById(R.id.ac_course_title);
-//        try {
-//            final Course acCourse = new Course();
-//            final CourseAdapter courseAdapter= new CourseAdapter(this);
-////            mAssessmentViewModel.getAssociatedCourses(courseId);
-//            mCourseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-//            mCourseViewModel.getAllCourses().observe(this, courseAdapter::setWords);
-//            mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
-//                @Override
-//                public void onChanged(List<Course> coursesList) {
-//                    ArrayAdapter<Course> courseArrayAdapter = new ArrayAdapter<>(AssessmentActivity.this, R.layout.list_item, coursesList);
-////                    int i = coursesList.indexOf(mEditAssessment); todo fix line 138 to just gett the list of courses
-//                    courses.setText(coursesList.get().getTitle());
-//                    courses.setAdapter(courseArrayAdapter);
-//                }
-//            });
-//
-//            courses.setOnItemClickListener((parent, view, position, id) -> {
-//                courseChange = true;
-//                Course selectedCourse = (Course) parent.getItemAtPosition(position);
-//                mCourseId = selectedCourse.getId();
-//            });
-//
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//            Toast.makeText(AssessmentActivity.this, String.format("Error %s", e.getMessage()), Toast.LENGTH_SHORT).show();
-//        }
-
         Button datePickerButton = (Button)dialogView.findViewById(R.id.icon_date_picker_button);
         datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
