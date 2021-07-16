@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -82,7 +84,7 @@ public class AddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
         getSupportActionBar().setTitle("Add New Course");
-        card = findViewById(R.id.assessments_by_course_card);
+//        card = findViewById(R.id.assessments_by_course_card);
 
 //        List<String> itemInstructors = new ArrayList<>();
 //        List<Integer> itemInstructorId = new ArrayList<>();
@@ -165,6 +167,7 @@ public class AddCourseActivity extends AppCompatActivity {
         final CustomCourseAdapter adapter = new CustomCourseAdapter(this, courseAssessments);
         courseRecyclerView.setAdapter(adapter);
         courseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        courseRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
         assessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
         assessmentViewModel.getUnassignedAssessments().observe(this, adapter::setAssessments);

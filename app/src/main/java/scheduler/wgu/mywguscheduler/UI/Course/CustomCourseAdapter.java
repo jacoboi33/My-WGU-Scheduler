@@ -4,11 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import scheduler.wgu.mywguscheduler.Entity.Assessment;
@@ -18,25 +23,68 @@ public class CustomCourseAdapter extends RecyclerView.Adapter<CustomCourseAdapte
 
     private final LayoutInflater mInflater;
     private List<Assessment> mAssessments;
+//    private List<Assessment> selectedAssessments;
     private final Context context;
 
-    static class AssessmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private static class AssessmentChecked {
+        private Assessment assessment;
+        private boolean isChecked;
+
+        public AssessmentChecked(Assessment assessment, boolean isChecked) {
+            this.assessment = assessment;
+            this.isChecked = isChecked;
+        }
+
+        public Assessment getAssessment() {
+            return assessment;
+        }
+
+        public void setAssessment(Assessment assessment) {
+            this.assessment = assessment;
+        }
+
+        public boolean isChecked() {
+            return isChecked;
+        }
+
+        public void setChecked(boolean checked) {
+            isChecked = checked;
+        }
+    }
+
+    static class AssessmentViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView assessmentTitle;
+        private ImageView imageView;
+        private boolean selected = false;
+        private List<AssessmentChecked> selectedAssessments = new ArrayList<>();
+
 
         public AssessmentViewHolder(@NonNull View itemView) {
             super(itemView);
             assessmentTitle = itemView.findViewById(R.id.assessment_title);
+            imageView = itemView.findViewById(R.id.image_view);
         }
 
-        @Override
-        public void onClick(View v) {
-            
+        void bind(final Assessment assessment) {
+//            imageView.setVisibility(selected ? View.VISIBLE : View.GONE);
+            assessmentTitle.setText(assessment.getTitle());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selected = !selected;
+                    selectedAssessments.add(new AssessmentChecked(assessment, selected));
+//                    imageView.setVisibility(selected ? View.VISIBLE : View.GONE);
+                    Toast.makeText(v.getContext(), assessment.getTitle(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         public TextView getAssessmentTitle() {
             return assessmentTitle;
         }
+        public ImageView getImageView() { return imageView; }
 
     }
 
@@ -61,7 +109,8 @@ public class CustomCourseAdapter extends RecyclerView.Adapter<CustomCourseAdapte
 
     @Override
     public void onBindViewHolder(@NonNull CustomCourseAdapter.AssessmentViewHolder holder, int position) {
-        holder.getAssessmentTitle().setText(mAssessments.get(position).getTitle());
+        holder.bind(mAssessments.get(position));
+//        holder.getAssessmentTitle().setText(mAssessments.get(position).getTitle());
     }
 
     @Override
